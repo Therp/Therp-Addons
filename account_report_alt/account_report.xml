@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="account_balance_sheet"
+            string="Balance Sheet"
+            model="account.account"
+            name="account.balancesheet"
+            rml="account_report_alt/report/account_balance_sheet.rml"
+            auto="False"
+            menu="False"/>
+    </data>
+</openerp>
