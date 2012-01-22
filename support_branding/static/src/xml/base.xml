@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="CrashManagerError">
+        <t t-jquery="span" t-operation="replace">
+            <span>Your OpenERP instance is supported by
+            <a t-att-href="support_link"><t t-esc="support_name"/></a>.
+            <br/>Please contact us through your regular support channel.
+            </span>
+        </t>
+    </t>
+</templates>
