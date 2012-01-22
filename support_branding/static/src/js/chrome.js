@@ -26,19 +26,6 @@ openerp.support_branding = function(openerp) {
     _t = openerp.web._t;
     
     openerp.web.CrashManager = openerp.web.CrashManager.extend({
-        on_managed_error: function(error) {
-            $('<div>' + QWeb.render(
-                'CrashManagerWarning', {
-                    error: error,
-                    support_name: support_name,
-                    support_link: support_link,
-                }) + '</div>').dialog({
-                title: "OpenERP " + _.str.capitalize(error.type),
-                buttons: [
-                    {text: _t("Ok"), click: function() { $(this).dialog("close"); }}
-            ]
-            });
-        },
         on_traceback: function(error) {
             if (openerp.connection.openerp_entreprise) {
                 return this._super(error);
