@@ -39,7 +39,7 @@ support_branding/static/src/js/chrome.js.
 This module is compatible with OpenERP 6.1.
 """,
     "category": "Therp web addons",
-    "version": "1.0r3",
+    "version": "1.0r4",
     "author": "Therp BV",
     "website": 'http://therp.nl',
     "depends": ['web'],
