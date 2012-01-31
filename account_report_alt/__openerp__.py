@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name" : "Accounting Reports Alternative",
-    "version" : "0.1r3",
+    "version" : "0.1r6",
     "author" : "Therp BV",
     "category": 'Accounting & Finance',
     'complexity': "normal",

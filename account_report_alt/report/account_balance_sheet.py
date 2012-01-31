@@ -141,7 +141,7 @@ class report_balancesheet_horizontal(report_sxw.rml_parse, common_report_header)
                         'code': account.code,
                         'name': account.name,
                         'level': account.level,
-                        'balance':account.balance,
+                        'balance': (account.balance and typ == 'liability' and -1 or 1 ) * account.balance,
                     }
                     currency = account.currency_id and account.currency_id or account.company_id.currency_id
                     if typ == 'liability' and account.type <> 'view' and (account.debit <> account.credit):
@@ -156,12 +156,14 @@ class report_balancesheet_horizontal(report_sxw.rml_parse, common_report_header)
                             accounts_temp.append(account_dict)
                     else:
                         accounts_temp.append(account_dict)
-                    if account.id == data['form']['reserve_account_id'][0]:
-                        pl_dict['level'] = account['level'] + 1
-                        accounts_temp.append(pl_dict)
 
             self.result[typ] = accounts_temp
             cal_list[typ]=self.result[typ]
+
+        if pl_dict['code'] == _('Net Loss'):
+            self.result['asset'].append(pl_dict)
+        else:
+            self.result['liability'].append(pl_dict)
 
         if cal_list:
             temp = {}

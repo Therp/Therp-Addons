@@ -26,7 +26,7 @@ from osv import fields, osv
 from tools.translate import _
 
 class account_common_report(osv.osv_memory):
-    _name = "account.common.report"
+    _name = "account_report_alt.common.report"
     _description = "Account Common Report"
 
     _columns = {
@@ -121,7 +121,7 @@ class account_common_report(osv.osv_memory):
             result['period_from'] = data['form']['period_from']
             result['period_to'] = data['form']['period_to']
         return result
-
+ 
     def _print_report(self, cr, uid, ids, data, context=None):
         raise (_('Error'), _('not implemented'))
 

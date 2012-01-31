@@ -6,7 +6,7 @@
             <field name="name">Account Balance Sheet</field>
             <field name="model">account.bs.report</field>
             <field name="type">form</field>
-            <field name="inherit_id" ref="account.account_common_report_view" />
+            <field name="inherit_id" ref="account_common_report_view" />
             <field name="arch" type="xml">
             <data>
             <xpath expr="//field[@name='chart_account_id']" position="replace">
