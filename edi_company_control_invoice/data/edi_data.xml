@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <!-- Replace codefield on EDI Export + Send email Action,
+             adding condition on the company's 'Enable EDI invoice' field
+        -->
+        <record id="account.ir_actions_server_edi_invoice" model="ir.actions.server">
+            <field name="code">if object.company_id.enable_edi_invoice and (object.type in ('out_invoice', 'out_refund')) and not object.partner_id.opt_out: object.edi_export_and_email(template_ext_id='account.email_template_edi_invoice', context=context)</field>
+        </record>
+    </data>
+</openerp>

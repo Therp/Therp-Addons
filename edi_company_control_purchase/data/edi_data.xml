@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <!-- Replace 'code' field on EDI Export + Send email Action,
+             adding condition on the company's 'Enable EDI purchase order' field
+        -->
+        <record id="purchase.ir_actions_server_edi_purchase" model="ir.actions.server">
+            <field name="code">if object.company_id.enable_edi_purchase and not object.partner_id.opt_out: object.edi_export_and_email(template_ext_id='purchase.email_template_edi_purchase', context=context)</field>
+        </record>
+    </data>
+</openerp>

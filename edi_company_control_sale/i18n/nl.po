@@ -1,0 +1,31 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* edi_company_control_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-26 09:36+0000\n"
+"PO-Revision-Date: 2012-02-26 09:36+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: edi_company_control_sale
+#: view:res.company:0
+msgid "EDI Control"
+msgstr "EDI instellingen"
+
+#. module: edi_company_control_sale
+#: help:res.company,enable_edi_sale:0
+msgid "When enabled, the system will send out notification emails to your customer upon sale order confirmation with a link to the online sale order."
+msgstr "Indien actief zal het systeem een notificatie-email versturen naar uw klant bij het bevestigen van een verkooporder, met daarin een link naar de on-line verkooporder."
+
+#. module: edi_company_control_sale
+#: field:res.company,enable_edi_sale:0
+msgid "Enable EDI sale order email"
+msgstr "EDI emails versturen voor verkooporders"

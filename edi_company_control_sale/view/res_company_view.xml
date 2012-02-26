@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_company_inherit_form">
+            <field name="name">Company - Add EDI sale order control field</field>
+            <field name="inherit_id" ref="edi_company_control_invoice.view_company_inherit_form"/>
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <page string="EDI Control" position="inside">
+                    <field name="enable_edi_sale" colspan="4"/>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

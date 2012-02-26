@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_company_inherit_form">
+            <field name="name">Company - Add EDI control tab with invoice field</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="EDI Control">
+                        <field name="enable_edi_invoice" colspan="4"/>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>
