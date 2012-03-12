@@ -34,6 +34,7 @@ This is a port of the financial reports 'Balance sheet' and
     "depends" : ["account"],
     'update_xml': [
         'menu.xml',
+        'account_report.xml',
         'wizard/account_report_common_view.xml',
         'wizard/account_report_balance_sheet_view.xml',
         'wizard/account_report_profit_loss_view.xml',
