@@ -224,13 +224,13 @@
           <para style="terp_default_Bold_9">Balance:</para>
         </td>
         <td>
-          <para style="terp_default_Right_9_Bold"><u>[[ formatLang(abs(sum_cr())) ]] [[ company.currency_id.symbol ]]</u></para>
+          <para style="terp_default_Right_9_Bold"><u>[[ formatLang(sum_cr()) ]] [[ company.currency_id.symbol ]]</u></para>
         </td>
         <td>
           <para style="terp_default_Bold_9">Balance:</para>
         </td>
         <td>
-          <para style="terp_default_Right_9_Bold"><u>[[ formatLang(abs(sum_dr())) ]] [[ company.currency_id.symbol ]]</u></para>
+          <para style="terp_default_Right_9_Bold"><u>[[ formatLang(sum_dr()) ]] [[ company.currency_id.symbol ]]</u></para>
         </td>
       </tr>
     </blockTable>

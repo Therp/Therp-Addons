@@ -71,7 +71,7 @@ class report_balancesheet_horizontal(report_sxw.rml_parse, common_report_header)
 
     def sum_dr(self):
         if self.res_bl['type'] == _('Net Profit'):
-            self.result_sum_dr += self.res_bl['balance']*-1
+            self.result_sum_dr += self.res_bl['balance']
         return self.result_sum_dr
 
     def sum_cr(self):
@@ -145,9 +145,9 @@ class report_balancesheet_horizontal(report_sxw.rml_parse, common_report_header)
                     }
                     currency = account.currency_id and account.currency_id or account.company_id.currency_id
                     if typ == 'liability' and account.type <> 'view' and (account.debit <> account.credit):
-                        self.result_sum_dr += account.balance
+                        self.result_sum_dr += account_dict['balance']
                     if typ == 'asset' and account.type <> 'view' and (account.debit <> account.credit):
-                        self.result_sum_cr += account.balance
+                        self.result_sum_cr += account_dict['balance']
                     if data['form']['display_account'] == 'bal_movement':
                         if (not currency_pool.is_zero(self.cr, self.uid, currency, account.credit)) or (not currency_pool.is_zero(self.cr, self.uid, currency, account.debit)) or (not currency_pool.is_zero(self.cr, self.uid, currency, account.balance)):
                             accounts_temp.append(account_dict)

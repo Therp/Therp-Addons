@@ -46,15 +46,15 @@ class account_pl_report(osv.osv_memory):
         if data['form']['display_type']:
             return {
                 'type': 'ir.actions.report.xml',
-                'report_name': 'pl.account.horizontal',
+                'report_name': 'account.profit_horizontal',
                 'datas': data,
             }
         else:
             return {
                 'type': 'ir.actions.report.xml',
-                'report_name': 'pl.account',
+                'report_name': 'account.profit_loss',
                 'datas': data,
-            }
+                }
 
 account_pl_report()
 

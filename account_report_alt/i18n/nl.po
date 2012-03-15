@@ -119,7 +119,7 @@ msgstr "Met saldo ongelijk aan 0"
 #. module: account_report_alt
 #: report:account.profit_horizontal:0
 msgid "Particular"
-msgstr "Individueel"
+msgstr "Grootboekrekening"
 
 #. module: account_report_alt
 #: selection:account.bs.report,filter:0 selection:account.pl.report,filter:0
@@ -140,8 +140,10 @@ msgid "Start Date"
 msgstr "Startdatum"
 
 #. module: account_report_alt
-#: report:account.balancesheet:0 report:account.balancesheet.horizontal:0
-#: report:account.profit_horizontal:0 report:account.profit_loss:0
+#: report:account.balancesheet:0
+#: report:account.balancesheet.horizontal:0
+#: report:account.profit_horizontal:0
+#: report:account.profit_loss:0
 msgid "Chart of Account"
 msgstr "Rekeningschema"
 
