@@ -53,6 +53,8 @@ class hr_contract(osv.osv):
     _inherit = "hr.contract"
     _columns = {
         'wage_type_id': fields.many2one('hr.contract.wage.type', 'Wage Type', required=True),
+        'advantages_net': fields.float('Net Advantages Value', digits=(16,2)),
+        'advantages_gross': fields.float('Gross Advantages Value', digits=(16,2)),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

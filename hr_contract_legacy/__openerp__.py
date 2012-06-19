@@ -31,7 +31,10 @@
     """,
     'author': 'Therp BV',
     'depends': ['hr_contract'],
-    'update_xml': ['hr_contract_legacy_view.xml'],
+    'update_xml': [
+        'hr_contract_legacy_view.xml',
+        'security/ir.model.access.csv'
+        ],
     'installable': True,
     'active': False,
 }
