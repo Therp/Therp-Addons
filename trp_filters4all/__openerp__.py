@@ -22,6 +22,8 @@
 {
     "name": "Filters for all by Therp",
     "version": "1.0",
+    "author": "Therp BV",
+    "category": "Tools",
     "depends": ['base'],
     "description": """
 In OpenERP search views, you can add save your own custom filters. This module
