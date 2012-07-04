@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- Add the extended selection dropdown -->
+    <t t-extend="SearchView">
+	<t t-jquery="select" t-operation="before">
+            <select class="oe_search-view-extended-select">
+            </select>
+	</t>
+    </t>
+    
+    <!-- Add the complex fields to the dropdown --> 
+    <t t-name="SearchView.extended-select">
+	<option value="_extendedselect">-- Extended Search --</option>
+	<t t-set="i" t-value="0"/>
+	<t t-foreach="fields" t-as="field">
+            <option t-att-value="field.name"><t t-esc="field.string"/></option>
+	</t>
+    </t>
+    
+    <!-- add an area for the extended selection views to gather -->
+    <t t-extend="SearchView">
+	<t t-jquery=".oe_search-view-buttons" t-operation="after">
+	    <div class="trp_searchview_extended_search"
+		 t-att-id="element_id"></div>
+	</t>
+    </t>
+
+    <!-- Add a container for the embedded search view
+         adding a label and a delete button 
+	 -->
+
+    <t t-name="TrpExtendedSearch.view">
+      <div class="trp_searchview_container"
+           id="element_id">
+          <a class="trp_extended_search_delete_prop"
+             href="javascript:void(0)">
+              <span> </span>
+          </a>
+          <span>
+              <t t-esc="widget.string"/>
+          </span>
+          <div class="trp_extendedsearch_content">
+          </div>
+      </div>
+    </t>
+
+</templates>

@@ -1,0 +1,18 @@
+.oe_search-view-extended-select {
+    vertical-align: middle;
+    float: right;
+}
+
+.trp_extended_search_delete_prop {
+    text-decoration: none;
+}
+
+.trp_extended_search_delete_prop span {
+    font-size: 0.9em;
+    background: url(/web/static/src/img/icons/gtk-close.png) repeat-y;
+    padding-left: 18px;
+}
+.trp_searchview_container {
+    margin-left: 50px;
+}
+
