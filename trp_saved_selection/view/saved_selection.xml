@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="saved_selection_tree_view" model="ir.ui.view">
+            <field name="name">saved_selection.selection.tree.view</field>
+            <field name="model">saved_selection.selection</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Saved Selections">
+                    <field name="name"/>
+                    <field name="model_id"/>
+                    <field name="active_selection"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="saved_selection_form_view" model="ir.ui.view">
+            <field name="name">saved_selection.selection.form.view</field>
+            <field name="model">saved_selection.selection</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Saved Selection">
+                    <group colspan="2" col="2">
+                        <group string="Algemeen" colspan="2" col="2">
+                            <field name="name" required="1"/>
+                            <field name="model_id"
+                                   attrs="{'readonly': [('create_date', '!=', False)]}"
+                                   />
+                            <field name="active_selection"/>
+                        </group>
+                        <newline/>
+                    </group>
+                    <group string="User Access" colspan="2" col="2">
+                        <field name="user_ids" nolabel="1" mode="form,tree">
+                            <!-- SR: form definition does not catch on here, do not know why -->
+                            <form string="User"><field name="name"/></form>
+                            <tree><field name="name"/></tree>
+                        </field>
+                    </group>
+                    <field name="create_date" invisible="1"/>
+                </form>
+            </field>
+        </record>
+
+	<record id="action_my_saved_selections" model="ir.actions.act_window">
+            <field name="name">My Saved Selections</field>
+            <field name="view_mode">tree,form</field>
+            <field name="res_model">saved_selection.selection</field>
+            <field name="domain">[('user_ids', '=', uid)]</field>
+        </record>
+
+        <menuitem id="menu_saved_selection_main" name="Saved Selection"
+                  parent="base.menu_base_partner" sequence="24"/>
+
+        <menuitem id="menu_my_saved_selections" name="My Saved Selections"
+                  parent="menu_saved_selection_main"
+                  action="action_my_saved_selections"
+                  />
+    </data>
+</openerp>

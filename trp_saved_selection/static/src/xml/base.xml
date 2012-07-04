@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="Header-content">
+        <t t-jquery="ul.block" t-operation="append">
+            <li class="selection_action">
+                <a href="#selection" title="Saved Selection" class="selection_action"><img src="/trp_saved_selection/static/img/harddrive.png" width="26"/></a>
+            </li>
+            <li class="selection_init">
+                <a href="#init" title="Initialize saved selection" class="selection_init"><img src="/trp_saved_selection/static/img/harddrive_star.png" width="26"/></a>
+            </li>
+        </t>
+    </t>
+</templates>

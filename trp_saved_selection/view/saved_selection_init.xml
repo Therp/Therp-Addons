@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="saved_selection_init_view" model="ir.ui.view">
+            <field name="name">saved_selection.selection.init.view</field>
+            <field name="model">saved_selection.selection.init</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Saved Selection Initialization">
+                    <group colspan="2" col="2">
+                        <field name="name"/>
+                        <field name="model_id"/>
+                        <newline/>
+                        <button icon="gtk-close"
+                                special="cancel"
+                                string="Cancel"
+                                />
+                        <button icon="gtk-ok"
+                                string="Initialize" 
+                                name="selection_init"
+                                type="object"
+                                />
+                    </group>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
