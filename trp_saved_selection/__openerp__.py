@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2011 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2011 - 2012 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,31 +20,25 @@
 ##############################################################################
 {
     "name" : "Saved Selections",
-    "version" : "0.1r11",
+    "version" : "0.1r19",
     "author" : "Therp BV",
     "category": 'Base',
     'complexity': "normal",
-    "description": """
-
-Save selections of records of an arbitrary model. Add or remove
+    "description": """Save selections of records of an arbitrary model. Add or remove
 items on the fly. Share the selections with other users.
-This module is also a web addon. You need both to 
-install it on your database and load it as a web component with
-the --load=trp_saved_selection argument for the server.
+This addon has a web component and is only fully functional on the
+web client, not GTK.
 
+This module is compatible with OpenERP 6.1
     """,
     'website': 'http://therp.nl',
-    'images' : [],
-    'init_xml': [],
     'depends' : ['base', 'web'],
-    'update_xml': [
+    'data': [
         'security/ir_rule.xml',
         'security/ir.model.access.csv',
         'view/saved_selection.xml',
         'view/saved_selection_init.xml',
     ],
-    'demo_xml': [],
-    'test': [ ],
     'installable': True,
     'active': False,
     'web': True,

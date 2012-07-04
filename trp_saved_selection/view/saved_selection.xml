@@ -50,7 +50,7 @@
         </record>
 
         <menuitem id="menu_saved_selection_main" name="Saved Selection"
-                  parent="base.menu_base_partner" sequence="24"/>
+                  parent="base.menu_address_book" sequence="101"/>
 
         <menuitem id="menu_my_saved_selections" name="My Saved Selections"
                   parent="menu_saved_selection_main"
