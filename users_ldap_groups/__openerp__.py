@@ -23,7 +23,7 @@
 "name" : "Groups assignment",
 "version" : "1.0",
 "depends" : ["users_ldap"],
-"author" : "Therp bv",
+"author" : "Therp BV",
 'complexity': "expert",
 "description": """
 Adds user accounts to groups based on rules defined by the administrator.
