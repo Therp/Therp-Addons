@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oor:component-schema xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     oor:name="OpenERPOptions" oor:package="org.openerp" xml:lang="en-US">
+     <info>
+         <author></author>
+         <desc>Contains the options data used for the options OpenERP extension.</desc>
+     </info>
+
+     <component>
+         <group oor:name="ConfigNode">
+	     <!-- placeholder to retrieve the configuration directory
+                  path where the translation files are kept -->
+	     <prop oor:name="Origin" oor:type="xs:string" />
+	 </group>
+         <group oor:name="OpenERPOptions">
+             <info>
+                 <desc>Server and database information</desc>
+             </info>
+             <prop oor:name="Server" oor:type="xs:string">
+                 <value></value>
+             </prop>
+             <prop oor:name="ServerPort" oor:type="xs:string">
+                 <value></value>
+             </prop>
+             <prop oor:name="ServerProtocol" oor:type="xs:string">
+                 <value></value>
+             </prop>
+             <prop oor:name="Database" oor:type="xs:string">
+                 <value></value>
+             </prop>
+             <prop oor:name="Username" oor:type="xs:string">
+                 <value></value>
+             </prop>
+             <prop oor:name="Password" oor:type="xs:string">
+                 <value></value>
+             </prop>
+         </group>
+     </component>
+ </oor:component-schema>

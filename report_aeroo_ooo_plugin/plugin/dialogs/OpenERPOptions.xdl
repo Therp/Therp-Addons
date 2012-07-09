@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dlg:window PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "dialog.dtd">
+<dlg:window xmlns:dlg="http://openoffice.org/2000/dialog" xmlns:script="http://openoffice.org/2000/script" dlg:id="OpenERPOptions" dlg:left="41" dlg:top="28" dlg:width="265" dlg:height="185" dlg:closeable="true" dlg:moveable="true" dlg:withtitlebar="false">
+ <dlg:bulletinboard>
+  <dlg:text dlg:id="LabelServer" dlg:tab-index="0" dlg:left="6" dlg:top="25" dlg:width="53" dlg:height="14" dlg:value="&amp;options.server"/>
+  <dlg:textfield dlg:id="Server" dlg:tab-index="1" dlg:left="63" dlg:top="25" dlg:width="62" dlg:height="14"/>
+  <dlg:text dlg:id="LabelPort" dlg:tab-index="2" dlg:left="135" dlg:top="25" dlg:width="53" dlg:height="14" dlg:value="&amp;options.port"/>
+  <dlg:textfield dlg:id="ServerPort" dlg:tab-index="3" dlg:left="180" dlg:top="25" dlg:width="22" dlg:height="14"/>
+  <dlg:text dlg:id="LabelProtocol" dlg:tab-index="4" dlg:left="6" dlg:top="41" dlg:width="53" dlg:height="14" dlg:value="&amp;options.protocol"/>
+  <dlg:combobox dlg:id="ServerProtocol" dlg:tab-index="5" dlg:left="63" dlg:top="41" dlg:width="65" dlg:height="14" dlg:spin="true"/>
+  <dlg:text dlg:id="LabelDatabase" dlg:tab-index="6" dlg:left="6" dlg:top="58" dlg:width="53" dlg:height="14" dlg:value="&amp;options.database"/>
+  <dlg:textfield dlg:id="Database" dlg:tab-index="7" dlg:left="63" dlg:top="58" dlg:width="62" dlg:height="14"/>
+  <dlg:text dlg:id="LabelLogin" dlg:tab-index="8" dlg:left="6" dlg:top="74" dlg:width="53" dlg:height="14" dlg:value="&amp;options.login"/>
+  <dlg:textfield dlg:id="Username" dlg:tab-index="9" dlg:left="63" dlg:top="74" dlg:width="62" dlg:height="14"/>
+  <dlg:text dlg:id="LabelPassword" dlg:tab-index="10" dlg:left="6" dlg:top="91" dlg:width="53" dlg:height="14" dlg:value="&amp;options.password"/>
+  <dlg:textfield dlg:id="Password" dlg:tab-index="11" dlg:left="63" dlg:top="91" dlg:width="62" dlg:height="14" dlg:echochar="*"/>
+ </dlg:bulletinboard>
+</dlg:window>

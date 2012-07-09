@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+oor:name="OpenERPOptions" oor:package="org.openerp">
+  <node oor:name="ConfigNode">
+    <prop oor:name="Origin" oor:type="xs:string">
+      <value>%origin%</value>
+    </prop>
+  </node>
+  <node oor:name="OpenERPOptions">
+    <prop oor:name="Server" oor:type="xs:string">
+      <value></value>
+    </prop>
+    <prop oor:name="ServerPort" oor:type="xs:string">
+      <value></value>
+    </prop>
+    <prop oor:name="ServerProtocol" oor:type="xs:string">
+      <value></value>
+    </prop>
+    <prop oor:name="Database" oor:type="xs:string">
+      <value></value>
+    </prop>
+    <prop oor:name="Username" oor:type="xs:string">
+      <value></value>
+    </prop>
+    <prop oor:name="Password" oor:type="xs:string">
+      <value></value>
+    </prop>
+  </node>
+</oor:component-data>
