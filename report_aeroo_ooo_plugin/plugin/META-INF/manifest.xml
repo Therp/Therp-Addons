@@ -10,12 +10,10 @@
                        manifest:full-path="registry/data/org/openoffice/Office/OptionsDialog.xcu"/>
   <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data"
                        manifest:full-path="registry/data/org/openoffice/Office/Addons.xcu"/>
-  <!--manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-component;type=Python" 
-                       manifest:full-path="Helpers.py"/-->
-  <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-component;type=Python"
-		       manifest:full-path="pythonpath/OptionsHandler.py"/>
   <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-component;type=Python"
 		       manifest:full-path="pythonpath/Localization.py"/>
+  <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-component;type=Python"
+		       manifest:full-path="pythonpath/OptionsHandler.py"/>
   <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-component;type=Python" 
                        manifest:full-path="OpenERP_Aeroo.py"/>
 </manifest:manifest>
