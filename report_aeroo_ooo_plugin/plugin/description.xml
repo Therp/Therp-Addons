@@ -4,9 +4,10 @@
     <identifier value="org.openerp"/>
     <display-name>
         <name lang="en">Aeroo Reports (OpenERP) Mail Merge</name>
+        <name lang="nl">Aeroo Reports (OpenERP) Samenvoegen</name>
     </display-name>
     <publisher>
-        <name lang="en">Therp BV</name>
+        <name xlink:href="http://therp.nl" lang="en">Therp BV</name>
     </publisher>
     <extension-description>
     </extension-description>
