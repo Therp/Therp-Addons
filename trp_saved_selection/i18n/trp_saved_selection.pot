@@ -4,16 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1beta\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-06 10:14+0000\n"
-"PO-Revision-Date: 2011-12-06 10:14+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2012-07-12 16:23+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
 
 #. module: trp_saved_selection
 #: field:saved_selection.selection,no_snail:0
@@ -23,6 +23,8 @@ msgstr "Honour a no mail flag"
 
 #. module: trp_saved_selection
 #: model:ir.model,name:trp_saved_selection.model_saved_selection_selection
+#: code:addons/trp_saved_selection/saved_selection.py:155
+#, python-format
 msgid "Saved Selection"
 msgstr "Saved Selection"
 
@@ -75,11 +77,6 @@ msgid "E-Mail"
 msgstr "E-Mail"
 
 #. module: trp_saved_selection
-#: view:saved_selection.selection.init:0
-msgid "Mail"
-msgstr "Post"
-
-#. module: trp_saved_selection
 #: field:saved_selection.selection,user_id:0
 msgid "User"
 msgstr "User"
@@ -88,12 +85,6 @@ msgstr "User"
 #: view:saved_selection.selection.init:0
 msgid "Honour requests not to"
 msgstr "Honour requests not to"
-
-#. module: trp_saved_selection
-#: code:addons/trp_saved_selection/saved_selection.py:155
-#, python-format
-msgid "Saved Selection"
-msgstr "Saved Selection"
 
 #. module: trp_saved_selection
 #: field:saved_selection.selection,model_id:0
@@ -139,3 +130,32 @@ msgstr "Cancel"
 msgid "List of IDS"
 msgstr "List of IDS"
 
+#. openerp-web
+#: /home/oervwncrmdev61/tmp/therp-addons/trp_saved_selection/static/src/js/chrome.js:48
+msgid "Saved selection may not be initialized yet."
+msgstr ""
+
+#. openerp-web
+#: /home/oervwncrmdev61/tmp/therp-addons/trp_saved_selection/static/src/js/chrome.js:108
+msgid "Update saved selection"
+msgstr ""
+
+#. openerp-web
+#: /home/oervwncrmdev61/tmp/therp-addons/trp_saved_selection/static/src/js/chrome.js:138
+msgid "Add"
+msgstr ""
+
+#. openerp-web
+#: /home/oervwncrmdev61/tmp/therp-addons/trp_saved_selection/static/src/js/chrome.js:142
+msgid "Delete"
+msgstr ""
+
+#. openerp-web
+#: /home/oervwncrmdev61/tmp/therp-addons/trp_saved_selection/static/src/js/chrome.js:146
+msgid "Intersection"
+msgstr ""
+
+#. openerp-web
+#: /home/oervwncrmdev61/tmp/therp-addons/trp_saved_selection/static/src/xml/base.xml:9
+msgid "Initialize saved selection"
+msgstr ""

@@ -42,7 +42,7 @@ class saved_selection(osv.osv):
         }
 
     def compose_filter_domain(
-        self, cr, uid, model_browse_record, domain=None, context=None):
+        self, cr, uid, selection, model_pool, domain=None, context=None):
         """ Hook to allow for filter modules """
         return domain or []
 
@@ -105,7 +105,7 @@ class saved_selection(osv.osv):
 
         # apply communication filters
         filter_domain = self.compose_filter_domain(
-            cr, uid, model_obj, context=context)
+            cr, uid, selection, model_obj, context=context)
 
         if filter_domain or not ids:
             ids = model_obj.search(
