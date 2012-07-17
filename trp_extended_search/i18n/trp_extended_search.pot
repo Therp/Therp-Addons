@@ -6,9 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
+
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-02 15:55+0100\n"
+"POT-Creation-Date: 2012-07-12 16:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: /home/oervwncrmdev61/therp-modules/trp_extended_search/static/src/xml/trp_extended_search.xml:0
+#. openerp-web
+#: addons/trp_extended_search/static/src/xml/trp_extended_search.xml:14
 msgid "-- Extended Search --"
 msgstr ""
