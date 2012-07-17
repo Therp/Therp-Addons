@@ -32,24 +32,28 @@ import Localization
 loginstatus=False
 
 class LoginObject(Localization.LocalizedObject):
-    def __new__(self, ctx):
+    def getLogin(self):
         """
         Check for a valid configuration and a succesful login
+
+        Does not return the object, but the parameters of a valid
+        connection.
         """
-        ConfigurationProvider = OptionsHandler.ConfigurationProvider(ctx)
+        ConfigurationProvider = OptionsHandler.ConfigurationProvider(self.ctx)
         (url, database, login, password, options_changed) = ConfigurationProvider.get_options()
         if not (url and database and login and password):
-            Danny.ErrorDialog("Missing configuration data",
-                        "Please enter a valid configuration")
+            Danny.ErrorDialog(
+                self.localize("missing"),
+                self.localize("valid"))
             return False
         global loginstatus
         if not loginstatus or options_changed:
-            sock = TinySocket.RPCSession(ctx, url)
+            sock = TinySocket.RPCSession(self.ctx, url)
             uid = sock.login(database, login, password)
             if not uid or uid == -1:
-                Danny.ErrorDialog("Connection Refused.",
-                            "Please enter a valid configuration")
+                Danny.ErrorDialog(
+                    self.localize("refused"),
+                    self.localize("valid"))
                 return False
             return (url, database, uid, password)
         return False
-

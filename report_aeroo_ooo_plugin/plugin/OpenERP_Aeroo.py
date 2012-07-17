@@ -38,7 +38,7 @@ import FileUtils
 import Localization
 import LoginObject
 
-class Merge(unohelper.Base, XJobExecutor):
+class Merge(Localization.LocalizedObject, XJobExecutor):
     """ 
     Send the current open document to the OpenERP server
     and trigger an Aeroo report on resources in the
@@ -59,9 +59,10 @@ class Merge(unohelper.Base, XJobExecutor):
         self.ctx     = ctx
         self.module  = "OpenERP_Aeroo"
         self.version = "0.1"
-        (url, database, uid, password) = LoginObject.LoginObject(ctx)
-        if not uid:
+        login = LoginObject.LoginObject(ctx).getLogin()
+        if not login:
             exit(1)
+        (url, database, uid, password) = login
         self.sock=TinySocket.RPCSession(ctx, url)
         Desktop = Danny.getDesktop()
         current = Desktop.getCurrentComponent()
@@ -128,19 +129,22 @@ class Merge(unohelper.Base, XJobExecutor):
                         os.remove(filename2)
             else:
                 # Second arg *may* contain a warning or error message
-                Danny.ErrorDialog("Oops", "%s" % res[1])
+                Danny.ErrorDialog(self.localize("error"), "%s" % res[1])
         else:
-            Danny.ErrorDialog("Oops", "Could not create document")
+            Danny.ErrorDialog(self.localize("error"),
+                              self.localize("not.create"))
 
 g_ImplementationHelper = unohelper.ImplementationHelper()
 g_ImplementationHelper.addImplementation( Merge, "org.openoffice.openerp.report.aeroo.merge", ("com.sun.star.task.Job",),)
 
-class About(unohelper.Base, XJobExecutor):
-    def __init__(self,ctx):
-        self.ctx     = ctx
+class About(Localization.LocalizedObject, XJobExecutor):
+    def __init__(self, ctx):
+        super(About, self).__init__(ctx)
         self.module  = "OpenERP_Aeroo"
         self.version = "0.1"
-        self.win = Danny.DBModalDialog(60, 50, 175, 115, "About the Mailmerge plugin for Aeroo Reports (OpenERP)")
+        self.win = Danny.DBModalDialog(
+            60, 50, 200, 215,
+            self.localize("about"))
 
         fdBigFont = Danny.createUnoStruct("com.sun.star.awt.FontDescriptor")
         fdBigFont.Width = 20
@@ -148,7 +152,7 @@ class About(unohelper.Base, XJobExecutor):
         fdBigFont.Weight = 120
         fdBigFont.Family= 3
 
-        oLabelProdDesc = self.win.addFixedText("lblProdDesc", 1, 30, 173, 75)
+        oLabelProdDesc = self.win.addFixedText("lblProdDesc", 3, 30, 196, 175)
         oLabelProdDesc.Model.TextColor = 1
         fdBigFont.Width = 10
         fdBigFont.Height = 11
@@ -157,15 +161,7 @@ class About(unohelper.Base, XJobExecutor):
         oLabelProdDesc.Model.Align = 1
         oLabelProdDesc.Model.FontRelief = 1
         oLabelProdDesc.Model.MultiLine = True
-        oLabelProdDesc.Text = """Mailmerge plugin for Aeroo (OpenERP) Reports
-Copyright 2012 Therp BV. For more information, contact us at http://therp.nl.
-
-For more information on Aeroo Reports for OpenERP, see http://www.alistek.com/wiki/index.php/Main_Page
-
-This extension Contains elements from the OpenERP Report Designer plugin Copyright 2007-TODAY OpenERP SA
-
-This product is free software, under the GNU Affero General Public License.
-"""
+        oLabelProdDesc.Text = self.localize("content")
 
         self.win.doModalDialog("",None)
 

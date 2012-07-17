@@ -75,8 +75,13 @@ class LocalizedObject(object, unohelper.Base):
         if language is None:
             language = self.uilanguage
         if not hasattr( self, 'localization' ):
-            self.loadlocalization()
+            try:
+                self.loadlocalization()
+            except Exception, e:
+                print e
+        print string
         if string not in self.localization: return 'unlocalized: %s' % string
+        print language
         if language in self.localization[string]:
             return self.localization[string][language]
         elif self.SUPPORTED_LANGUAGES[0] in self.localization[string]:
