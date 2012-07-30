@@ -1,0 +1,40 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * poweremail_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-30 13:23+0000\n"
+"PO-Revision-Date: 2012-07-30 13:23+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: poweremail_invoice
+#: model:poweremail.templates,def_body_text:poweremail_invoice.poweremail_templates_sendinvoicebyemail0
+msgid "Dear ${(object.address_contact_id and object.address_contact_id.name) or (object.address_invoice_id and object.address_invoice_id.name) or 'Sir/Madam'},\n"
+"\n"
+"Please find our invoice${object.number and (' with reference number %s' % object.number) or ''} attached to this email.\n"
+"\n"
+"Kind regards,\n"
+"${object.user_id and object.user_id.name or ''}\n"
+"${object.company_id.name}\n"
+""
+msgstr "Beste ${(object.address_contact_id and object.address_contact_id.name) or (object.address_invoice_id and object.address_invoice_id.name) or 'mevrouw/mijnheer'},\n"
+"\n"
+"U vindt onze factuur${object.number and (' met nummer %s' % object.number) or ''} terug als attachment bij deze email.\n"
+"\n"
+"Met vriendelijke groet,\n"
+"${object.user_id and object.user_id.name or ''}\n"
+"${object.company_id.name}\n"
+""
+
+#. module: poweremail_invoice
+#: model:poweremail.templates,def_subject:poweremail_invoice.poweremail_templates_sendinvoicebyemail0
+msgid "Invoice ${object.number and ('ref %s' % object.number) or ''}"
+msgstr "Factuur ${object.number and ('nr. %s' % object.number) or ''}"
