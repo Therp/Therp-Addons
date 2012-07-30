@@ -11,7 +11,6 @@
             <field eval="[(6,0,[ref('account.group_account_invoice')])]" name="allowed_groups"/>
             <field eval="0" name="auto_email"/>
             <field eval="[(6,0,[])]" name="table_required_fields"/>
-            <field model="ir.values" name="ref_ir_value" search="[('name', '=', u'Send invoice by E-mail')]"/>
             <field name="partner_event">${object.partner_id.id}</field>
             <field name="report_template" ref="account.account_invoices"/>
             <field name="object_name" ref="account.model_account_invoice"/>
