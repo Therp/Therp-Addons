@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- The act_window is created automatically by poweremail_template.create() -->
+        <record id="poweremail_templates_sendinvoicebyemail0" model="poweremail.templates">
+            <field eval="0" name="save_to_drafts"/>
+            <field eval="0" name="use_filter"/>
+            <field name="def_subject">Invoice ${object.number and ('ref %s' % object.number) or ''}</field>
+            <field name="def_to">${(object.address_contact_id and object.address_contact_id.email) or (object.address_invoice_id and object.address_invoice_id.email) or ''}</field>
+            <field model="poweremail.core_accounts" name="enforce_from_account" search="[('name', '=', u'Administrator')]"/>
+            <field eval="[(6,0,[ref('account.group_account_invoice')])]" name="allowed_groups"/>
+            <field eval="0" name="auto_email"/>
+            <field eval="[(6,0,[])]" name="table_required_fields"/>
+            <field name="partner_event">${object.partner_id.id}</field>
+            <field name="report_template" ref="account.account_invoices"/>
+            <field name="object_name" ref="account.model_account_invoice"/>
+            <field eval="0" name="single_email"/>
+            <field name="sub_model_object_field" ref="base.field_res_users_name"/>
+            <field eval="0" name="send_on_create"/>
+            <field name="def_body_text">Dear ${(object.address_contact_id and object.address_contact_id.name) or (object.address_invoice_id and object.address_invoice_id.name) or 'Sir/Madam'},
+
+Please find our invoice${object.number and (' with reference number %s' % object.number) or ''} attached to this email.
+
+Kind regards,
+${object.user_id and object.user_id.name or ''}
+${object.company_id.name}
+</field>
+            <field name="template_language">mako</field>
+            <field eval="0" name="use_sign"/>
+            <field name="name">Send invoice by E-mail</field>
+            <field name="model_int_name">account.invoice</field>
+            <field eval="0" name="send_on_write"/>
+            <field name="lang">${object.partner_id.lang or object.user_id.context_lang}</field>
+        </record>
+    </data>
+</openerp>
