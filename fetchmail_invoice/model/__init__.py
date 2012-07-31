@@ -1,0 +1,1 @@
+import fetchmail_invoice
