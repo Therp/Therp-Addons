@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name" : "Aeroo reports plugin for OpenOffice.Org",
-    "version" : "0.1r22",
+    "version" : "0.1r33",
     "author" : "Therp BV",
     "category": 'Generic Modules/Aeroo Reporting',
     'complexity': "normal",
@@ -53,7 +53,7 @@ line break.
 This module is compatible with OpenERP 6.1.
     """,
     "website": 'http://therp.nl',
-    "images" : ['images/config.png', 'images/merge.png'],
+    "images" : ['images/options.png', 'images/merge.png'],
     "depends" : ['report_aeroo', 'trp_saved_selection'],
     'data': [
         'view/get_plugin.xml',
