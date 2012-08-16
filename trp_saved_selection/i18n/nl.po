@@ -97,6 +97,11 @@ msgid "Model"
 msgstr "Model"
 
 #. module: trp_saved_selection
+#: field:saved_selection.selection.init,discard_existing:0
+msgid "Discard current selection"
+msgstr "Huidige selectie overschrijven"
+
+#. module: trp_saved_selection
 #: view:saved_selection.selection.init:0
 msgid "Saved Selection Initialization"
 msgstr "Initialiseren selectiebestand"

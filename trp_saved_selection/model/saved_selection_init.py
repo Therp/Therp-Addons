@@ -13,6 +13,8 @@ class saved_selection_init(osv.osv_memory):
     _columns = {
         'name': fields.char('Name', size=48),
         'model_id': fields.many2one('ir.model', 'Model', required=True),
+        'discard_existing': fields.boolean('Discard current selection'),
+        'existing': fields.boolean('Existing selection', readonly=True),
         }
 
     def get_default_model(self, cr, uid, context=None):
@@ -49,10 +51,31 @@ class saved_selection_init(osv.osv_memory):
             res = selection_obj.read(
                 cr, uid, selection_id[0], [field], context=context)[field]
         return res
+
+    def get_existing(self, cr, uid, field, context=None):
+        """
+        Determine if there is an existing selection worth mentioning
+        at init time. If not, the 'discard exsting' checkbox will not be shown
+        """
+        res = False
+        user_obj = self.pool.get('res.users')
+        selection_obj = self.pool.get('saved_selection.selection')
+        selection_id = user_obj.read(
+            cr, uid, uid, ['saved_selection_id'],
+            context=context)['saved_selection_id']
+        if selection_id:
+            selection = selection_obj.read(
+                cr, uid, selection_id[0], context=context)
+            if (selection['name'] or selection['ids']
+                or selection['user_ids'] and len(selection['user_ids']) > 1):
+                return True
+        return res
             
     _defaults = {
         'model_id': get_default_model,
         'name': get_default_name,
+        'existing': get_existing,
+        'discard_existing': True,
         }
 
     def compose_create_values(self, cr, uid, ids, values=None, context=None):
@@ -75,10 +98,13 @@ class saved_selection_init(osv.osv_memory):
         user_obj = self.pool.get('res.users')
         values = self.compose_create_values(
             cr, uid, ids, values={}, context=context)
+        discard = self.read(
+            cr, uid, ids[0], ['discard_existing'],
+            context=context)['discard_existing']
         selection_id = False
         me = user_obj.read(
             cr, uid, uid, ['saved_selection_id'], context=context)
-        if me['saved_selection_id']:
+        if me['saved_selection_id'] and discard:
             selection_obj.write(
                 cr, uid, me['saved_selection_id'][0],
                 values, context=context)
