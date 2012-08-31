@@ -83,7 +83,7 @@ class saved_selection(osv.osv):
                 cr, uid,
                 [('model', '=', model)], context=context)[0]
             selection_id = self.create(
-                cr, uid, {'user_ids': [(6, 0, uid)], 'model_id': model_id},
+                cr, uid, {'user_ids': [(6, 0, [uid])], 'model_id': model_id},
                 context)
 
         # retrieve selection and check model
