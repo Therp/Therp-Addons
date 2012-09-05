@@ -82,6 +82,7 @@ msgstr "Email"
 
 #. module: trp_saved_selection
 #: field:saved_selection.selection,user_id:0
+#: view:saved_selection.selection:0
 msgid "User"
 msgstr "Medewerker"
 
@@ -166,3 +167,91 @@ msgstr "Doorsnede"
 #, fuzzy
 msgid "Initialize saved selection"
 msgstr "Selectiebestand initialiseren"
+
+#. module: trp_saved_selection
+#: view:saved_selection.selection:0
+#: field:saved_selection.selection,user_ids:0
+msgid "User Access"
+msgstr "Medewerkertoegang"
+
+#. module: trp_saved_selection
+#: field:saved_selection.selection,active_selection:0
+msgid "Active Selection"
+msgstr "Actief selectiebestand"
+
+#. module: trp_saved_selection
+#: code:addons/trp_saved_selection/model/saved_selection.py:131
+#, python-format
+msgid "%d removed, total %d"
+msgstr "%d verwijderd, totaal %d"
+
+#. module: trp_saved_selection
+#: code:addons/trp_saved_selection/model/saved_selection.py:318
+#: constraint:saved_selection.selection:0
+#, python-format
+msgid "Error: not a valid list of resource ids."
+msgstr "Fout: geen geldige lijst van record-ids"
+
+#. module: trp_saved_selection
+#: code:addons/trp_saved_selection/model/saved_selection.py:128
+#, python-format
+msgid "%d added, total %d"
+msgstr "%d toegevoegd, totaal %d"
+
+#. module: trp_saved_selection
+#: code:addons/trp_saved_selection/model/saved_selection.py:92
+#, python-format
+msgid "Error: selection is initialized for items of type %s"
+msgstr "Fout: selectiebestand is geïnitialiseerd op records van type %s"
+
+#. module: trp_saved_selection
+#: view:saved_selection.selection.init:0
+msgid "Initialize"
+msgstr "Initialiseer"
+
+#. module: trp_saved_selection
+#: view:saved_selection.selection:0
+msgid "Saved Selections"
+msgstr "Selectiebestanden"
+
+#. module: trp_saved_selection
+#: code:addons/trp_saved_selection/model/saved_selection.py:232
+#: model:ir.model,name:trp_saved_selection.model_saved_selection_selection
+#: model:ir.ui.menu,name:trp_saved_selection.menu_saved_selection_main
+#: view:saved_selection.selection:0
+#, python-format
+msgid "Saved Selection"
+msgstr "Selectiebestand"
+
+#. module: trp_saved_selection
+#: field:res.users,saved_selection_id:0
+msgid "Active Saved Selection"
+msgstr "Actief selectiebestand"
+
+#. module: trp_saved_selection
+#: field:saved_selection.selection,name:0
+#: field:saved_selection.selection.init,name:0
+msgid "Name"
+msgstr "Naam"
+
+#. module: trp_saved_selection
+#: field:saved_selection.selection,create_date:0
+msgid "Creation date"
+msgstr "Aanmaakdatum"
+
+#. module: trp_saved_selection
+#: field:saved_selection.selection.init,existing:0
+msgid "Existing selection"
+msgstr "Bestaand selectiebestand"
+
+#. module: trp_saved_selection
+#: code:addons/trp_saved_selection/model/saved_selection.py:133
+#, python-format
+msgid "Nothing to do, total %d"
+msgstr "Niets te doen, totaal %d"
+
+#. module: trp_saved_selection
+#: model:ir.actions.act_window,name:trp_saved_selection.action_my_saved_selections
+#: model:ir.ui.menu,name:trp_saved_selection.menu_my_saved_selections
+msgid "My Saved Selections"
+msgstr "Mijn selectiebestanden"
