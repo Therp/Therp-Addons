@@ -25,3 +25,7 @@ class LDAPOperator:
 class contains(LDAPOperator):
   def check_value(self, ldap_entry, attribute, value):
     return (attribute in ldap_entry[1]) and (value in ldap_entry[1][attribute])
+
+class equals(LDAPOperator):
+  def check_value(self, ldap_entry, attribute, value):
+    return (attribute in ldap_entry[1]) and (str(value)==str(ldap_entry[1][attribute]))
