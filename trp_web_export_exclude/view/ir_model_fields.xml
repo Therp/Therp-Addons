@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_model_fields_form" model="ir.ui.view">
+            <field name="name">ir.model.fields.form add Exclude field</field>
+            <field name="model">ir.model.fields</field>
+            <field name="inherit_id" ref="base.view_model_fields_form"/>
+            <field name="arch" type="xml">
+                <field name="readonly" position="after">
+                    <field name="export_exclude"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_model_fields_tree" model="ir.ui.view">
+            <field name="name">ir.model.fields.tree add Exclude field</field>
+            <field name="model">ir.model.fields</field>
+            <field name="inherit_id" ref="base.view_model_fields_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="export_exclude"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
+               
+                
