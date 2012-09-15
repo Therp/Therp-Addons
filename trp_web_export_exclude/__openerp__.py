@@ -21,17 +21,25 @@
 
 {
     "name": "Allow to exclude fields in the export list",
-    "version": "1.0",
+    "version": "1.0r39",
     "author": "Therp BV",
     "category": "Tools",
     "depends": ['web'],
     "description": """
-Mark fields not to show up in the list of exportable fields.
+Mark fields not to show up in the list of exportable fields. Go to Administration ->
+Customizations -> Database Structure -> Fields. For fields that you do not want
+to show up in the export list, check the box 'Exclude from export'.
 
-When installed on any database, this module affects all databases of the OpenERP
-instances.
+Applies to the Export widget in the web client only (GTK client not supported)
+
+Warning: this is a hackish module. Due to the applied technology of 'monkeypatching',
+when installed on any database of an OpenERP instance, this module may affect the
+functionality of all databases of that instance.
     """,
     'data': [
-        'view/ir_model_fields.xml'
+        'view/ir_model_fields.xml',
+        ],
+    'images': [
+        'images/export_exclude.png',
         ],
 }
