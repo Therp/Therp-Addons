@@ -150,7 +150,7 @@ msgstr "Mijn actieve selectiebestand"
 #. openerp-web
 #: addons/trp_saved_selection/static/src/js/chrome.js:138
 msgid "Add"
-msgstr "Toevoegen"
+msgstr "Voeg toe"
 
 #. openerp-web
 #: addons/trp_saved_selection/static/src/js/chrome.js:142
