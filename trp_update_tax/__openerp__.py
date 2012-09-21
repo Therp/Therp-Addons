@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Update tax wizard",
-    "version": "1.0r041",
+    "version": "1.0r042",
     "author": "Therp BV",
     "category": 'Base',
     'complexity': "normal",
@@ -34,10 +34,11 @@ the sales and purchase taxes that need to be upgraded and assign a new
 percentage.
 
 The selected taxes are in fact duplicated by running the wizard, so that
-existing entries in the system are not affected. The wizard can replace
-default values on accounts and products. Defaults for purchase and sales
-taxes can be set independently. During the transition, the old
-taxes can still be selected manually on invoice lines etc.
+existing entries in the system are not affected. The new taxes are mapped
+automatically in the appropriate fiscal positions. The wizard can replace
+default values on accounts and products on demand. Defaults for purchase
+and sales taxes can be set at independent times. During the transition,
+the old taxes can still be selected manually on invoice lines etc.
 
 After the transition, the old taxes can be made inactive.
 
