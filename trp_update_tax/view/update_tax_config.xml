@@ -17,7 +17,7 @@
                     <notebook colspan="4">
                         <page string="Taxes">
                             <group string="Sales taxes" col="4" colspan="4">
-                                <field name="sale_line_ids"
+                                <field name="sale_line_ids" height="200" 
                                        nolabel="1" colspan="4"
                                        context="{'tax_real_name': 1}"
                                        />
@@ -41,7 +41,7 @@
                             </group>
                             <group string="Purchase taxes" col="4" colspan="4">
                                 <field name="purchase_line_ids"
-                                       nolabel="1" colspan="4"
+                                       nolabel="1" colspan="4" height="200"
                                        context="{'tax_real_name': 1}"
                                        />
                                 <button name="add_lines"

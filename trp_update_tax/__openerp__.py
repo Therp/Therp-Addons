@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Update tax wizard",
-    "version": "1.0r042",
+    "version": "1.0r43",
     "author": "Therp BV",
     "category": 'Base',
     'complexity': "normal",

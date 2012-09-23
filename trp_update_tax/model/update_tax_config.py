@@ -216,6 +216,7 @@ class UpdateTaxConfig(osv.osv):
             'context': context,
             'type': 'ir.actions.act_window',
             'res_id': ids[0],
+            'nodestroy': True,
             }
 
     def set_defaults(self, cr, uid, ids, context=None):
@@ -329,6 +330,7 @@ class UpdateTaxConfig(osv.osv):
             'context': context,
             'type': 'ir.actions.act_window',
             'res_id': ids[0],
+            'nodestroy': True,
             }
 
     def set_inactive(self, cr, uid, ids, context=None):
@@ -365,12 +367,14 @@ class UpdateTaxConfig(osv.osv):
             'context': context,
             'type': 'ir.actions.act_window',
             'res_id': ids[0],
+            'nodestroy': True,
             }
 UpdateTaxConfig()
 
 
 class UpdateTaxConfigLine(osv.osv):
     _name = 'account.update.tax.config.line'
+    _description = "Tax update configuration lines"
     _rec_name = 'source_tax_id'  # Wha'evuh
 
     def _get_config_field(
