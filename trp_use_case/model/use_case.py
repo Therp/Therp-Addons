@@ -21,6 +21,15 @@
 from osv import fields, osv
 from tools.translate import _
 
+# Forward declarations for 6.0
+class use_case_collection(osv.osv):
+    _name = 'use_case.collection'
+use_case_collection()
+
+class use_case_workload(osv.osv):
+    _name = 'use_case.workload'
+use_case_workload()
+
 class use_case(osv.osv):
     _name = 'use_case'
     _description = 'Use Case'
@@ -136,13 +145,13 @@ class use_case_collection(osv.osv):
         'create_uid': fields.many2one(
             'res.users', 'Created by', readonly=True),
         'hours_total': fields.function(
-            _get_hours_total, multi="hours",
+            _get_hours_total, multi="hours", method=True,
             string="Total nr. of hours"),
         'hours_total_optional': fields.function(
-            _get_hours_total, multi="hours",
+            _get_hours_total, multi="hours", method=True,
             string="Total nr. of optional hours"),
         'hours_total_nonoptional': fields.function(
-            _get_hours_total, multi="hours",
+            _get_hours_total, multi="hours", method=True,
             string="Total nr. of non optional hours"),
         }
 
