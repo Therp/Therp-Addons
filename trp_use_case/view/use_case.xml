@@ -7,10 +7,19 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form>
-                    <field name="name"/>
-                    <field name="partner_id"/>
-                    <field name="create_date"/>
-                    <field name="create_uid"/>
+                    <group col="6">
+                        <group colspan="4" col="4">
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="create_date"/>
+                            <field name="create_uid"/>
+                        </group>
+                        <group colspan="2" col="2">
+                            <field name="hours_total"/>
+                            <field name="hours_total_nonoptional"/>
+                            <field name="hours_total_optional"/>
+                        </group>
+                    </group>
                     <group string="Use cases" colspan="4" col="2">
                         <field name="use_case_ids" nolabel="1"/>
                     </group>
@@ -25,6 +34,7 @@
                 <tree>
                     <field name="name"/>
                     <field name="partner_id"/>
+                    <field name="hours_total"/>
                     <field name="create_date"/>
                     <field name="create_uid"/>
                 </tree>
@@ -79,7 +89,7 @@
         </record>
         <record id="action_use_case_collections"
                 model="ir.actions.act_window">
-            <field name="name">Sets of use cases</field>
+            <field name="name">Set of use cases</field>
             <field name="res_model">use_case.collection</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>

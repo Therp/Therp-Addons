@@ -20,12 +20,13 @@
 ##############################################################################
 {
     "name": "Use case development",
-    "version": "1.0r43",
+    "version": "1.0r44",
     "author": "Therp BV",
     "category": 'Base',
     'complexity': "normal",
     "description": """
-Fill in collections of use cases
+Compose collections of use cases and print them with an aeroo report
+which is included in this module.
     """,
     'website': 'http://therp.nl',
     'images': [],

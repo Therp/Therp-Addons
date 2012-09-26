@@ -100,6 +100,25 @@ use_case_workload()
 class use_case_collection(osv.osv):
     _name = 'use_case.collection'
     _description = 'Set of use cases'
+
+    def _get_hours_total(
+        self, cr, uid, ids, field, args, context=None):
+        result = {}
+        for collection in self.browse(cr, uid, ids, context=context):
+            result[collection.id] = {
+                'hours_total': 0.0,
+                'hours_total_optional': 0.0,
+                }
+            for use_case in collection.use_case_ids:
+                for workload in use_case.workload_ids:
+                    result[collection.id]['hours_total'] += workload.hours
+                    if workload.optional:
+                        result[collection.id]['hours_total_optional'] += workload.hours
+            result[collection.id]['hours_total_nonoptional'] = (
+                result[collection.id]['hours_total'] -
+                result[collection.id]['hours_total_optional'])
+        return result
+
     _columns = {
         'name': fields.char(
             'Name', size=128,
@@ -116,6 +135,15 @@ class use_case_collection(osv.osv):
             'Creation Date', readonly=True),
         'create_uid': fields.many2one(
             'res.users', 'Created by', readonly=True),
+        'hours_total': fields.function(
+            _get_hours_total, multi="hours",
+            string="Total nr. of hours"),
+        'hours_total_optional': fields.function(
+            _get_hours_total, multi="hours",
+            string="Total nr. of optional hours"),
+        'hours_total_nonoptional': fields.function(
+            _get_hours_total, multi="hours",
+            string="Total nr. of non optional hours"),
         }
 
 use_case_collection()
