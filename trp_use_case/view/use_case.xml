@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="use_case_collection_form" model="ir.ui.view">
+            <field name="name">Use case collection form</field>
+            <field name="model">use_case.collection</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
+                    <group string="Use cases" colspan="4" col="2">
+                        <field name="use_case_ids" nolabel="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="use_case_collection_tree" model="ir.ui.view">
+            <field name="name">Use case collection tree</field>
+            <field name="model">use_case.collection</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
+                </tree>
+            </field>
+        </record>
+        <record id="use_case_form" model="ir.ui.view">
+            <field name="name">Use case form</field>
+            <field name="model">use_case</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="5">
+                        <field name="name" colspan="4"/>
+                        <field name="sequence" colspan="1"/>
+                    </group>
+                    <group colspan="4" col="2">
+                        <field name="actor"/>
+                        <field name="precondition"/>
+                        <field name="description"/>
+                        <field name="result"/>
+                        <field name="exceptions"/>
+                        <field name="implementation"/>
+                        <field name="workload_ids"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="use_case_tree" model="ir.ui.view">
+            <field name="name">Use case tree</field>
+            <field name="model">use_case</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="actor"/>
+                </tree>
+            </field>
+        </record>
+        <record id="use_case_workload_tree" model="ir.ui.view">
+            <field name="name">Use case workload tree</field>
+            <field name="model">use_case.workload</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="hours"/>
+                    <field name="optional"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_use_case_collections"
+                model="ir.actions.act_window">
+            <field name="name">Sets of use cases</field>
+            <field name="res_model">use_case.collection</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_use_cases"
+                  name="Use cases"
+                  action="action_use_case_collections"
+                  />
+    </data>
+</openerp>
