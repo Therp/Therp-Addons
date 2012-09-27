@@ -53,6 +53,7 @@ openerp.trp_web_x2x_matrix=function(openerp)
                         }
                         return widget.active_view;                  
                     }
+                    //TODO: there must be a better way to find out if we're in edit mode or not
                     if(find_active_view(this.view)!='form')
                     {
                         return this._super.apply(this, arguments);
@@ -82,6 +83,12 @@ openerp.trp_web_x2x_matrix=function(openerp)
                                     rowobj.do_show();
                                     $new_row.find('td:last').remove();
                                     $new_row.appendTo(self.$current);
+                                    $new_row.change(function()
+                                        {
+                                            self.view.o2m.view.fields[self.view.o2m.name].dirty=true;
+                                            self.view.o2m.view.on_form_changed();
+                                            self.view.o2m.view.do_notify_change();
+                                        });
                                 });
                         });
                 }
