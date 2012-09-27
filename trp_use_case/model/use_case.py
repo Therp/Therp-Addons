@@ -19,6 +19,7 @@
 #
 ##############################################################################
 from osv import fields, osv
+from datetime import datetime
 from tools.translate import _
 
 # Forward declarations for 6.0
@@ -30,10 +31,52 @@ class use_case_workload(osv.osv):
     _name = 'use_case.workload'
 use_case_workload()
 
+class use_case_actor(osv.osv):
+    _name = 'use_case.actor'
+    _description = 'Actor'
+    _columns = {
+        'name': fields.char(
+            'Name', size=64,
+            required=True),
+        'collection_id': fields.many2one(
+            'use_case.collection',
+            'Set of use cases',
+            required=True),
+        }
+use_case_actor()
+
+
+class use_case_version_tag(osv.osv):
+    _name = 'use_case.version_tag'
+    _description = 'Version tag'
+    _columns = {
+        'name': fields.char(
+            'Name', size=64,
+            required=True),
+        'date': fields.date(
+            'Date',
+            required=True),
+        'user': fields.char(
+            'Editor', size=64,
+            required=True),
+        'collection_id': fields.many2one(
+            'use_case.collection', 'Use case set',
+            required=True,
+            ),
+        }
+
+    _defaults = {
+        'date': lambda self, cr, uid, c: datetime.now().strftime('%Y-%m-%d'),
+        'user': lambda self, cr, uid, c: self.pool.get('res.users').read(cr, uid, uid, ['name'], context=c)['name'],
+        }        
+use_case_version_tag()
+
+
 class use_case(osv.osv):
     _name = 'use_case'
     _description = 'Use Case'
     _order = 'collection_id, sequence'
+
     _columns = {
         'sequence': fields.integer(
             'Sequence',
@@ -42,9 +85,9 @@ class use_case(osv.osv):
             'Name', size=128,
             required=True,
             ),
-        'actor': fields.char(
-            'Actor', size=128,
-            required=True,
+        'actor_ids': fields.many2many(
+            'use_case.actor', 'use_case_actor_use_case_rel',
+            'use_case_id', 'actor_id', 'Actors',
             ),
         'precondition': fields.text(
             'Precondition',
@@ -84,7 +127,6 @@ class use_case_workload(osv.osv):
     _columns = {
         'name': fields.char(
             'Description', size=128,
-            required=True,
             ),
         'hours': fields.float(
             'Hours'),
@@ -128,7 +170,24 @@ class use_case_collection(osv.osv):
                 result[collection.id]['hours_total_optional'])
         return result
 
+    def _get_id(self, cr, uid, ids, field, args, context=None):
+        """ 
+        Workaround for showing id field in 6.0 web client and prevent
+        an unpickle error from showing up because 'id' is a reserved
+        term in Python.
+        By using the raw id in the domain and context, we can
+        push the collection id to the use case form before it
+        is saved first time.
+        Eventually, this is only needed to be able to select a
+        previously created actor in the use case form before
+        the use case is saved. Sigh.
+        """
+        return dict([(x, x) for x in ids])
+
     _columns = {
+        'res_id': fields.function(
+            _get_id, type="integer", method=True,
+            string='ID'),
         'name': fields.char(
             'Name', size=128,
             required=True,
@@ -140,6 +199,12 @@ class use_case_collection(osv.osv):
             'Use cases',
             required=True,
             ),
+        'actor_ids': fields.one2many(
+            'use_case.actor', 'collection_id',
+            'Actors'),
+        'version_tag_ids': fields.one2many(
+            'use_case.version_tag', 'collection_id',
+            'Version tags'),
         'create_date': fields.datetime(
             'Creation Date', readonly=True),
         'create_uid': fields.many2one(
@@ -156,3 +221,5 @@ class use_case_collection(osv.osv):
         }
 
 use_case_collection()
+
+

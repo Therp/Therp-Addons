@@ -2,3 +2,5 @@
 "access_use_case","Use cases","model_use_case","base.group_user",1,1,1,1
 "access_use_case_collection","Sets of use cases","model_use_case_collection","base.group_user",1,1,1,1
 "access_use_case_workload","Use case workload","model_use_case_workload","base.group_user",1,1,1,1
+"access_use_case_actor","Use case actor","model_use_case_actor","base.group_user",1,1,1,1
+"access_use_case_version_tag","Use case revision_tag","model_use_case_version_tag","base.group_user",1,1,1,1

@@ -7,22 +7,34 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form>
-                    <group col="6">
-                        <group colspan="4" col="4">
+                    <group colspan="4" col="3">
+                        <group colspan="2" col="4">
                             <field name="name"/>
                             <field name="partner_id"/>
                             <field name="create_date"/>
                             <field name="create_uid"/>
                         </group>
-                        <group colspan="2" col="2">
+                        <group colspan="1" col="1">
                             <field name="hours_total"/>
                             <field name="hours_total_nonoptional"/>
                             <field name="hours_total_optional"/>
                         </group>
                     </group>
-                    <group string="Use cases" colspan="4" col="2">
-                        <field name="use_case_ids" nolabel="1"/>
-                    </group>
+                    <notebook colspan="4">
+                        <page string="Use cases">
+                            <field name="res_id" invisible="1"/>
+                            <field name="use_case_ids"
+                                   mode="form,tree"
+                                   nolabel="1"
+                                   colspan="4"
+                                   context="{'default_collection_id': res_id}"/>
+                        </page>
+                        <page string="Additional info">
+                            <field name="version_tag_ids"/>
+                            <newline/>
+                            <field name="actor_ids"/>
+                        </page>
+                    </notebook>
                 </form>
             </field>
         </record>
@@ -46,18 +58,26 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form>
-                    <group col="5">
-                        <field name="name" colspan="4"/>
+                    <group colspan="4" col="6">
+                        <field name="name" colspan="3"/>
                         <field name="sequence" colspan="1"/>
+                        <field name="collection_id" invisible="1"/>
                     </group>
                     <group colspan="4" col="2">
-                        <field name="actor"/>
                         <field name="precondition"/>
                         <field name="description"/>
                         <field name="result"/>
                         <field name="exceptions"/>
                         <field name="implementation"/>
-                        <field name="workload_ids"/>
+                    </group>
+                    <group colspan="1" col="1" string="Actors">
+                        <field name="actor_ids"
+                               nolabel="1"
+                               domain="[('collection_id', '=', collection_id)]"
+                               context="{'default_collection_id': collection_id}"/>
+                    </group>
+                    <group colspan="3" col="3" string="Workload">
+                        <field name="workload_ids" nolabel="1"/>
                     </group>
                 </form>
             </field>
@@ -70,7 +90,6 @@
                 <tree>
                     <field name="sequence"/>
                     <field name="name"/>
-                    <field name="actor"/>
                 </tree>
             </field>
         </record>
@@ -84,6 +103,28 @@
                     <field name="name"/>
                     <field name="hours"/>
                     <field name="optional"/>
+                </tree>
+            </field>
+        </record>
+        <record id="use_case_actor_tree" model="ir.ui.view">
+            <field name="name">Use case actor tree</field>
+            <field name="model">use_case.actor</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="use_case_version_tag_tree" model="ir.ui.view">
+            <field name="name">Use case version tag tree</field>
+            <field name="model">use_case.version_tag</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="user"/>
+                    <field name="date"/>
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
