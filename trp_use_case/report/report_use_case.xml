@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="1">
+        <record id="report_use_case" model="ir.actions.report.xml">
+            <field name="name">Use cases</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">use_case.collection</field>
+            <field name="report_name">use_case</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-odt</field>
+            <field name="report_rml">trp_use_case/report/report_use_case.odt</field>
+            <field name="parser_state">default</field>
+            <field name="tml_source">file</field>
+        </record>
+
+        <ir_set>
+            <field eval="'action'" name="key"/>
+            <field eval="'client_print_multi'" name="key2"/>
+            <field eval="['use_case.collection']" name="models"/>
+            <field name="name">Use cases</field>
+            <field eval="'ir.actions.report.xml,'+str(report_use_case)" name="value"/>
+            <field eval="True" name="isobject"/>
+            <field eval="True" name="replace"/>
+        </ir_set>
+    </data>
+</openerp>
