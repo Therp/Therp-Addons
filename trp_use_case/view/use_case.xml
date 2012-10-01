@@ -24,12 +24,13 @@
                         <page string="Use cases">
                             <field name="res_id" invisible="1"/>
                             <field name="use_case_ids"
-                                   mode="form,tree"
+                                   mode="tree,form"
                                    nolabel="1"
                                    colspan="4"
                                    context="{'default_collection_id': res_id}"/>
                         </page>
                         <page string="Additional info">
+                            <field name="description" colspan="4"/>
                             <field name="version_tag_ids"/>
                             <newline/>
                             <field name="actor_ids"/>
@@ -139,5 +140,15 @@
                   name="Use cases"
                   action="action_use_case_collections"
                   />
+
+        <act_window
+            domain="[('collection_id', '=', active_id)]"
+            id="action_use_case_collection_open_use_cases"
+            name="Use cases"
+            res_model="use_case"
+            src_model="use_case.collection"
+            view_mode="tree,form"
+            view_type="form"/>
+
     </data>
 </openerp>

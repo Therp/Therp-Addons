@@ -192,6 +192,8 @@ class use_case_collection(osv.osv):
             'Name', size=128,
             required=True,
             ),
+        'description': fields.text(
+            'Description'),
         'partner_id': fields.many2one(
             'res.partner', 'Partner'),
         'use_case_ids': fields.one2many(

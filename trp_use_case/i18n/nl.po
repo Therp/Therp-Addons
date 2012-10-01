@@ -1,0 +1,26 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* trp_use_case
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: info@therp.nl\n"
+"POT-Creation-Date: 2012-09-20 12:48+0000\n"
+"PO-Revision-Date: 2012-09-20 12:48+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: trp_use_case
+#: report:use_case:0
+msgid "Page"
+msgstr "Pagina"
+
+#. module: trp_use_case
+#: report:use_case:0
+msgid "For"
+msgstr "Voor"
