@@ -22,5 +22,52 @@ msgstr "Pagina"
 
 #. module: trp_use_case
 #: report:use_case:0
+msgid "of"
+msgstr "van"
+
+#. module: trp_use_case
+#: report:use_case:0
+msgid "Hours"
+msgstr "uur"
+
+#. module: trp_use_case
+#: report:use_case:0
 msgid "For"
 msgstr "Voor"
+
+#. module: trp_use_case
+#: report:use_case:0
+msgid "Use cases"
+msgstr "Use-cases"
+
+#. module: trp_use_case
+#: report:use_case:0
+msgid "Revisions"
+msgstr "Revisies"
+
+#. module: trp_use_case
+#: report:use_case:0
+msgid "Introduction"
+msgstr "Introductie"
+
+#. module: trp_use_case
+#: report:use_case:0
+msgid "Total number of hours"
+msgstr "Totaal aantal uur"
+
+#. module: trp_use_case
+#: report:use_case:0
+msgid "of which"
+msgstr "waarvan"
+
+#. module: trp_use_case
+#: report:use_case:0
+msgid "optional"
+msgstr "optioneel"
+
+#. module: trp_use_case
+#: report:use_case:0
+msgid "Optional"
+msgstr "Optioneel"
+
+
