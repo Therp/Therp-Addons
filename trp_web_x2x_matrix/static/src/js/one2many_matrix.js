@@ -85,12 +85,24 @@ openerp.trp_web_x2x_matrix=function(openerp)
                                     $new_row.appendTo(self.$current);
                                     $new_row.change(function()
                                         {
-                                            self.view.o2m.view.fields[self.view.o2m.name].dirty=true;
-                                            self.view.o2m.view.on_form_changed();
-                                            self.view.o2m.view.do_notify_change();
+                                            self.edition=true;
+                                            self.edition_id=rowobj.datarecord.id;
+                                            self.dataset.index=index;
+                                            self.edition_form=rowobj;
+                                            self.save_row();
+
                                         });
                                 });
                         });
+                },
+                cancel_pending_edition: function ()
+                {
+                    var cancelled=$.when();
+                    if (this.edition_id)
+                    {
+                        cancelled = this.reload_record(this.records.get(this.edition_id));
+                    }
+                    return cancelled;
                 }
             });
 }
