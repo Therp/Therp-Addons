@@ -19,14 +19,6 @@ openerp.trp_web_x2x_matrix=function(openerp)
                             view.options.pager=false;
                             view.options.action_buttons=false;
                         });
-                },
-                get_value: function()
-                {
-                    jQuery.each(this.viewmanager.views[this.viewmanager.active_view].controller.widget_children, function(index, rowobj)
-                            {
-                                rowobj.do_save();
-                            });
-                    return this._super.apply(this, arguments);
                 }
             });
     openerp.trp_web_x2x_matrix.One2ManyMatrixView=openerp.web.form.One2ManyListView.extend(
