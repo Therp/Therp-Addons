@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+        <data noupdate="1">
+        <record
+            id="param_public_keyfile"
+            model="ir.config_parameter">
+            <field name="key">trp_backup.publickeyfile</field>
+            <field name="value">fill in the full path to your *public* key file here
+you can generate a key pair using
+openssl req -x509 -nodes -days 100000 -newkey rsa:2048  -keyout privatekey.pem  -out publickey.pem  -subj '/'</field>
+        </record>
+        <record
+            id="param_backup_directory"
+            model="ir.config_parameter">
+            <field name="key">trp_backup.backupdirectory</field>
+            <field name="value">fill in the full path of the directory to backup to</field>
+        </record>
+        </data>
+</openerp>

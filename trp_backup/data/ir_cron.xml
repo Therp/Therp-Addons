@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+        <data noupdate="1">
+        <record
+            id="backup_cronjob"
+            model="ir.cron">
+            <field name="model">trp_backup.wizard</field>
+            <field name="function">do_backup_cron</field>
+            <field name="interval_type">days</field>
+            <field name="user_id">1</field>
+            <field name="name">Cronjob for daily backup</field>
+            <field name="args">()</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="false" />
+        </record>
+        </data>
+</openerp>

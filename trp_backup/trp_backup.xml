@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+        <data>
+        <record
+            id="form_backup_wizard"
+            model="ir.ui.view">
+            <field name="type">form</field>
+            <field name="model">trp_backup.wizard</field>
+            <field name="arch" type="xml">
+                <form col="2">
+                    <field name="messages" nolabel="1" colspan="2"/>
+                    <button string="Cancel" special="cancel" icon="gtk-cancel" />
+                    <button string="Do backup" type="object" name="do_backup_wizard" icon="gtk-go-forward" />
+                </form>
+            </field>
+        </record>
+        <record
+            id="action_backup_wizard"
+            model="ir.actions.act_window">
+            <field name="res_model">trp_backup.wizard</field>
+            <field name="name">Backup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            id="menu_backup_wizard"
+            name="Backup"
+            action="action_backup_wizard"
+            parent="base.menu_administration"
+            sequence="990" />
+        </data>
+</openerp>
