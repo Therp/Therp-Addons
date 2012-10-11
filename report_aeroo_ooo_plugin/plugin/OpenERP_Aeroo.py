@@ -48,6 +48,7 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
     """
 
     def __init__(self, ctx):
+        super(Merge, self).__init__(ctx)
         try:
             self.__init_wrapped__(ctx)
         except Exception, e:
