@@ -192,8 +192,17 @@ class saved_selection(osv.osv):
             model = self.pool.get('ir.model').read(
                 cr, uid, selection['model_id'][0], ['model'], context
                 )['model']
-            ids = (selection['ids'] and
-                   [int(x) for x in selection['ids'].split(',')] or [])
+
+            domain = [('id', 'in', (
+                        selection['ids'] and
+                        [int(x) for x in selection['ids'].split(',')] or []))]
+
+            search_context = context and context.copy() or {}
+            search_context['active_test'] = False
+
+            ids = self.pool.get(model).search(
+                cr, uid, domain, limit=0, context=search_context)
+
             res = (model, ids)
         return res
         
