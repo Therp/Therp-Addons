@@ -1,0 +1,53 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * trp_web_click2call
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-11 19:27+0000\n"
+"PO-Revision-Date: 2012-10-11 19:27+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: trp_web_click2call
+#: view:res.users:0
+msgid "PBX"
+msgstr "PBX"
+
+#. module: trp_web_click2call
+#: code:addons/trp_web_click2call/model/click2call.py:58
+#, python-format
+msgid "Geen doorkiesnummer ingevuld in uw gebruikersinstellingen"
+msgstr "No extension defined in your user preferences"
+
+#. module: trp_web_click2call
+#: code:addons/trp_web_click2call/model/click2call.py:62
+#: code:addons/trp_web_click2call/model/click2call.py:66
+#, python-format
+msgid "Could not retrieve the company's PBX shortname"
+msgstr "Could not retrieve the company's PBX shortname"
+
+#. module: trp_web_click2call
+#: code:addons/trp_web_click2call/model/click2call.py:57
+#: code:addons/trp_web_click2call/model/click2call.py:61
+#: code:addons/trp_web_click2call/model/click2call.py:65
+#: code:addons/trp_web_click2call/model/click2call.py:78
+#, python-format
+msgid "Error"
+msgstr "Fout"
+
+#. module: trp_web_click2call
+#: view:res.company:0
+msgid "Astium PBX"
+msgstr "Astium PBX"
+
+#. module: trp_web_click2call
+#: model:ir.model,name:trp_web_click2call.model_click2call_click2call
+msgid "Click2call"
+msgstr "Click2call"

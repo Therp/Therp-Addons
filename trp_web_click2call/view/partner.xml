@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_address_form1" model="ir.ui.view">
+            <field name="name">Add click2call widget to address phone fields (1)</field>
+            <field name="model">res.partner.address</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_partner_address_form1"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="attributes">
+                    <attribute name="widget">click2call</attribute>
+                    <attribute name="context">{'partner_id': partner_id}</attribute>
+                </field>
+                <field name="mobile" position="attributes">
+                    <attribute name="widget">click2call</attribute>
+                    <attribute name="context">{'partner_id': partner_id}</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="view_partner_address_form2" model="ir.ui.view">
+            <field name="name">Add click2call widget to address phone fields (2)</field>
+            <field name="model">res.partner.address</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_partner_address_form2"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="attributes">
+                    <attribute name="widget">click2call</attribute>
+                    <attribute name="context">{'partner_id': parent.id}</attribute>
+                </field>
+                <field name="mobile" position="attributes">
+                    <attribute name="widget">click2call</attribute>
+                    <attribute name="context">{'partner_id': parent.id}</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">Add click2call widget to partner phone fields</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='address']/form//field[@name='phone']" position="attributes">
+                    <attribute name="widget">click2call</attribute>
+                    <attribute name="context">{'partner_id': parent.id}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='address']/form//field[@name='mobile']" position="attributes">
+                    <attribute name="widget">click2call</attribute>
+                    <attribute name="context">{'partner_id': parent.id}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

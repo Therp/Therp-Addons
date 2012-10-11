@@ -1,0 +1,19 @@
+/* copy of styles from web addon */
+.openerp .oe_form_readonly .field_click2call {
+    padding: 3px 2px 2px 2px;
+    background-color: white;
+    min-height: 17px;
+}
+.openerp .oe_form_readonly .oe_form_field_click2call div  {
+    background-color: white;
+    padding: 1px 2px 3px 2px;
+}
+.openerp .oe_forms input.field_click2call {
+    border-right: none;                                                         
+    -webkit-border-top-right-radius: 0px;                                       
+    -webkit-border-bottom-right-radius: 0px;                                    
+    -moz-border-radius-topright: 0px;                                           
+    -moz-border-radius-bottomright: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}

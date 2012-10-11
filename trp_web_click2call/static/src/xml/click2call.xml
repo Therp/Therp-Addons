@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+<t t-name="click2call">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td width="100%">
+            <t t-call="FieldChar"/>
+        </td>
+        <td width="16">
+            <button class="oe_button oe_field_button" type="button" title="Call with click2call">
+                <img t-att-src='_s + "/web/static/src/img/icons/terp-call-start.png"'/>
+            </button>
+        </td>
+    </tr>
+    </table>
+</t>
+<t t-name="click2call.readonly">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td width="100%">
+            <t t-call="FieldChar.readonly"/>
+        </td>
+        <td width="16">
+            <button class="oe_button oe_field_button" type="button" title="Call with click2call">
+                <img t-att-src='_s + "/web/static/src/img/icons/terp-call-start.png"'/>
+            </button>
+        </td>
+    </tr>
+    </table>
+</t>
+</templates>
