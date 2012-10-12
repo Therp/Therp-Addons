@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2011-2012 Therp BV (<http://therp.nl>) Tiny SPRL (<http://tiny.be>))
+#    This module copyright (C) 2011-2012 Therp BV (<http://therp.nl>)
 #    All Rights Reserved
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -58,6 +58,8 @@ class trp_backup_wizard(TransientModel):
                     messages+=_('There was an error during transfer:')+'\n'
                     messages+=(output[0]+'\n') if output[0] else ''
                     messages+=(output[1]+'\n') if output[1] else ''
+                    if rsync_process.returncode not in [23,30,35]:
+                        run_transfer=False
                     
                 self._logger.info(messages)
         else:

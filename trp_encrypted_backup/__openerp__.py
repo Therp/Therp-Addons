@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2011-2012 Therp BV (<http://therp.nl>) Tiny SPRL (<http://tiny.be>))
+#    This module copyright (C) 2011-2012 Therp BV (<http://therp.nl>)
 #    All Rights Reserved
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -23,20 +23,26 @@
 {
     'name': 'backup',
     'version': '1.0',
-    'description': """Allows you to copy your backup to a server supported by rsync
-    Before being able to use it, fill in trp_backup_rsync.host via Settings->
+    'description': """Creates crypted backups of the database which can securely
+    be placed on public servers.
+
+    After installation, you need to do some initial configuration in Settings->
     Customization -> Low level objects -> System parameters.
+    Fill in the path to your public key file in trp_backup.publickeyfile and the
+    directory where your backups are to be places in trp_backup.backupdirectory
 
-    This can be any host string supported by rsync, ie [USER@]HOST:DEST
+    Your keypair can be created by running
+    openssl req -x509 -nodes -days 100000 -newkey rsa:2048  -keyout privatekey.pem  -out publickey.pem  -subj '/'
 
-    Note that the transfer will be restarted until it succeeds, so misconfiguration
-    can lead to a dead lock.
+    To restore a backup, run
+    openssl smime -decrypt -binary -inform DEM -in [backup file] -inkey privatekey.pem | pg_restore --clean --dbname=[database name]
     """,
     'author': 'Therp BV',
     'website': 'http://www.therp.nl',
     "category": "Tools",
-    "depends": ['trp_backup'],
-    'init_xml': ['data/ir_config_parameter.xml'],
+    "depends": [],
+    'init_xml': ['data/ir_config_parameter.xml', 'data/ir_cron.xml'],
+    'update_xml': ['trp_encrypted_backup.xml'],
     'installable': True,
     'active': False,
     'certificate': '',

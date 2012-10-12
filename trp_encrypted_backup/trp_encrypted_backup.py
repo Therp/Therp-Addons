@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2011-2012 Therp BV (<http://therp.nl>) Tiny SPRL (<http://tiny.be>))
+#    This module copyright (C) 2011-2012 Therp BV (<http://therp.nl>)
 #    All Rights Reserved
 #
 #    This program is free software: you can redistribute it and/or modify
