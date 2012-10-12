@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+        <data noupdate="1">
+        <record
+            id="param_rsync_host"
+            model="ir.config_parameter">
+            <field name="key">trp_backup_rsync.host</field>
+            <field name="value">fill in the host string for your destination</field>
+        </record>
+        </data>
+</openerp>
