@@ -11,7 +11,9 @@
             <field name="name">Cronjob for daily backup</field>
             <field name="args">()</field>
             <field name="numbercall">-1</field>
-            <field name="active" eval="false" />
+            <field name="active" eval="False" />
+            <field name="doall" eval="False" />
+            <field name="nextcall">2000-01-01 00:30:00</field>
         </record>
         </data>
 </openerp>
