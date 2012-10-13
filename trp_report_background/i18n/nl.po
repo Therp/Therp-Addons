@@ -1,0 +1,86 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* trp_report_background
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-13 14:01+0000\n"
+"PO-Revision-Date: 2012-10-13 14:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: trp_report_background
+#: field:account.invoice,report_background_id:0
+#: model:ir.model,name:trp_report_background.model_report_background
+msgid "Report background"
+msgstr "Achtergrond op afdruk"
+
+#. module: trp_report_background
+#: field:report.background,image:0
+msgid "Image"
+msgstr "Afbeelding"
+
+#. module: trp_report_background
+#: code:addons/trp_report_background/model/report_background_config.py:61
+#, python-format
+msgid "No rml content found in report %s"
+msgstr "Geen rml inhoud gevonden in rapport %s"
+
+#. module: trp_report_background
+#: model:ir.ui.menu,name:trp_report_background.menu_report_background_config
+msgid "Background configurations"
+msgstr "Achtergrondconfiguraties"
+
+#. module: trp_report_background
+#: help:report.background,company_id:0
+msgid "Optionally, restrict usage of this background to the object's company"
+msgstr "Optioneel kan het gebruik van deze achtergrond worden voorbehouden voor dit bedrijf"
+
+#. module: trp_report_background
+#: model:ir.model,name:trp_report_background.model_report_background_config
+msgid "Report background configuration"
+msgstr "Rapportage-achtergrondconfiguratie"
+
+#. module: trp_report_background
+#: field:report.background.config,report_id:0
+msgid "XML Report"
+msgstr "XML Rapport"
+
+#. module: trp_report_background
+#: model:ir.actions.act_window,help:trp_report_background.action_report_background_config
+msgid "Here you can actually insert the necessary RML tag into the report RML. This will remove any existing image tags in the page template header. Note that this cannot be undone automatically. Make sure that the RML files are writeable by the user that the OpenERP instsance runs as. Note that you will still may to adapt the frame's margins manually to adapt to the printable space that the backgrounds define."
+msgstr "Hier kun je de noodzakelijke RML-tag in het rapport invoegen. Hiermee worden bestaande image-tags verwijderd uit de header van het paginatemplate. Merk op dat deze actie niet automatisch ongedaan kan worden gemaakt. De RML-bestanden moeten schrijfbaar zijn voor de gebruiker waaronder de OpenERP-server draait. Je moet waarschijnlijk zelf nog wel de marges van het rapport in de RML aanpassen aan de ruimte die het achtergrondbestand voorschrijft."
+
+#. module: trp_report_background
+#: view:report.background.config:0
+msgid "Insert RML tags"
+msgstr "RML-tags invoegen"
+
+#. module: trp_report_background
+#: code:addons/trp_report_background/model/report_background_config.py:60
+#, python-format
+msgid "Error"
+msgstr "Fout"
+
+#. module: trp_report_background
+#: model:ir.ui.menu,name:trp_report_background.menu_report_background
+msgid "Report backgrounds"
+msgstr "Rapportageachtergrond"
+
+#. module: trp_report_background
+#: field:report.background,company_id:0
+msgid "Company"
+msgstr "Bedrijf"
+
+#. module: trp_report_background
+#: field:report.background,name:0
+#: field:report.background.config,name:0
+msgid "Name"
+msgstr "Naam"
+
