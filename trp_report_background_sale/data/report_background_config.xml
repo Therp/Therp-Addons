@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="report_background_sale" model="report.background.config">
+            <field name="name">Sale Order</field>
+            <field name="report_id" ref="sale.report_sale_order"/>
+        </record>
+    </data>
+</openerp>
+
