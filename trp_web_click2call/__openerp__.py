@@ -52,5 +52,4 @@ that the phone number belongs to.
         'urllib',
         'urllib2',
         ],
-    'active': True,
 }
