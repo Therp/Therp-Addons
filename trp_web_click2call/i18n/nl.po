@@ -21,6 +21,16 @@ msgid "PBX"
 msgstr "PBX"
 
 #. module: trp_web_click2call
+#: field:res.company,pbx_shortname:0
+msgid "PBX shortname"
+msgstr "PBX shortname"
+
+#. module: trp_web_click2call
+#: field:res.users,phone_extension:0
+msgid "Extension"
+msgstr "Doorkiesnummer"
+
+#. module: trp_web_click2call
 #: code:addons/trp_web_click2call/model/click2call.py:58
 #, python-format
 msgid "Geen doorkiesnummer ingevuld in uw gebruikersinstellingen"
