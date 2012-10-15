@@ -68,7 +68,10 @@ openerp.trp_web_x2x_matrix=function(openerp)
                             var rowobj=_.extend(new openerp.web.ListEditableFormView(self.view, self.dataset, false), {
                                                     form_template: 'ListView.row.form',
                                                     registry: openerp.web.list.form.widgets,
-                                                    $element: $new_row
+                                                    $element: $new_row,
+                                                    reload: function() {
+                                                        //doing nothing
+                                                    }
                                                 })
                             jQuery.when(rowobj.on_loaded(self.get_form_fields_view())).then(function()
                                 {
