@@ -5,7 +5,7 @@ openerp.trp_web_x2x_matrix=function(openerp)
             {
                 load_views: function()
                 {
-                    this._super.apply(this, arguments);
+                    var deferred=this._super.apply(this, arguments);
                     this.viewmanager.registry=this.viewmanager.registry.extend({
                                     list: 'openerp.trp_web_x2x_matrix.One2ManyMatrixView',
                                 });
@@ -19,6 +19,7 @@ openerp.trp_web_x2x_matrix=function(openerp)
                             view.options.pager=false;
                             view.options.action_buttons=false;
                         });
+                    return deferred;
                 }
             });
     openerp.trp_web_x2x_matrix.One2ManyMatrixView=openerp.web.form.One2ManyListView.extend(
@@ -37,20 +38,10 @@ openerp.trp_web_x2x_matrix=function(openerp)
                 },
                 render: function ()
                 {
-                    var find_active_view=function(widget)
-                    {
-                        if(typeof(widget.active_view)=='undefined' || widget.active_view=='list')
-                        {
-                            return find_active_view(widget.widget_parent);
-                        }
-                        return widget.active_view;                  
-                    }
-                    //TODO: there must be a better way to find out if we're in edit mode or not
-                    if(find_active_view(this.view)!='form')
+                    if (this.view.o2m.readonly || this.view.o2m.view.widget_parent.active_view!='form')
                     {
                         return this._super.apply(this, arguments);
                     }
-                    var self = this;
                     if (this.$current) 
                     {
                         this.$current.remove();
