@@ -61,3 +61,10 @@ msgstr "Astium PBX"
 #: model:ir.model,name:trp_web_click2call.model_click2call_click2call
 msgid "Click2call"
 msgstr "Click2call"
+
+#. module: trp_web_click2call
+#: code:addons/trp_web_click2call/model/click2call.py:49
+#: constraint:res.users:0
+#, python-format
+msgid "Phone numbers can only contain the following characters: 01234567890+-"
+msgstr "Telefoonnummers mogen alleen bestaan uit de volgende lettertekens: 01234567890+-"

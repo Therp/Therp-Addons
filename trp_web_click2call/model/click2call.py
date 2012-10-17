@@ -19,15 +19,37 @@
 #
 ##############################################################################
 
+import re
 import urllib, urllib2
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
 
 class res_users(osv.osv):
     _inherit = 'res.users'
+    
+    def __init__(self, pool, cr):
+        super(res_users, self).__init__(pool, cr)
+        self.SELF_WRITEABLE_FIELDS.append('phone_extension')
+
     _columns = {
         'phone_extension': fields.char('Extension', size=12),
         }
+    
+    def _check_phone(self, cr, uid, ids, context=None):
+        users = self.read(
+            cr, uid, ids, ['phone_extension'], context=context)
+        for user in users:
+            if (user['phone_extension'] and not
+                re.match('^[\d+-]*$', user['phone_extension'])):
+                return False
+        return True
+
+    _constraints = [
+        (_check_phone,
+         _('Phone numbers can only contain the following characters: '
+           '01234567890+-'), ['phone_extension']),
+        ]
+
 
 class res_company(osv.osv):
     _inherit = 'res.company'
