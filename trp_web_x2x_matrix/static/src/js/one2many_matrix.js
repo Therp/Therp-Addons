@@ -40,6 +40,7 @@ openerp.trp_web_x2x_matrix=function(openerp)
                 {
                     if (this.view.o2m.readonly || this.view.o2m.view.widget_parent.active_view!='form')
                     {
+                        this.options.editable=false;
                         return this._super.apply(this, arguments);
                     }
                     if (this.$current) 
