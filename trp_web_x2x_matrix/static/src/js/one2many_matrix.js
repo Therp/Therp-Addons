@@ -53,7 +53,7 @@ openerp.trp_web_x2x_matrix=function(openerp)
                         {
                             var $new_row=jQuery('<tr>', {
                                                         id: _.uniqueId('oe-editable-row-'),
-                                                        'data-id': record['id'],
+                                                        'data-id': record.attributes['id'],
                                                         'class': ' oe_forms',
                                                         click: function (e) {e.stopPropagation();}});
                             self.dataset.index=index;
