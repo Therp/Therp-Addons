@@ -95,7 +95,6 @@ class use_case(osv.osv):
         return result
 
     def _get_number(self, cr, uid, ids, *args, **kwargs):
-        print "_get_number called with %s" % ids
         """
         Retrieve the sequential number of the use case
         within the use case set
