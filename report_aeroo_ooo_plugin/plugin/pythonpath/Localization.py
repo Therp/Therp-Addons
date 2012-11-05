@@ -31,7 +31,7 @@ def typednamedvalues( type, *args, **kwargs ):
 def props( *args, **kwargs ):
     return typednamedvalues( 'com.sun.star.beans.PropertyValue', *args, **kwargs )
 
-class LocalizedObject(object, unohelper.Base):
+class LocalizedObject(unohelper.Base):
     def initpath( self ):
         path = self.config.Origin
         expander = self.ctx.getValueByName( '/singletons/com.sun.star.util.theMacroExpander' )
