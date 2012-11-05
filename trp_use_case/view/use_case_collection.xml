@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="use_case_collection_form" model="ir.ui.view">
+            <field name="name">Use case collection form</field>
+            <field name="model">use_case.collection</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group colspan="4" col="3">
+                        <group colspan="2" col="4">
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="create_date"/>
+                            <field name="create_uid"/>
+                        </group>
+                        <group colspan="1" col="2">
+                            <field name="hours_total"/>
+                            <field name="hours_total_nonoptional"/>
+                            <field name="hours_total_optional"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Use cases">
+                            <field name="res_id" invisible="1"/>
+                            <field name="use_case_ids"
+                                   mode="tree,form"
+                                   nolabel="1"
+                                   colspan="4"
+                                   context="{
+                                            'form_view_ref': 'trp_use_case.use_case_inline_form',
+                                            'tree_view_ref': 'trp_use_case.use_case_inline_tree'
+                                            }"/>
+                        </page>
+                        <page string="Additional info">
+                            <field name="description" colspan="4"/>
+                            <field name="version_tag_ids"/>
+                            <newline/>
+                            <field name="actor_ids"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record id="use_case_collection_tree" model="ir.ui.view">
+            <field name="name">Use case collection tree</field>
+            <field name="model">use_case.collection</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="hours_total"/>
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
+                </tree>
+            </field>
+        </record>
+        <record id="use_case_workload_tree" model="ir.ui.view">
+            <field name="name">Use case workload tree</field>
+            <field name="model">use_case.workload</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="hours"/>
+                    <field name="optional"/>
+                </tree>
+            </field>
+        </record>
+        <record id="use_case_actor_tree" model="ir.ui.view">
+            <field name="name">Use case actor tree</field>
+            <field name="model">use_case.actor</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="use_case_version_tag_tree" model="ir.ui.view">
+            <field name="name">Use case version tag tree</field>
+            <field name="model">use_case.version_tag</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="user"/>
+                    <field name="date"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_use_case_collections"
+                model="ir.actions.act_window">
+            <field name="name">Set of use cases</field>
+            <field name="res_model">use_case.collection</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_use_cases"
+                model="ir.actions.act_window">
+            <field name="name">Use cases</field>
+            <field name="res_model">use_case</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'active_test': False}</field>
+        </record>
+        <menuitem id="menu_use_case_main"
+                  name="Use cases"
+                  action="action_use_case_collections"
+                  />
+        <menuitem id="menu_use_case_collections"
+                  name="Sets of use cases"
+                  sequence="1"
+                  parent="menu_use_case_main"
+                  action="action_use_case_collections"
+                  />
+        <menuitem id="menu_use_cases"
+                  name="Use cases"
+                  parent="menu_use_case_main"
+                  action="action_use_cases"
+                  />
+
+        <act_window
+            domain="[('collection_id', '=', active_id)]"
+            id="action_use_case_collection_open_use_cases"
+            name="Use cases"
+            res_model="use_case"
+            src_model="use_case.collection"
+            view_mode="tree,form"
+            context="{
+                     'active_test': False,
+                     'default_collection_id': active_id,
+                     }"
+            view_type="form"/>
+
+    </data>
+</openerp>

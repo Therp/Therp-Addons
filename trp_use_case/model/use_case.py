@@ -77,9 +77,59 @@ class use_case(osv.osv):
     _description = 'Use Case'
     _order = 'collection_id, sequence'
 
+    def _get_use_case_hours(
+        self, cr, uid, ids, field, args, context=None):
+        result = {}
+        for use_case in self.browse(cr, uid, ids, context=context):
+            result[use_case.id] = {
+                'hours': 0.0,
+                'hours_optional': 0.0,
+                }
+            for workload in use_case.workload_ids:
+                result[use_case.id]['hours'] += workload.hours
+                if workload.optional:
+                    result[use_case.id]['hours_optional'] += workload.hours
+            result[use_case.id]['hours_nonoptional'] = (
+                result[use_case.id]['hours'] -
+                result[use_case.id]['hours_optional'])
+        return result
+
+    def _get_number(self, cr, uid, ids, *args, **kwargs):
+        print "_get_number called with %s" % ids
+        """
+        Retrieve the sequential number of the use case
+        within the use case set
+        """
+        res = dict([(x, 0) for x in ids])
+        cr.execute("""
+            SELECT
+                id,
+                (
+                    SELECT COUNT(*)
+                    FROM use_case
+                    WHERE
+                        collection_id = uc.collection_id
+                        AND active = true
+                        AND sequence <= uc.sequence
+                )
+            FROM use_case AS uc
+            WHERE
+            id in %s
+            AND active = true
+            ORDER BY collection_id, sequence
+        """, (tuple(ids),))
+        res.update(dict(cr.fetchall()))
+        return res
+
     _columns = {
+        'active': fields.boolean(
+            'Active'),
         'sequence': fields.integer(
             'Sequence',
+            ),
+        'number': fields.function(
+            _get_number, type='integer',
+            string='Number',
             ),
         'name': fields.char(
             'Name', size=128,
@@ -111,9 +161,19 @@ class use_case(osv.osv):
             'use_case.collection', 'Use case set',
             required=True,
             ),
+        'hours': fields.function(
+            _get_use_case_hours, multi="hours", method=True,
+            string="Nr. of hours"),
+        'hours_optional': fields.function(
+            _get_use_case_hours, multi="hours", method=True,
+            string="Nr. of optional hours"),
+        'hours_nonoptional': fields.function(
+            _get_use_case_hours, multi="hours", method=True,
+            string="Nr. of non-optional hours"),
         }
 
     _defaults = {
+        'active': True,
         'sequence': 10,
         }
 
@@ -161,10 +221,9 @@ class use_case_collection(osv.osv):
                 'hours_total_optional': 0.0,
                 }
             for use_case in collection.use_case_ids:
-                for workload in use_case.workload_ids:
-                    result[collection.id]['hours_total'] += workload.hours
-                    if workload.optional:
-                        result[collection.id]['hours_total_optional'] += workload.hours
+                if use_case.active:
+                    result[collection.id]['hours_total'] += use_case.hours
+                    result[collection.id]['hours_total_optional'] += use_case.hours_optional
             result[collection.id]['hours_total_nonoptional'] = (
                 result[collection.id]['hours_total'] -
                 result[collection.id]['hours_total_optional'])
@@ -200,6 +259,7 @@ class use_case_collection(osv.osv):
             'use_case', 'collection_id',
             'Use cases',
             required=True,
+            context={'active_test': False},
             ),
         'actor_ids': fields.one2many(
             'use_case.actor', 'collection_id',

@@ -33,6 +33,8 @@ which is included in this module.
     'depends': ['base', 'report_aeroo'],
     'data': [
         'view/use_case.xml',
+        'view/use_case_inline.xml',
+        'view/use_case_collection.xml',
         'report/report_use_case.xml',
         'security/ir.model.access.csv',
     ],
