@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="report_background_form" model="ir.ui.view">
+            <field name="name">Report background form view</field>
+            <field name="model">report.background</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="name"/>
+                    <field name="company_id" widget="selection"/>
+                    <newline/>
+                    <field name="image" widget="image"/>
+                </form>
+            </field>
+        </record>
+        <record id="report_background_tree" model="ir.ui.view">
+            <field name="name">Report background tree view</field>
+            <field name="model">report.background</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_report_background" model="ir.actions.act_window">
+            <field name="name">Report background action</field>
+	    <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.background</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Report backgrounds"
+            id="menu_report_background"
+            parent="base.reporting_menu"
+            action="action_report_background"
+            sequence="99"/>
+    </data>
+</openerp>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">Add report background to sale order form</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <page string="Other Information" position="inside">
+                    <field name="report_background_id"
+                           domain="[('company_id', 'in', [False, company_id])]"
+                           />
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

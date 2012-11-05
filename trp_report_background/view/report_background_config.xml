@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="report_background_config_form" model="ir.ui.view">
+            <field name="name">report background config form view</field>
+            <field name="model">report.background.config</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="name"/>
+                    <field name="report_id"/>
+                    <button name="insert" string="Insert RML tags" type="object"/>
+                </form>
+            </field>
+        </record>
+        <record id="report_background_config_tree" model="ir.ui.view">
+            <field name="name">report background config tree view</field>
+            <field name="model">report.background.config</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="report_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_report_background_config" model="ir.actions.act_window">
+            <field name="name">report background config action</field>
+	    <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.background.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Here you can actually insert the necessary RML tag into the report RML. This will remove any existing image tags in the page template header. Note that this cannot be undone automatically. Make sure that the RML files are writeable by the user that the OpenERP instsance runs as. Note that you will still may to adapt the frame's margins manually to adapt to the printable space that the backgrounds define.</field>
+        </record>
+
+        <menuitem name="Background configurations"
+            id="menu_report_background_config"
+            parent="base.reporting_menu"
+            action="action_report_background_config"
+            sequence="100"/>
+    </data>
+</openerp>

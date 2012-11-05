@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_report_background_read","All users can read report backgrounds","model_report_background","base.group_user",1,0,0,0
+"access_report_background_write","System configuration users can manage report backgrounds","model_report_background","base.group_system",1,1,1,1
+"access_report_background_config","System configuration users can use report background configurations","model_report_background_config","base.group_system",1,0,0,0
