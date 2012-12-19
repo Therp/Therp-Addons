@@ -58,6 +58,8 @@ class CompanyLDAP(osv.osv):
 
   def get_or_create_user(self, cr, uid, conf, login, ldap_entry, context=None):
     user_id=super(CompanyLDAP, self).get_or_create_user(cr, uid, conf, login, ldap_entry, context)
+    if not user_id:
+        return user_id
     logger=logging.getLogger('users_ldap_groups')
     mappingobj=self.pool.get('res.company.ldap.group_mapping')
     userobj=self.pool.get('res.users')
