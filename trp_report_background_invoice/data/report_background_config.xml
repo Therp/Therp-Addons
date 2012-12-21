@@ -2,8 +2,8 @@
 <openerp>
     <data>
         <record id="report_background_invoice" model="report.background.config">
-            <field name="name">Invoice Print</field>
-            <field name="report_id" ref="account.account_invoices"/>
+            <field name="name">Invoice w/ background</field>
+            <field name="report_id" ref="account_invoice_background"/>
         </record>
     </data>
 </openerp>

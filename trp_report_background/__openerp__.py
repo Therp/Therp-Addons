@@ -26,8 +26,12 @@
     'complexity': "normal",
     "description": """
 
-This module allows you to select a background image for various reports. Included in this module
-is the configuration for the invoice report (on the Other Info tab).
+This module allows you to select a background image for various reports. In order to use
+these, you will need to install the configuration module for the module you want to use,
+such as 
+
+    trp_report_background_invoice
+    trp_report_background_sale
 
 You can add a selection of background images, and optionally associate them with a company.
 Most likely, you will want to set a default background image per company.
@@ -48,8 +52,6 @@ trp_report_background_sale for example.
     'data': [
         'view/report_background.xml',
         'view/report_background_config.xml',
-        'view/account.xml',
-        'data/report_background_config.xml',
         'security/ir.model.access.csv',
         ],
 }
