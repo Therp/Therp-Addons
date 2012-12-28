@@ -41,4 +41,5 @@ This is a web addon for OpenERP 6.1
     'web': True,
     'active': False,
     'web_preload': False,
+    'installable': False,
 }

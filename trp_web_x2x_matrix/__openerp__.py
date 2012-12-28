@@ -34,7 +34,7 @@
     "category": "Tools",
     "depends": ['web'],
     'js': ['static/src/js/one2many_matrix.js'],
-    'installable': True,
+    'installable': False,
     'active': False,
     'certificate': '',
 }

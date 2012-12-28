@@ -42,4 +42,5 @@ functionality of all databases of that instance.
     'images': [
         'images/export_exclude.png',
         ],
+    'installable': False,
 }

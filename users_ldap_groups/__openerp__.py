@@ -54,7 +54,7 @@ Input wanted:
 'security/ir.model.access.csv',
 ],
 "auto_install": False,
-"installable": True,
+"installable": False,
 "external_dependencies" : {
 'python' : ['ldap'],
 },

@@ -58,4 +58,5 @@ This module is compatible with OpenERP 6.1.
     'data': [
         'view/get_plugin.xml',
     ],
+    'installable': False,
 }

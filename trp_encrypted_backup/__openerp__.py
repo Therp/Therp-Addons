@@ -43,7 +43,7 @@
     "depends": [],
     'init_xml': ['data/ir_config_parameter.xml', 'data/ir_cron.xml'],
     'update_xml': ['trp_encrypted_backup.xml'],
-    'installable': True,
+    'installable': False,
     'active': False,
     'certificate': '',
 }

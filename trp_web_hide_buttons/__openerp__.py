@@ -19,6 +19,6 @@ ir.actions.act_window:
     'init_xml': [],
     'update_xml': [],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'js': ['static/src/js/trp_web_hide_buttons.js'],
     }
