@@ -19,7 +19,12 @@
 #
 ##############################################################################
 
-import wiz_set_filter_fields
+# Disabled this import while gearing up a branch for 7.0
+# as OpenERP tries to import the old wizard interface
+# even if the module is not installed or installable
+#
+# import wiz_set_filter_fields
+
 import report_menu_create
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
