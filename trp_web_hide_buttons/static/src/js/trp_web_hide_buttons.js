@@ -32,4 +32,26 @@ openerp.trp_web_hide_buttons = function (openerp) {
         }
     });
 
+    openerp.web.FormView.include({
+
+        on_loaded : function (record) {
+            var result, context;
+            result = this._super.apply(this, arguments);
+            context = this.dataset.get_context();
+            if (context) {
+                if (context.nocreate) {
+                    this.$element.find('.oe_form_button_create')
+                        .attr('disabled', true).hide();
+                    this.$element.find('.oe_form_button_duplicate')
+                        .attr('disabled', true).hide();
+                }
+                if (context.nodelete) {
+                    this.$element.find('.oe_form_button_delete')
+                        .attr('disabled', true).hide();
+                }
+            }
+            return result;
+        }
+    });
+
 };
