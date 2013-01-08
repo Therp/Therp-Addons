@@ -92,9 +92,6 @@ class report_background_config(osv.osv):
             @tree: etree parsed xml structure
             """
             imagenode = ElementTree.fromstring(IMAGETAG)
-            for node in tree.findall(
-                './template/pageTemplate/pageGraphics/image'):
-                tree.remove(node)
             for template in tree.findall(
                 './template/pageTemplate'):
                 pagegraphics = template.find(
@@ -102,6 +99,9 @@ class report_background_config(osv.osv):
                 if not pagegraphics:
                     pagegraphics = ElementTree.SubElement(
                         template, 'pageGraphics')
+                for node in pagegraphics.findall('./image'):
+                    # remove any existing image tags
+                    pagegraphics.remove(node)
                 pagegraphics.append(imagenode)
 
         report_ids = [x['report_id'][0] for x in self.read(
