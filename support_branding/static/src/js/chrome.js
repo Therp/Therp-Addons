@@ -31,7 +31,7 @@ openerp.support_branding = function(openerp) {
                 return this._super(error);
             }
             var dialog = new openerp.web.Dialog(this, {
-                title: "OpenERP " + _.str.capitalize(this.error.type),
+                title: "OpenERP " + _.str.capitalize(error.type),
                 width: '80%',
                 height: '50%',
                 min_width: '800px',
