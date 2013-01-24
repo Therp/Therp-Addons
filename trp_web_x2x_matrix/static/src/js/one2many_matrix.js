@@ -92,4 +92,11 @@ openerp.trp_web_x2x_matrix=function(openerp)
                     return cancelled;
                 }
             });
+
+    openerp.web.form.FieldMany2One.include({
+            on_ui_change: function()
+            {
+                this._super.apply(this, arguments);
+                this.$input.change();
+            }});
 }
