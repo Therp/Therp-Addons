@@ -109,6 +109,8 @@
         <menuitem id="menu_use_case_main"
                   name="Use cases"
                   action="action_use_case_collections"
+                  web_icon="images/use_cases.png"
+                  web_icon_hover="images/use_cases-hover.png"
                   />
         <menuitem id="menu_use_case_collections"
                   name="Sets of use cases"
