@@ -27,3 +27,21 @@ class account_invoice(osv.osv):
         'report_background_id': fields.many2one(
             'report.background', 'Report background'),
         }
+
+    def _auto_init(self, cr, context=None):
+        res = super(account_invoice, self)._auto_init(cr, context=context)
+        cr.execute("""
+            SELECT COUNT(*) FROM ir_translation
+            WHERE type = 'report' AND name = 'account.invoice.background'
+        """)
+        if not cr.fetchone()[0]:
+            # Copy translations from the original invoice report
+            # to the copy that this module adds
+            cr.execute(
+                """
+                INSERT INTO ir_translation (lang,src,name,type,value)
+                SELECT lang, src, %s, 'report',value
+                FROM ir_translation WHERE type = 'report' AND name = %s;
+                """, ('account.invoice.background', 'account.invoice')
+                )
+        return res

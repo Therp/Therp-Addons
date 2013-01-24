@@ -19,40 +19,24 @@
 #
 ##############################################################################
 {
-    "name" : "Backgrounds for rml reports",
+    "name" : "Background for invoice report",
     "version" : "0.1r67",
     "author" : "Therp BV",
     "category": 'Reporting',
     'complexity': "normal",
     "description": """
-
-This module allows you to select a background image for various reports. In order to use
-these, you will need to install the configuration module for the module you want to use,
-such as 
-
-    trp_report_background_invoice
-    trp_report_background_sale
-
-You can add a selection of background images, and optionally associate them with a company.
-Most likely, you will want to set a default background image per company.
-
-Go to Settings -> Customizations -> Reports -> Report backgrounds to configure the actual background
-images. The background images need to cover the full paper size.
-
-To make these images appear in your reports, go to Settings -> Customizations -> Reports ->
-Background configurations and click the 'Insert RML tags' button on the Invoice report background
-configuration.
-
-To display the background on other reports, you can easily create a simple configuration module. See
-trp_report_background_sale for example.
+Based on trp_report_background, this module adds a second invoice report
+to use with backgrounds. Report backgrounds are configured on the 'Other info'
+tab of the invoice but could be further configured using default values.
     """,
     'website': 'http://therp.nl',
     'images' : [],
-    'depends' : ['account'],
+    'depends' : ['trp_report_background'],
     'data': [
-        'view/report_background.xml',
-        'view/report_background_config.xml',
-        'security/ir.model.access.csv',
+        'view/account_invoice.xml',
+        'report/account_print_invoice_background.xml',
+        'data/report_background_config.xml',
         ],
+    'installable': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
