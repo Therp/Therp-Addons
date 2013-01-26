@@ -28,6 +28,7 @@ openerp.trp_web_x2x_matrix=function(openerp)
                 {
                     this._super(parent, dataset, view_id, options);
                     this.options=_.extend(this.options, {ListType: openerp.trp_web_x2x_matrix.One2ManyMatrixList}); 
+                    this._limit=0;
                 }
             });
     openerp.trp_web_x2x_matrix.One2ManyMatrixList=openerp.web.form.One2ManyList.extend(
