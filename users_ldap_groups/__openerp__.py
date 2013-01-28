@@ -21,7 +21,7 @@
 
 {
 "name" : "Groups assignment",
-"version" : "1.0",
+"version" : "1.1",
 "depends" : ["users_ldap"],
 "author" : "Therp BV",
 'complexity': "expert",
@@ -43,10 +43,12 @@ For active directory, use LDAP attribute 'memberOf' and operator 'contains'.
 Fill in the DN of the windows group as value and choose an OpenERP group users
 with this windows group are to be assigned to.
 
-Input wanted:
-- test it with other ldap setups than ad
-- add a usage description for those setups
-- add translations
+For posix accounts, use operator 'query' and a value like
+(&(cn=bzr)(objectClass=posixGroup)(memberUid=$uid))
+
+The operator query matches if the filter in value returns something, and value
+can contain $[attribute] which will be replaced by the first value of the 
+user's ldap record's attribute named [attribute].
 """,
 "category" : "Tools",
 "data" : [

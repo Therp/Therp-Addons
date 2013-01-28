@@ -43,7 +43,7 @@ class CompanyLDAPGroupMapping(osv.osv):
             required=True),
         'ldap_attribute': fields.char('LDAP attribute', size=64, 
             help='The LDAP attribute to check.\n'
-                'For active directory, use memberOf.', required=True),
+                'For active directory, use memberOf.'),
         'operator': fields.selection(_get_operators, 'Operator', 
             help='The operator to check the attribute against the value\n'
             'For active directory, use \'contains\'', required=True),
@@ -90,7 +90,7 @@ class CompanyLDAP(osv.osv):
         operator=getattr(users_ldap_groups_operators, mapping['operator'])()
         logger.debug('checking mapping %s' % mapping)
         if operator.check_value(ldap_entry, mapping['ldap_attribute'], 
-                mapping['value']):
+                mapping['value'], conf, self, logger):
             logger.debug('adding user %d to group %s' % 
                     (user_id, mapping['group'][1]))
             userobj.write(cr, uid, user_id, 
