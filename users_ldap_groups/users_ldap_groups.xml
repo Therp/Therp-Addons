@@ -13,7 +13,7 @@
                 <newline />
                 <field name="group_mappings" colspan="4" nolabel="1">
                   <tree editable="top">
-                    <field name="ldap_attribute" />
+                    <field name="ldap_attribute" attrs="{'required': [('operator','not in',['query'])], 'readonly': [('operator','in',['query'])]}" />
                     <field name="operator" />
                     <field name="value" />
                     <field name="group" />
