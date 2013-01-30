@@ -30,4 +30,5 @@ The OpenERP clients by default filter out newlines from export data
 in CSV format. This module modifies that part of the code not to do
 so for the 6.1 Web Client
     """,
+    'installable': False,
 }

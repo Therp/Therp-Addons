@@ -40,7 +40,7 @@
     "category": "Tools",
     "depends": ['web'],
     'js': ['static/src/js/trp_treeview_html.js'],
-    'installable': True,
+    'installable': False,
     'active': False,
     'certificate': '',
 }

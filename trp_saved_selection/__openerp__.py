@@ -39,7 +39,7 @@ This module is compatible with OpenERP 6.1
         'view/saved_selection.xml',
         'view/saved_selection_init.xml',
     ],
-    'installable': True,
+    'installable': False,
     'active': False,
     'web': True,
     "js": ["static/src/js/*.js"],

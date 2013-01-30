@@ -37,4 +37,5 @@ This module is compatible with OpenERP 6.1.
     "css": [],
     'active': False,
     'web': True,
+    'installable': False,
 }

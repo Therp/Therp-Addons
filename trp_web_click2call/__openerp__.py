@@ -52,4 +52,5 @@ that the phone number belongs to.
         'urllib',
         'urllib2',
         ],
+    'installable': False,
 }

@@ -47,4 +47,5 @@ This module is compatible with OpenERP 6.1.
     "qweb": ["static/src/xml/base.xml"],
     "css": [],
     'active': False,
+    'installable': False,
 }

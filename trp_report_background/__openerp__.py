@@ -54,5 +54,6 @@ trp_report_background_sale for example.
         'view/report_background_config.xml',
         'security/ir.model.access.csv',
         ],
+    'installable': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

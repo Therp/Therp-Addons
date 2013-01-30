@@ -37,7 +37,7 @@
     "category": "Tools",
     "depends": ['trp_encrypted_backup'],
     'init_xml': ['data/ir_config_parameter.xml'],
-    'installable': True,
+    'installable': False,
     'active': False,
     'certificate': '',
 }

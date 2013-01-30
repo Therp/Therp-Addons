@@ -52,7 +52,7 @@ so as to maintain compatibility with the 6.1 web client.
         'base_report_creator_view.xml'
     ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
     'certificate': '',
     'js': ["static/src/js/*.js"],

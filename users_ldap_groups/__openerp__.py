@@ -56,7 +56,7 @@ user's ldap record's attribute named [attribute].
 'security/ir.model.access.csv',
 ],
 "auto_install": False,
-"installable": True,
+"installable": False,
 "external_dependencies" : {
 'python' : ['ldap'],
 },
