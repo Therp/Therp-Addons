@@ -14,19 +14,23 @@ openerp.trp_web_hide_buttons = function (openerp) {
     */
     openerp.web.ListView.include({
 
-        on_loaded : function (record) {
+        on_loaded : function () {
             var result, context;
-            result = this._super.apply(this, arguments);
-            if (this.groups.datagroup.context) {
-                context = this.groups.datagroup.context;
-                if (context.nocreate) {
-                    this.$element.find('.oe-list-add')
-                        .attr('disabled', true).hide();
-                }
+            context = _.extend({}, this.dataset.get_context());
+            if (context) {
+                _.extend.apply(this, _.union([context], context.__contexts));
+
                 if (context.nodelete) {
-                    this.$element.find('.oe-list-delete')
-                        .attr('disabled', true).hide();
+                    this.options.deletable=false;
                 }
+                if (context.noedit) {
+                    this.options.isClarkGable=false;
+                }
+            }
+            result = this._super.apply(this, arguments);
+            if (context && context.nocreate) {
+                this.$element.find('.oe-list-add')
+                    .attr('disabled', true).hide();
             }
             return result;
         }
@@ -37,8 +41,10 @@ openerp.trp_web_hide_buttons = function (openerp) {
         on_loaded : function (record) {
             var result, context;
             result = this._super.apply(this, arguments);
-            context = this.dataset.get_context();
+            context = _.extend({}, this.dataset.get_context());
             if (context) {
+                _.extend.apply(this, _.union([context], context.__contexts));
+
                 if (context.nocreate) {
                     this.$element.find('.oe_form_button_create')
                         .attr('disabled', true).hide();
