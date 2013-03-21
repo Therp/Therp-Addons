@@ -169,6 +169,13 @@ class use_case(osv.osv):
         'hours_nonoptional': fields.function(
             _get_use_case_hours, multi="hours", method=True,
             string="Nr. of non-optional hours"),
+        'task_id': fields.many2one(
+            'project.task',
+            'Task'),
+        'state': fields.related(
+            'task_id',
+            'state',
+            type='selection'),
         }
 
     _defaults = {
@@ -279,7 +286,43 @@ class use_case_collection(osv.osv):
         'hours_total_nonoptional': fields.function(
             _get_hours_total, multi="hours", method=True,
             string="Total nr. of non optional hours"),
+        'project_id': fields.many2one(
+            'project.project',
+            'Project', help='The project related to this set of use cases'),
+        'state': fields.related(
+            'project_id',
+            'state',
+            type='selection'),
         }
+
+    def action_create_tasks(self, cr, uid, ids, context=None):
+        for this in self.browse(cr, uid, ids, context):
+            if not this.project_id:
+                this.write({
+                    'project_id': self.pool.get('project.project').create(cr,
+                        uid, {
+                            'name': this.name, 
+                            'partner_id': this.partner_id.id
+                            },
+                        context),
+                    })
+                this.refresh()
+            for use_case in this.use_case_ids:
+                if not use_case.task_id:
+                    use_case.write(
+                            {
+                                'task_id': 
+                                    self.pool.get('project.task').create(
+                                        cr, uid,
+                                        {
+                                            'name': use_case.name,
+                                            'project_id': this.project_id.id,
+                                            'partner_id': this.partner_id.id,
+                                            'planned_hours': use_case.hours,
+                                            'remaining_hours': use_case.hours,
+                                            'use_case_id': use_case.id,
+                                        }, context)
+                            })
 
 use_case_collection()
 

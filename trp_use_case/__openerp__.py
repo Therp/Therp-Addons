@@ -30,7 +30,7 @@ which is included in this module.
     """,
     'website': 'http://therp.nl',
     'images': [],
-    'depends': ['base', 'report_aeroo'],
+    'depends': ['base', 'report_aeroo', 'project'],
     'data': [
         'view/use_case.xml',
         'view/use_case_inline.xml',
