@@ -13,6 +13,13 @@
                             <field name="partner_id"/>
                             <field name="create_date"/>
                             <field name="create_uid"/>
+                            <field name="project_id"/>
+                            <button
+                                type="object"
+                                name="action_create_tasks"
+                                string="Create tasks"
+                                help="Creates tasks for this use case. If no project is filled in, it will create one. If there already exists a task for a use case, nothing will be done."
+                                colspan="2" />
                         </group>
                         <group colspan="1" col="2">
                             <field name="hours_total"/>
