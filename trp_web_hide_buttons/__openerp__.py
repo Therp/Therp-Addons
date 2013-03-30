@@ -14,7 +14,7 @@ ir.actions.act_window:
     'author': 'Therp B.V.',
     'website': 'http://www.therp.nl',
     'depends': [
-        'web',
+        'web_kanban',
     ],
     'init_xml': [],
     'update_xml': [],
