@@ -55,4 +55,16 @@ openerp.trp_web_click2call = function(openerp) {
 
     openerp.web.form.widgets.add('click2call', 'openerp.web.form.Click2call');
     openerp.web.page.readonly.add('click2call', 'openerp.web.page.Click2callReadonly');
+
+    openerp.trp_web_click2call.click2call = click2call;
+    openerp.trp_web_click2call.click2call_number = function(number)
+    {
+        return this.click2call(
+                {
+                    value: number,
+                    is_valid: function() { return true },
+                    session: {user_context: openerp.connection.user_context},
+                    build_context: function() { return {} },
+                });
+    };
 }
