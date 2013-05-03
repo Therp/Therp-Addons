@@ -60,4 +60,22 @@ openerp.trp_web_hide_buttons = function (openerp) {
         }
     });
 
+    openerp.web_kanban.KanbanView.include({
+
+        on_loaded : function (record) {
+            var result, context;
+            result = this._super.apply(this, arguments);
+            context = _.extend({}, this.dataset.get_context());
+            if (context) {
+                _.extend.apply(this, _.union([context], context.__contexts));
+
+                if (context.nocreate) {
+                    this.$element.find('button.oe_kanban_button_new')
+                        .attr('disabled', true).hide();
+                }
+            }
+            return result;
+        }
+    });
+
 };
