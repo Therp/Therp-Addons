@@ -12,6 +12,8 @@
                         <field name="collection_id"/>
                         <field name="sequence" colspan="1"/>
                         <field name="active"/>
+                        <field name="task_id"
+                            attrs="{'invisible': [('task_id', '=', False)]}" />
                     </group>
                     <group colspan="4" col="1" string="Precondition">
                         <field name="precondition" nolabel="1"/>
