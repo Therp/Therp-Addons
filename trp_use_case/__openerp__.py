@@ -35,6 +35,7 @@ which is included in this module.
         'view/use_case.xml',
         'view/use_case_inline.xml',
         'view/use_case_collection.xml',
+        'view/project_task.xml',
         'report/report_use_case.xml',
         'security/ir.model.access.csv',
     ],
