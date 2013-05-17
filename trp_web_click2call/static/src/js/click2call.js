@@ -65,6 +65,7 @@ openerp.trp_web_click2call = function(openerp) {
                     is_valid: function() { return true },
                     session: {user_context: openerp.connection.user_context},
                     build_context: function() { return {} },
+                    action_manager: {do_action: function() {}},
                 });
     };
 }
