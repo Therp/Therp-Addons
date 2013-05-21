@@ -26,7 +26,8 @@
     "category": "Tools",
     "depends": ['web'],
     "description": """
-Mark fields not to show up in the list of exportable fields. Go to Administration ->
+Mark fields not to show up in the list of exportable fields, nor in the list
+of fields in an advanced filter. Go to Administration ->
 Customizations -> Database Structure -> Fields. For fields that you do not want
 to show up in the export list, check the box 'Exclude from export'.
 
@@ -42,4 +43,5 @@ functionality of all databases of that instance.
     'images': [
         'images/export_exclude.png',
         ],
+    'js': ['static/src/js/search_exclude.js'],
 }
