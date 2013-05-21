@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2012 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,25 +20,18 @@
 ##############################################################################
 
 {
-    "name": "Extended Search by Therp",
-    "description": """This addon for the OpenERP web client allows for more
-detailed search queries in any search view. It does so by adding an extra drop
-down with all the fields of the model that point to related models (many2one,
-one2many and many2many). When such a field is selected, a new subordinate search
-view for that field's related model appears.
-
-Multiple subordinate search views can be embedded that way either on the main
-model or recursively. Combinations with advanced filters are possible. Queries
-composed with subordinate search views can be saved as a custom filter.
-
-This is a web addon for OpenERP 6.1
-""",
+    "name": "Allow to exclude fields in the extended search dropdown",
     "version": "1.0r84",
-    "depends": ['web'],
-    "js": ["static/src/js/*.js"],
-    "css": ["static/src/css/*.css"],
-    "qweb": ["static/src/xml/*.xml"],
-    'web': True,
-    'active': False,
-    'web_preload': False,
+    "author": "Therp BV",
+    "category": "Hidden/Dependency",
+    "depends": [
+        'trp_web_export_exclude',
+        'trp_extended_search',
+        ],
+    "description": """
+Glue module between extended search and export exclude modules.
+    """,
+    'js': [
+        'static/src/js/search_exclude.js'
+        ],
 }
