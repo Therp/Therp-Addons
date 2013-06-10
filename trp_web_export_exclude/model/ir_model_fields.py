@@ -27,7 +27,7 @@ class ir_model_fields(osv.osv):
             return super(ir_model_fields, self).write(
                 cr, user, ids, vals, context=context)
         return True
-    
+
 def fields_get_exclude(
     self, cr, user, context=None):
     fields_pool = self.pool.get('ir.model.fields')
@@ -37,8 +37,30 @@ def fields_get_exclude(
         fields = fields_pool.read(cr, 1, field_ids, ['name'])
         return [x['name'] for x in fields]
     return []
-    
+
 orm.BaseModel.fields_get_exclude = fields_get_exclude
+
+def fields_get(
+        self, cr, uid, allfields=None, context=None, write_access=True):
+    """
+    Assign export_exclude to the results of fields_get
+    """
+    res = self.fields_get_orig(
+        cr, uid, allfields=allfields, context=context,
+        write_access=write_access)
+
+    if 'export_exclude' not in self.pool.get('ir.model.fields')._columns:
+        return res
+    cr.execute("""SELECT name FROM ir_model_fields
+                  WHERE model = %s AND export_exclude is true""", (self._name,))
+    excluded_fields = [x[0] for x in cr.fetchall()]
+    for field in excluded_fields:
+        if field in res:
+            res[field]['export_exclude'] = True
+    return res
+        
+orm.BaseModel.fields_get_orig = orm.BaseModel.fields_get
+orm.BaseModel.fields_get = fields_get
 
 Export.get_fields_orig = Export.get_fields
 
@@ -100,7 +122,3 @@ def get_fields(
         return records
 
 Export.get_fields = get_fields
-
-
-
-

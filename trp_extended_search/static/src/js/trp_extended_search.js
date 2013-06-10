@@ -240,7 +240,22 @@ openerp.trp_extended_search = function(openerp) {
             });
             return res;
         },
+
+        field_qualifies: function(field) {
+            var complex_fields = {'one2many':0, 'many2one':0, 'many2many':0 };
+            return (field.type in complex_fields && field.selectable);
+        },
             
+        find_top: function(search_view) {
+            /*
+               Retrieve the primary search view
+            */
+            if (search_view.widget_parent && search_view.widget_parent.parent) {
+                return this.find_top(search_view.widget_parent.parent);
+            }
+            return search_view;
+        },
+
 	configure_subsearch: function() {
 	    /*
               hide the search and clear buttons, if embedded
@@ -248,6 +263,13 @@ openerp.trp_extended_search = function(openerp) {
             if (this.domain_base) {
                 $(this.$element.find('button.oe_button')).hide();
             }
+
+            /* 
+               Restore default submit action of the form, 
+               which is the Search button of the primary search view
+            */
+            var top = this.find_top(this);
+            top.$element.find('form').submit(top.do_search);
 
 	    /* 
 	       Replace the id with a traceble one.
@@ -274,7 +296,6 @@ openerp.trp_extended_search = function(openerp) {
 	       operator, which does not work on a simple list.
 	       
 	    */
-	    var complex_fields = {'one2many':0, 'many2one':0, 'many2many':0 };
 	    var extendedsearch = this.$element.find(".oe_search-view-extended-select");
 	    
 	    this.rpc("/web/searchview/fields_get",
@@ -283,14 +304,14 @@ openerp.trp_extended_search = function(openerp) {
 			 var field_list = [];
 			 var sort_fields = data.fields;
 			 _.each(data.fields, function(field, key) {
-			     if (field.type in complex_fields && field.selectable) {
+			     if (self.field_qualifies(field)) {
 				 self.xsfields[key] = field;
 				 field['name'] = key;
 				 field_list.push(field);
 			     }
 			 });
 			 field_list.sort(function(a, b) {
-			     return self.strcmp(a['name'], b['name']) });
+			     return self.strcmp(a['string'], b['string']) });
 			 extendedsearch.html(QWeb.render("SearchView.extended-select", {fields: field_list }));
 		     }
 		    );
