@@ -20,7 +20,7 @@
 ##############################################################################
 from openerp.osv import fields
 from openerp.osv.orm import Model
-
+from openerp import SUPERUSER_ID
 
 class ResUsers(Model):
     _inherit = 'res.users'
@@ -30,7 +30,7 @@ class ResUsers(Model):
         res = super(ResUsers, self)._get_group(cr, uid, context=context)
         dataobj = self.pool.get('ir.model.data')
         for group in ['group_user', 'group_partner_manager']:
-            dummy,group_id = dataobj.get_object_reference(cr, 1, 'base', group)
+            _model, group_id = dataobj.get_object_reference(cr, SUPERUSER_ID, 'base', group)
             if group_id in res:
                 res.remove(group_id)
         return res
