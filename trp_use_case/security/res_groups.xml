@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="group_external_use_case" model="res.groups">
+            <field name="name">External users - Use cases</field>
+            <field name="implied_ids"
+                   eval="[(4, ref('trp_external_user.group_external_user'))]"
+                   />
+        </record>
+
+    </data>
+</openerp>
