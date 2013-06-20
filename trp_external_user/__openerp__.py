@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2012 - 2013 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,33 +18,37 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
-    "name": "Use case development",
+    "name": "External users",
     "version": "1.0r87",
     "author": "Therp BV",
     "category": 'Base',
     'complexity': "normal",
     "description": """
-Compose collections of use case descriptions and print them with an aeroo report
-which is included in this module.
+Define a group 'External Users' that only have access to selected partners,
+usually their own organizations. These partners are indicated on the user's user
+form. By default, this module only grants read access to these partners.
 
-This module also defines an external group to allow write access to their own
-use cases.
+On a permission level, it seems necessary that the partners also need read access
+to the database company partner, which this module also allows. Keep this in mind
+when building functionality on top of this module that allows interaction with
+the partner model. By means of precaution, this module does define separate
+records for reading and writing so as to prevent modifications of the company
+partner (even if global write access on partners are not granted to the external
+users group in this module).
+
+This module also disables the default assignment of the 'user' and 'partner manager'
+groups to new users.
     """,
     'website': 'http://therp.nl',
     'images': [],
-    'depends': ['trp_external_user', 'report_aeroo', 'project'],
+    'depends': ['base'],
     'data': [
         'security/res_groups.xml',
-        'view/use_case.xml',
-        'view/use_case_inline.xml',
-        'view/use_case_collection.xml',
-        'view/project_task.xml',
-        'report/report_use_case.xml',
-        'security/ir_rule.xml',
         'security/ir.model.access.csv',
+        'security/ir_rule.xml',
+        'view/res_users.xml',
     ],
-    "license": 'AGPL-3',
-    'installable': False,
+    'license': 'AGPL-3',
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
