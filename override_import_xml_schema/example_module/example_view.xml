@@ -1,0 +1,18 @@
+<openerp>
+    <data>
+        <!-- the hello attribute is allowed because of my_changes.xsl /-->
+        <record id="module_form" model="ir.ui.view" hello="world">
+            <field name="model">ir.module.module</field>
+            <field name="inherit_id" ref="base.module_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <notebook position="inside">
+                        <page string="override_import_xml_schema example" col="1">
+                            <label string="this page has an attribute col which would be forbidden in the original schema" />
+                        </page>
+                    </notebook>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>
