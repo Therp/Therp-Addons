@@ -45,7 +45,7 @@
     Have a look at the example module included, it demonstrate how to add
     allowed attributes.
     """,
-    'author': 'Therp BV',
+    'author': ['Therp BV', 'OpenERP SA'],
     'website': 'http://www.therp.nl',
     "category": "Dependency",
     "depends": [
