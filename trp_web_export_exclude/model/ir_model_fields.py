@@ -1,4 +1,4 @@
-from osv import fields,osv,orm
+from osv import fields, osv, orm
 from openerp.addons.web.controllers.main import Export
 from openerp.addons.web.common import http
 
@@ -10,6 +10,11 @@ class ir_model_fields(osv.osv):
         }
 
     def write(self, cr, user, ids, vals, context=None):
+        """
+        The super method does not allow a write on any non-manual field.
+        Therefore, circumvent the ORM when writing a value for
+        'export_exclude'.
+        """
         if vals and 'export_exclude' in vals:
             if ids:
                 if isinstance(ids, (int, long)):
