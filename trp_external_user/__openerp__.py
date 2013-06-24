@@ -45,6 +45,7 @@ groups to new users.
     'images': [],
     'depends': ['base'],
     'data': [
+        'data/ir_module_category.xml',
         'security/res_groups.xml',
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
