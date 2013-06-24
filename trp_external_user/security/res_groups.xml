@@ -4,6 +4,7 @@
 
         <record id="group_external_user" model="res.groups">
             <field name="name">External users</field>
+            <field name="category_id" ref="module_category_external_users"/>
         </record>
 
     </data>
