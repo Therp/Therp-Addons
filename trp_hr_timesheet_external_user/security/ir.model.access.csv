@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_read_hr_analytic_timesheet","Read timesheets for external users","hr_timesheet.model_hr_analytic_timesheet","group_external_user_hr_timesheet",1,0,0,0
+"access_read_account_analytic_line","Read analytic lines for external users","analytic.model_account_analytic_line","group_external_user_hr_timesheet",1,0,0,0

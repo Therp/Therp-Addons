@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="group_external_user_hr_timesheet" model="res.groups">
+        <field name="name">External users - Timesheets</field>
+        <field name="category_id" ref="trp_external_user.module_category_external_users"/>
+        <field name="implied_ids"
+            eval="[(6, 0, [ref('trp_external_user.group_external_user')])]" />
+    </record>
+  </data>
+</openerp>
