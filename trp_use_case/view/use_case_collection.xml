@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+                
         <record id="use_case_collection_form" model="ir.ui.view">
             <field name="name">Use case collection form</field>
             <field name="model">use_case.collection</field>
@@ -13,7 +14,7 @@
                             <field name="partner_id"/>
                             <field name="create_date"/>
                             <field name="create_uid"/>
-                            <field name="project_id"/>
+                            <field name="project_id" groups="project.group_project_user" />
                             <button
                                 type="object"
                                 name="action_create_tasks"
@@ -118,17 +119,20 @@
                   action="action_use_case_collections"
                   web_icon="images/use_cases.png"
                   web_icon_hover="images/use_cases-hover.png"
+                  groups="base.group_user,trp_use_case.group_external_use_case"
                   />
         <menuitem id="menu_use_case_collections"
                   name="Sets of use cases"
                   sequence="1"
                   parent="menu_use_case_main"
                   action="action_use_case_collections"
+                  groups="base.group_user,trp_use_case.group_external_use_case"
                   />
         <menuitem id="menu_use_cases"
                   name="Use cases"
                   parent="menu_use_case_main"
                   action="action_use_cases"
+                  groups="base.group_user,trp_use_case.group_external_use_case"
                   />
 
         <act_window
