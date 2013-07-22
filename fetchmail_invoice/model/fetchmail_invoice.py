@@ -19,12 +19,12 @@
 #
 ##############################################################################
 import base64
-from osv import osv, fields
+from openerp.osv import orm, fields
 from tools.translate import _
 
-class account_invoice(osv.osv):
+class account_invoice(orm.Model):
     _name = 'account.invoice'
-    _inherit = ['mail.thread', 'account.invoice']
+    _inherit = 'account.invoice'
 
     def message_new(
         self, cr, uid, msg_dict, custom_values=None, context=None):
@@ -63,8 +63,7 @@ class account_invoice(osv.osv):
         # Retrieve partner_id from the email address
         # and add related field values
         custom_values['partner_id'] = (
-            self.message_partner_by_email(
-                cr, uid, email_from, context=None)['partner_id']
+            msg_dict.get('author_ids') and msg_dict.get('author_ids')[0]
             or data_pool.get_object_reference(
                 cr, uid, 'fetchmail_invoice', 'default_partner')[1])
         custom_values.update(

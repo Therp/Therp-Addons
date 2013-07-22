@@ -15,9 +15,9 @@
             </field>
         </record>
 
-        <record model="ir.actions.todo" id="config_wizard_action_link_invoice_to_email_account">
+        <record model="ir.actions.todo" id="base.open_menu">
             <field name="action_id" ref="action_link_invoice_to_email_account" />
-            <field name="category_id" ref="account.category_accounting_configuration" />
+            <field name="state">open</field>
         </record>
     </data>
 </openerp>
