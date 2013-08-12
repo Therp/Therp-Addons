@@ -35,17 +35,18 @@ A dummy partner is created for incoming emails from unknown addresses.
 The actual emails can be inspected on a dedicated tab on the invoice
 form which is otherwise invisible.
 
-This module is compatible with OpenERP 6.1
+This module is compatible with OpenERP 7.0.
+
+Known issues: not safe for use within a multicompany database.
 """,
     "depends": [
         'fetchmail',
         'account'
         ],
     "data": [
-        'view/invoice.xml',
         'data/partner_data.xml',
         'data/installer.xml',
         ],
-    'installable': False,
+    'installable': True,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

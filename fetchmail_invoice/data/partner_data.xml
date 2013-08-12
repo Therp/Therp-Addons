@@ -3,14 +3,9 @@
     <data noupdate="1">
         <record id="default_partner" model="res.partner">
             <field name="name">Default partner for incoming invoices by email</field>
-            <field name="address" eval="[]"/>
             <field name="company_id" ref="base.main_company"/>
             <field name="customer" eval="False"/>
+            <field name="is_company" eval="False"/>
         </record>
-        <record id="default_partner_address" model="res.partner.address">
-            <field name="partner_id" ref="default_partner"/>
-            <field name="type">default</field>
-            <field name="company_id" ref="base.main_company"/>
-        </record>
-    </data>
+   </data>
 </openerp>
