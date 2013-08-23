@@ -63,10 +63,12 @@ class account_invoice(orm.Model):
         # Retrieve partner_id from the email address
         # and add related field values
         custom_values['partner_id'] = (
-            msg_dict.get(
-                'author_id',
-                data_pool.get_object_reference(
-                    cr, uid, 'fetchmail_invoice', 'default_partner')[1]))
+            ('author_id' in msg_dict and msg_dict['author_id'])
+            or (data_pool.get_object_reference(
+                    cr, uid, 'fetchmail_invoice', 'default_partner')[1])
+            or False)
+        assert custom_values['partner_id'], _(
+            'No partner found to link invoice to')
         custom_values.update(
             self.onchange_partner_id(
                 cr, uid, [], 'in_invoice',
