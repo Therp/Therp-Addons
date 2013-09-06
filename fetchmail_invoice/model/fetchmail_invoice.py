@@ -42,8 +42,8 @@ class account_invoice(orm.Model):
         # As the scheduler is run without language,
         # set the administrator's language
         if not context.get('lang'):
-            context['lang'] = users_pool.read(
-                cr, uid, uid, ['context_lang'])['context_lang']
+            user = users_pool.browse(cr, uid, uid, context=context)
+            context['lang'] = user.partner_id.lang
 
         if custom_values is None:
             custom_values = {}
