@@ -79,6 +79,6 @@ class account_invoice(orm.Model):
 
         # Create the resource
         res_id = super(account_invoice, self).message_new(
-            cr, uid, msg_dict, custom_values=custom_values, context=context)
+            cr, uid, msg_dict, custom_values=custom_values, context=local_context)
         
         return res_id
