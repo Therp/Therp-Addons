@@ -48,7 +48,8 @@ class account_invoice(orm.Model):
         if custom_values is None:
             custom_values = {}
 
-        custom_values.update({
+        local_context = dict(context)
+        local_context.update({
                 'type': 'in_invoice',
                 })       
 
