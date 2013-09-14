@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Use case development",
-    "version": "1.0r87",
+    "version": "1.0r89",
     "author": "Therp BV",
     "category": 'Base',
     'complexity': "normal",
@@ -37,6 +37,7 @@ use cases.
     'data': [
         'security/res_groups.xml',
         'view/use_case.xml',
+        'view/use_case_history.xml',
         'view/use_case_inline.xml',
         'view/use_case_collection.xml',
         'view/project_task.xml',
