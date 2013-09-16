@@ -101,7 +101,7 @@ class use_case(osv.osv):
     _description = 'Use Case'
     _order = 'collection_id, sequence'
 
-    def historize(self, cr, uid, ids, vals, context=None, force=False):
+    def historize(self, cr, uid, ids, vals, context=None):
         """
         If the description has changed, create a history item.
 
@@ -129,9 +129,8 @@ class use_case(osv.osv):
             diff = ''
             for field in fields:
                 value = (vals[field] or '').strip()
-                if force or value != (use_case[field] or '').strip():
-                    description += '- %s changed to:\n%s\n\n' % (field, value)
                 if value != (use_case[field] or '').strip():
+                    description += '- %s changed to:\n%s\n\n' % (field, value)
                     for line in unified_diff(
                             (use_case[field] or '').strip().split('\n'),
                             value.split('\n'), fromfile=field, tofile=field):
@@ -153,16 +152,6 @@ class use_case(osv.osv):
         self.historize(cr, uid, ids, vals, context=context)
         return super(use_case, self).write(
             cr, uid, ids, vals, context=context)
-
-    def create(self, cr, uid, vals, context=None):
-        """
-        Call to historize(). Use force=True, because the description will
-        be the same as on the created use case.
-        """
-        result = super(use_case, self).create(
-            cr, uid, vals, context=context)
-        self.historize(cr, uid, result, vals, context=context, force=True)
-        return result
 
     def _get_use_case_hours(
         self, cr, uid, ids, field, args, context=None):

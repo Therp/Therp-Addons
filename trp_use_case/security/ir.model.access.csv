@@ -1,6 +1,6 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 "access_use_case","Use cases","model_use_case","base.group_user",1,1,1,1
-"access_use_case_history","Use case history","model_use_case_history","base.group_user",1,1,1,1
+"access_use_case_history","Use case history","model_use_case_history","base.group_user",1,0,1,0
 "access_use_case_collection","Sets of use cases","model_use_case_collection","base.group_user",1,1,1,1
 "access_use_case_workload","Use case workload","model_use_case_workload","base.group_user",1,1,1,1
 "access_use_case_actor","Use case actor","model_use_case_actor","base.group_user",1,1,1,1
