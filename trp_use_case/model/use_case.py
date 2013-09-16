@@ -84,7 +84,7 @@ class use_case_history(orm.Model):
             'use_case', 'Use Case', readonly=True,
             required=True, ondelete='CASCADE'),
         'description': fields.text(
-            'Descripion', readonly=True, select=1),
+            'Description', readonly=True, select=1),
         'diff': fields.text(
             'Diff', readonly=True, select=1),
         'create_date': fields.datetime(
@@ -103,11 +103,14 @@ class use_case(osv.osv):
 
     def historize(self, cr, uid, ids, vals, context=None):
         """
-        If the description has changed, create a history item.
+        If one of the text fields has changed, create a history item.
+        Call at write time, before the call to super().
 
         The history item contains a full text representation of
         the modified parts, and a shorthand diff for easy comparison
         with the previous version.
+
+        :param vals: dictionary of values to write.
         """
         if not ids:
             return True
@@ -147,7 +150,7 @@ class use_case(osv.osv):
 
     def write(self, cr, uid, ids, vals, context=None):
         """
-        Call to historize()
+        Call historize()
         """
         self.historize(cr, uid, ids, vals, context=context)
         return super(use_case, self).write(
