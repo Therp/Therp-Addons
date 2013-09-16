@@ -115,11 +115,13 @@ class use_case(osv.osv):
             ids = [ids]
 
         fields = [field for field in [
+                'name',
                 'precondition',
                 'description',
                 'result',
                 'exceptions',
-                'implementation'] if field in vals.keys()]
+                'implementation',
+                ] if field in vals.keys()]
 
         for use_case in self.read(
                 cr, uid, ids, fields, context=context):
