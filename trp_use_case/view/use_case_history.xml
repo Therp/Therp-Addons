@@ -47,6 +47,15 @@
             view_type="form"
             />
 
+        <act_window
+            domain="[('use_case_id.collection_id', '=', active_id)]"
+            id="action_use_case_collection_open_history"
+            name="Editing history"
+            res_model="use_case.history"
+            src_model="use_case.collection"
+            view_mode="tree,form"
+            view_type="form"
+            />
 
     </data>
 </openerp>
