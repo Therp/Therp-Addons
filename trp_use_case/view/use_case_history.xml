@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="use_case_history_form" model="ir.ui.view">
+            <field name="name">Use case history form</field>
+            <field name="model">use_case.history</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group colspan="6" col="6">
+                        <field name="use_case_id" colspan="2" />
+                        <field name="create_date" colspan="2" />
+                        <field name="create_uid" colspan="2" />
+                        <notebook colspan="6">
+                            <page string="Diff">
+                                <field name="diff" colspan="6" nolabel="1" />
+                            </page>
+                            <page string="Full text">
+                                <field name="description" colspan="6" nolabel="1" />
+                            </page>
+                        </notebook>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="use_case_history_tree" model="ir.ui.view">
+            <field name="name">Use case history tree</field>
+            <field name="model">use_case.history</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="use_case_id" />
+                    <field name="create_date" />
+                    <field name="create_uid" />
+                </tree>
+            </field>
+        </record>
+
+        <act_window
+            domain="[('use_case_id', '=', active_id)]"
+            id="action_use_case_open_history"
+            name="Editing history"
+            res_model="use_case.history"
+            src_model="use_case"
+            view_mode="tree,form"
+            view_type="form"
+            />
+
+        <act_window
+            domain="[('use_case_id.collection_id', '=', active_id)]"
+            id="action_use_case_collection_open_history"
+            name="Editing history"
+            res_model="use_case.history"
+            src_model="use_case.collection"
+            view_mode="tree,form"
+            view_type="form"
+            />
+
+    </data>
+</openerp>

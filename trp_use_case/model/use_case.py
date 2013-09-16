@@ -18,7 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
+from difflib import unified_diff
+from osv import fields, osv, orm
 from datetime import datetime
 from tools.translate import _
 
@@ -72,10 +73,88 @@ class use_case_version_tag(osv.osv):
 use_case_version_tag()
 
 
+class use_case_history(orm.Model):
+    _name = 'use_case.history'
+    _description = 'Use Case History'
+    _order = 'use_case_id, create_date desc'
+    _rec_name = 'create_date'
+
+    _columns = {
+        'use_case_id': fields.many2one(
+            'use_case', 'Use Case', readonly=True,
+            required=True, ondelete='CASCADE'),
+        'description': fields.text(
+            'Description', readonly=True, select=1),
+        'diff': fields.text(
+            'Diff', readonly=True, select=1),
+        'create_date': fields.datetime(
+            'Changed at', readonly=True),
+        'create_uid': fields.many2one(
+            'res.users', 'Changed by',
+            required=True, ondelete='SET NULL',
+            readonly=True),
+        }
+
+
 class use_case(osv.osv):
     _name = 'use_case'
     _description = 'Use Case'
     _order = 'collection_id, sequence'
+
+    def historize(self, cr, uid, ids, vals, context=None):
+        """
+        If one of the text fields has changed, create a history item.
+        Call at write time, before the call to super().
+
+        The history item contains a full text representation of
+        the modified parts, and a shorthand diff for easy comparison
+        with the previous version.
+
+        :param vals: dictionary of values to write.
+        """
+        if not ids:
+            return True
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+
+        fields = [field for field in [
+                'name',
+                'precondition',
+                'description',
+                'result',
+                'exceptions',
+                'implementation',
+                ] if field in vals.keys()]
+
+        for use_case in self.read(
+                cr, uid, ids, fields, context=context):
+            description = ''
+            diff = ''
+            for field in fields:
+                value = (vals[field] or '').strip()
+                if value != (use_case[field] or '').strip():
+                    description += '- %s changed to:\n%s\n\n' % (field, value)
+                    for line in unified_diff(
+                            (use_case[field] or '').strip().split('\n'),
+                            value.split('\n'), fromfile=field, tofile=field):
+                        diff += "%s\n" % line.strip()
+                    diff += '\n'
+            if description:
+                self.pool.get('use_case.history').create(
+                    cr, uid, {
+                        'use_case_id': use_case['id'],
+                        'description': description,
+                        'diff': diff,
+                        }, context=context)
+        return True
+
+    def write(self, cr, uid, ids, vals, context=None):
+        """
+        Call historize()
+        """
+        self.historize(cr, uid, ids, vals, context=context)
+        return super(use_case, self).write(
+            cr, uid, ids, vals, context=context)
 
     def _get_use_case_hours(
         self, cr, uid, ids, field, args, context=None):
