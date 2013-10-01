@@ -1,0 +1,42 @@
+<openerp>
+  <data>
+    <record id="view_partner_simple_form_firstname" model="ir.ui.view">
+      <field name="name">res.partner.simplified.form.firstname</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="partner_firstname.view_partner_simple_form_firstname"/>
+      <field name="arch" type="xml">
+          <data>
+              <field name="lastname" position="before">
+                  <field name="infix" />
+              </field>
+              <field name="firstname" position="before">
+                  <field name="initials" />
+              </field>
+          </data>
+      </field>
+    </record>
+
+    <record id="view_partner_form_firstname" model="ir.ui.view">
+      <field name="name">res.partner.form.firstname</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="partner_firstname.view_partner_form_firstname"/>
+      <field name="arch" type="xml">
+          <data>
+              <field name="lastname" position="before">
+                  <field name="infix" />
+              </field>
+              <field name="firstname" position="before">
+                  <field name="initials" />
+              </field>
+              <xpath expr="//form[@string='Contact']/sheet/div/h1/field[@name='lastname']" position="before">
+                  <field name="infix"/>
+              </xpath>
+              <xpath expr="//form[@string='Contact']/sheet/div/h1/field[@name='firstname']" position="before">
+                  <field name="initials"/>
+              </xpath>
+          </data>
+      </field>
+    </record>
+
+  </data>
+</openerp>
