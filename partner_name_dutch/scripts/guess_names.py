@@ -25,7 +25,7 @@ import re
 infixes = ['van', 'der', 'ter', 'de', 'v/d']
 initial = re.compile(r'^([A-Z]{1,3}\.{0,1}){1,4}$')
 
-limit = 100
+limit = 100000
 offset = 0
 
 def add_token(values, key, token, delimiter=' '):
