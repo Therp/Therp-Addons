@@ -6,6 +6,7 @@ parser.add_argument('openerp_host')
 parser.add_argument('openerp_db')
 parser.add_argument('openerp_user')
 parser.add_argument('openerp_passwd')
+parser.add_argument('additional_search', nargs='?')
 args = parser.parse_args()
 
 import xmlrpclib
@@ -40,7 +41,8 @@ while True:
                 ('initials', '=', False),
                 ('infix', '=', False),
                 ('is_company', '=', False),
-            ],
+            ] +
+            eval(args.additional_search or '[]'),
             offset,
             limit)
     if not ids:
@@ -68,5 +70,6 @@ while True:
         partner['lastname'] = ' '.join(tokens)
 
         print partner
+        openerp_execute('res.partner', 'write', partner['id'], partner)
 
     offset += limit
