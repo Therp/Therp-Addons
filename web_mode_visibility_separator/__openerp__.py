@@ -24,33 +24,13 @@
     "version": "6.1.1.0r1",
     "author": "Therp BV",
     "category": "Tools",
-    "depends": ['web_mode_visibility'],
+    "depends": ['web_mode_visibility', 'override_import_xml_schema'],
     "description": """
 Use the following options keys on separator tags and other form widget
 to hide them in either page or form mode:
 
 - page_invisible
 - form_invisible
-
-Please note that you need to allow the use of the options dictionary
-on separators in openobject-server/openerp/addons/base/rng/view.rng,
-or you will get view validation errors in modules that try to use
-this functionality:
-
---- openerp/addons/base/rng/view.rng2012-02-13 10:17:58 +0000
-+++ openerp/addons/base/rng/view.rng2013-05-07 09:40:10 +0000
-@@ -442,6 +442,7 @@
-             <rng:optional><rng:attribute name="col"/></rng:optional>
-             <rng:optional><rng:attribute name="select"/></rng:optional>
-             <rng:optional><rng:attribute name="orientation"/></rng:optional>
-+            <rng:optional><rng:attribute name="options"/></rng:optional>
-             <rng:zeroOrMore>
-                 <rng:choice>
-                     <rng:ref name="separator"/>
-
-You do not need this module to simply hide fields. This can be
-done solely with the 'web_mode_visibility' module, without changes to the
-rng file.
 
 This module is compatible with OpenERP 6.1.
     """,
