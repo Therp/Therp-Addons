@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <group col="2">
                    <field name="users_created"/>
+                   <field name="users_deactivated"/>
                    <group colspan="1"/>
                    <button icon="gtk-ok" string="OK" special="cancel"/>
                 </group>
