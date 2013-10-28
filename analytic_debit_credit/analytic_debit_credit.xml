@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_analytic_line_tree" model="ir.ui.view">
+            <field name="name">Add debit and credit fields to analytic tree view</field>
+            <field name="model">account.analytic.line</field>
+            <field name="priority" eval="101" />
+            <field name="inherit_id" ref="account.view_account_analytic_line_tree" />
+            <field name="arch" type="xml">
+                <field name="amount" position="replace">
+                    <field name="debit" sum="Total"
+                           invisible="context.get('to_invoice', False)" />
+                    <field name="credit"  sum="Total"
+                           invisible="context.get('to_invoice', False)" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
