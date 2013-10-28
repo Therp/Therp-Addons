@@ -279,7 +279,8 @@ class use_case_workload(osv.osv):
             'Optional'),
         'use_case_id': fields.many2one(
             'use_case',
-            required=True),
+            required=True,
+            ondelete='cascade'),
         'sequence': fields.integer(
             'Sequence',
             required=True,
