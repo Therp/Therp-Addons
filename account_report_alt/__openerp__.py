@@ -27,6 +27,9 @@
     "description": """
 This is a port of the financial reports 'Balance sheet' and
 'Profit and Loss' from OpenERP 6.0 to OpenERP 6.1
+
+For version 7.0, use account_financial_report_horizontal from
+`lp:account-financial-report <https://launchpad.net/account-financial-report>`
     """,
     'website': 'http://therp.nl',
     'images' : [],
