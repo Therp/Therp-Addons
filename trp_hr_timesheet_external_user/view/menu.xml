@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <act_window
+            id="action_analytic_timesheet"
+            res_model="hr.analytic.timesheet"
+            name="Time spent"
+            view_type="form"
+            view_mode="tree"
+            view_id="hr_timesheet.hr_timesheet_line_tree"
+            context="{'nodelete':1,'nocreate':1,'noedit':1}"/>
+
+        <menuitem
+            id="menu_time"
+            action="action_analytic_timesheet"
+            groups="group_external_user_hr_timesheet"
+            web_icon="static/src/img/clock.png" web_icon_hover="static/src/img/clock_hover.png"
+            />
+    </data>
+</openerp>
