@@ -40,7 +40,7 @@ class CompanyLDAPGroupMapping(osv.osv):
 
   _columns={
         'ldap_id': fields.many2one('res.company.ldap', 'LDAP server', 
-            required=True),
+            required=True, ondelete='cascade'),
         'ldap_attribute': fields.char('LDAP attribute', size=64, 
             help='The LDAP attribute to check.\n'
                 'For active directory, use memberOf.'),
