@@ -119,19 +119,19 @@ class CompanyLDAP(osv.osv):
         Deactivate users not found in last populate run
         """
         res_users = self.pool.get('res.users')
-        unknown_users_ids = []
+        unknown_user_ids = []
         for unknown_user in res_users.read(
                 cr, uid,
                 res_users.search(
                     cr, uid,
                     [('id', 'not in', known_user_ids)],
                     context=context),
-                ['name'],
+                ['login'],
                 context=context):
             present_in_ldap = False
             for conf in self.get_ldap_dicts(cr, ids):
-                present_in_ldap |= self.get_ldap_entry_dicts(
-                        conf, user_name=unknown_user['name'])
+                present_in_ldap |= bool(self.get_ldap_entry_dicts(
+                        conf, user_name=unknown_user['login']))
             if not present_in_ldap:
                 res_users.write(
                         cr, uid, unknown_user['id'], {'active': False},
@@ -151,7 +151,8 @@ class CompanyLDAP(osv.osv):
         conn.simple_bind_s(conf['ldap_binddn'] or '',
                            conf['ldap_password'] or '')
         results = conn.search_st(conf['ldap_base'], ldap.SCOPE_SUBTREE,
-                                 ldap_filter, None, timeout=60)
+                                 ldap_filter.encode('utf8'), None,
+                                 timeout=60)
         conn.unbind()
 
         return results
