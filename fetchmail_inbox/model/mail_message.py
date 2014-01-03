@@ -110,8 +110,17 @@ class MailMessage(Model):
                 context=context)
         self.pool.get('fetchmail.inbox').unlink(cr, uid, inbox_ids,
                                                 context=context)
-        #TODO: possibly move attachments to record?
-        #TODO: delete original attachment?
+        for this in self.browse(cr, uid, ids, context=context):
+            for attachment in this.attachment_ids:
+                if context.get('fetchmail_invoice_delete_original', True) and\
+                        attachment.datas_fname == 'original_email.eml':
+                    attachment.unlink()
+                    continue
+                if context.get('fetchmail_invoice_move_attachments', True):
+                    attachment.write({
+                        'res_model': res_model,
+                        'res_id': res_id,
+                        })
 
     def _needaction_count(self, cr, uid, dom, context=None):
         if dom == [('model', '=', 'fetchmail.inbox')]:
