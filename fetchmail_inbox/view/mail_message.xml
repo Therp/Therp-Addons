@@ -12,7 +12,7 @@
                     </header>
                 </sheet>
                 <xpath expr="//sheet/group" position="after">
-                    <group attrs="{'invisible': [('attachment_ids', '=', False)]}" string="Attachments">
+                    <group attrs="{'invisible': [('attachment_ids', '=', [[6, False, []]])]}" string="Attachments">
                         <field name="attachment_ids" nolabel="1" />
                     </group>
                 </xpath>

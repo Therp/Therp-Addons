@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <record id="group_fetchmail_inbox_manager" model="res.groups">
-            <field name="name">Fetchmail Inbox</field>
+            <field name="name">Fetchmail Inbox Manager</field>
         </record>
     </data>
 </openerp>
