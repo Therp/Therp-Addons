@@ -49,6 +49,10 @@
     flexibility, but bad for usability. Fortunately, it was developed with
     extensibility in mind so that it is very simple to write extension modules
     to ease handling emails for specific models in a more user friendly manner.
+
+    In simple cases, if you want to force specifying objects of just one model,
+    you can put 'default_res_model': 'your.model' into the menu action's
+    context and you're done.
     """,
     "category" : "Dependency",
     "depends" : [

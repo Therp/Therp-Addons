@@ -33,11 +33,27 @@ class MailMessage(Model):
                 'res_model': 'fetchmail.inbox.attach.existing.wizard',
                 'context': {
                     'default_mail_id': ids and ids[0],
-                    'default_res_model': 'account.invoice',
                     },
                 }
 
     def fetchmail_inbox_create(self, cr, uid, ids, context=None):
+        if context and context.get('default_res_model'):
+            model_id = self.pool.get('ir.model').search(
+                    cr, uid, [('model', '=', context['default_res_model'])],
+                    context=None)
+            model_id = model_id and model_id[0]
+            wizard_model = self.pool.get('fetchmail.inbox.create.wizard')
+            return wizard_model.button_create(
+                    cr, uid,
+                    [wizard_model.create(
+                        cr, uid,
+                        {
+                            'model_id': model_id,
+                            'mail_id': ids and ids[0],
+                        },
+                        context=context)],
+                    context=context)
+
         return {
                 'type': 'ir.actions.act_window',
                 'view_mode': 'form',
@@ -94,6 +110,8 @@ class MailMessage(Model):
                 context=context)
         self.pool.get('fetchmail.inbox').unlink(cr, uid, inbox_ids,
                                                 context=context)
+        #TODO: possibly move attachments to record?
+        #TODO: delete original attachment?
 
     def _needaction_count(self, cr, uid, dom, context=None):
         if dom == [('model', '=', 'fetchmail.inbox')]:
