@@ -24,7 +24,7 @@ from openerp.tools.translate import _
 
 class FetchmailInboxAttachExistingWizard(TransientModel):
     _name = 'fetchmail.inbox.attach.existing.wizard'
-    _description= ''
+    _description= 'Attach mail to existing object'
 
     _columns = {
             'res_model': fields.char('Model', size=128),
