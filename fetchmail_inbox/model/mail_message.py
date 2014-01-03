@@ -95,3 +95,8 @@ class MailMessage(Model):
         self.pool.get('fetchmail.inbox').unlink(cr, uid, inbox_ids,
                                                 context=context)
 
+    def _needaction_count(self, cr, uid, dom, context=None):
+        if dom == [('model', '=', 'fetchmail.inbox')]:
+            return len(self.search(cr, uid, dom, context=context))
+        return super(MailMessage, self)._needaction_count(
+                cr, uid, dom, context=context)
