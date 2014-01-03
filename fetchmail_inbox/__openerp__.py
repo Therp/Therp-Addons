@@ -52,6 +52,7 @@
     """,
     "category" : "Dependency",
     "depends" : [
+        'mail',
         'fetchmail',
     ],
     "data" : [
