@@ -18,7 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv.orm import Model
+import base64
+from openerp.osv.orm import Model, browse_record
 from openerp.osv import fields
 
 class MailMessage(Model):
@@ -47,11 +48,43 @@ class MailMessage(Model):
                     },
                 }
 
+    def fetchmail_inbox_to_msg_dict(self, cr, uid, ids, context=None):
+        '''
+        return a dict to be consumed by mail_thread.message_{new,update}
+        ideally, the original mail is attached, otherwise, try toyield a
+        similar result to mail_thread.message_parse()
+        '''
+        result = {}
+
+        for this in self.browse(cr, uid, ids, context=None):
+            msg = {'attachments': []}
+            for attachment in this.attachment_ids:
+                name_data = (attachment.datas_fname,
+                        base64.b64decode(attachment.datas))
+                #reparse original message if available
+                if name_data[0] == 'original_email.eml':
+                    return self.pool.get('mail.thread').message_parse(
+                            cr, uid, name_data[1],
+                            save_original=False, context=context)
+                msg['attachments'].append(name_data)
+            for field in ['type', 'author_id', 'message_id', 'subject',
+                    'email_from', 'date', 'parent_id', 'body']:
+                if isinstance(this[field], browse_record):
+                    msg[field] = this[field].id
+                else:
+                    msg[field] = this[field] or ''
+            msg['from'] = this.author_id.email or ''
+            msg['to'] = ','.join([p.email for p in this.partner_ids])
+            msg['partner_ids'] = [(4, p.id) for p in this.partner_ids]
+            result[this.id] = msg
+
+        return result if len(ids) > 1 else result[ids[0]]
 
     def fetchmail_inbox_move_to_record(self, cr, uid, ids, res_model, res_id,
                                        context=None):
+        '''move message to object given by res_model and res_id'''
         inbox_ids = self.pool.get('fetchmail.inbox').search(
-                cr, uid, [('message_ids', '=', ids)], context=context)
+                cr, uid, [('message_ids', 'in', ids)], context=context)
         self.write(
                 cr, uid, ids,
                 {

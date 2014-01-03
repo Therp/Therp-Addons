@@ -57,14 +57,24 @@ class FetchmailInboxAttachExistingWizard(TransientModel):
     def button_attach(self, cr, uid, ids, context=None):
         for this in self.browse(cr, uid, ids, context=context):
             if this.res_model and this.res_id:
-                this.mail_id.fetchmail_inbox_move_to_record(
-                        this.res_model, this.res_id)
+                res_model = this.res_model
+                res_id = this.res_id
             elif this.res_reference:
-                this.mail_id.fetchmail_inbox_move_to_record(
-                        this.res_reference._model._name, this.res_reference.id)
+                res_model = this.res_reference._model._name
+                res_id = this.res_reference.id
             else:
                 raise except_orm(
                         _('Error'), _('You have to select an object!'))
+
+            model = self.pool.get(res_model)
+            if hasattr(model, 'message_update'):
+                model.message_update(
+                        cr, uid, [res_id], 
+                        this.mail_id.fetchmail_inbox_to_msg_dict(),
+                        context=dict(context, from_fetchmail_inbox=True))
+
+            this.mail_id.fetchmail_inbox_move_to_record(res_model, res_id)
+
             return {
                     'type': 'ir.actions.act_window',
                     'view_mode': 'form',

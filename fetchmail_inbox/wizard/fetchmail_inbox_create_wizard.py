@@ -35,9 +35,11 @@ class FetchmailInboxCreateWizard(TransientModel):
         for this in self.browse(cr, uid, ids, context=context):
             model = self.pool.get(this.model_id.model)
 
-            if hasattr(model, 'fetchmail_inbox_create_from_message'):
-                object_id = model.fetchmail_inbox_create_from_message(
-                        cr, uid, this.id, context)
+            if hasattr(model, 'message_new'):
+                object_id = model.message_new(
+                        cr, uid,
+                        this.mail_id.fetchmail_inbox_to_msg_dict(),
+                        context=dict(context, from_fetchmail_inbox=True))
             else:
                 object_id = model.create(cr, uid, {}, context=context)
 
