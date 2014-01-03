@@ -5,11 +5,16 @@
             <field name="model">mail.message</field>
             <field name="inherit_id" ref="mail.view_message_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//sheet" position="before">
+                <sheet position="before">
                     <header attrs="{'invisible': [('model', '!=', 'fetchmail.inbox')]}">
                         <button string="Attach to existing object" type="object" name="fetchmail_inbox_attach_existing" class="oe_highlight" />
                         <button string="Create object" type="object" name="fetchmail_inbox_create" />
                     </header>
+                </sheet>
+                <xpath expr="//sheet/group" position="after">
+                    <group attrs="{'invisible': [('attachment_ids', '=', False)]}" string="Attachments">
+                        <field name="attachment_ids" nolabel="1" />
+                    </group>
                 </xpath>
             </field>
         </record>
