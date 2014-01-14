@@ -36,5 +36,5 @@ class FetchmailInboxAttachExistingWizard(TransientModel):
             if mail.author_id:
                 result['fields']['res_id']['context'].update(
                     search_default_partner_id=\
-                        mail.author_id.commercial_partner_id.id
+                        mail.author_id.commercial_partner_id.id)
         return result
