@@ -99,18 +99,16 @@ class MailMessage(Model):
     def fetchmail_inbox_move_to_record(self, cr, uid, ids, res_model, res_id,
                                        context=None):
         '''move message to object given by res_model and res_id'''
-        inbox_ids = self.pool.get('fetchmail.inbox').search(
-                cr, uid, [('message_ids', 'in', ids)], context=context)
-        self.write(
-                cr, uid, ids,
-                {
-                    'model': res_model,
-                    'res_id': res_id,
-                },
-                context=context)
-        self.pool.get('fetchmail.inbox').unlink(cr, uid, inbox_ids,
-                                                context=context)
         for this in self.browse(cr, uid, ids, context=context):
+            inbox_model = self.pool.get(this.model)
+            inbox_ids = inbox_model.search(
+                    cr, uid, [('message_ids', 'in', ids)], context=context)
+            this.write({
+                'model': res_model,
+                'res_id': res_id,
+                })
+            inbox_model.unlink(cr, uid, inbox_ids, context=context)
+
             for attachment in this.attachment_ids:
                 if context.get('fetchmail_invoice_delete_original', True) and\
                         attachment.datas_fname == 'original_email.eml':
