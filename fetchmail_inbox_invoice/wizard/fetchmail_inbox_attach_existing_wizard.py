@@ -35,6 +35,7 @@ class FetchmailInboxAttachExistingWizard(TransientModel):
                     cr, user, context.get('default_mail_id'), context=context)
             result['fields']['res_id']['domain'] = [
                 ('type', 'in', ('in_invoice', 'in_refund'))]
+            result['fields']['res_id']['options'] = '{"quick_create": false}'
             if mail.author_id:
                 result['fields']['res_id']['context'].update(
                     search_default_partner_id=\
