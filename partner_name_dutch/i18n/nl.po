@@ -63,4 +63,4 @@ msgstr "mevrouw"
 #. module: partner_name_dutch
 #: model:res.partner.title,salutation:base.res_partner_title_sir
 msgid "sir"
-msgstr "mevrouw"
+msgstr "heer"
