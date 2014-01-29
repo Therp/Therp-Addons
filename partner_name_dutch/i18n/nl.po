@@ -26,6 +26,11 @@ msgid "Infix"
 msgstr "Tussenvoegsel"
 
 #. module: partner_name_dutch
+#: field:res.partner.title,salutation:0
+msgid "Salutation"
+msgstr "Aanhef"
+
+#. module: partner_name_dutch
 #: field:res.partner,initials:0
 msgid "Initials"
 msgstr "Voorletters"
