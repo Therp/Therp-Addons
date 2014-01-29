@@ -34,7 +34,6 @@
     ],
     "data" : [
         "data/res_partner_title.xml",
-        "data/ir_translation.xml",
         "view/res_partner_title.xml",
         'view/res_partner.xml',
     ],

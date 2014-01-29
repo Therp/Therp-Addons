@@ -35,3 +35,32 @@ msgstr "Aanhef"
 msgid "Initials"
 msgstr "Voorletters"
 
+#. module: partner_name_dutch
+#: model:res.partner.title,salutation:base.res_partner_title_prof
+msgid "prof."
+msgstr "prof."
+
+#. module: partner_name_dutch
+#: model:res.partner.title,salutation:base.res_partner_title_doctor
+msgid "dr."
+msgstr "dr."
+
+#. module: partner_name_dutch
+#: model:res.partner.title,salutation:base.res_partner_title_mister
+msgid "mister"
+msgstr "heer"
+
+#. module: partner_name_dutch
+#: model:res.partner.title,salutation:base.res_partner_title_miss
+msgid "miss"
+msgstr "mejuffrouw"
+
+#. module: partner_name_dutch
+#: model:res.partner.title,salutation:base.res_partner_title_madam
+msgid "madam"
+msgstr "mevrouw"
+
+#. module: partner_name_dutch
+#: model:res.partner.title,salutation:base.res_partner_title_sir
+msgid "sir"
+msgstr "mevrouw"
