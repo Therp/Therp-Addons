@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2014 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,36 +18,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name" : "Dutch partner names",
-    "version" : "1.0",
-    "author" : "Therp BV",
-    "complexity": "normal",
-    "description": """Use Dutch conventions for partner names:
-    - have infixes
-    - have initials
-    - split first and last name (provided by partner_firstname)
-    - use a different title for address and salutation ('aan de heer'/'geachte
-      heer')
-    """,
-    "category" : "Generic Modules",
-    "depends" : [
-        'partner_firstname',
-    ],
-    "data" : [
-        "data/res_partner_title.xml",
-        "view/res_partner_title.xml",
-        'view/res_partner.xml',
-    ],
-    "js": [
-    ],
-    "css": [
-    ],
-    "qweb": [
-    ],
-    "auto_install": False,
-    "installable": True,
-    "external_dependencies" : {
-        'python' : ['mako'],
-    },
-}
+from openerp.osv.orm import Model
+from openerp.osv import fields
+
+class ResPartnerTitle(Model):
+    _inherit = 'res.partner.title'
+
+    _columns = {
+        'salutation': fields.char('Salutation', size=64, translate=True),
+    }
