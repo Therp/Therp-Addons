@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_mail_form">
+            <field name="name">Add error message to mail form view</field>
+            <field name="model">mail.mail</field>
+            <field name="inherit_id" ref="mail.view_mail_form" />
+            <field name="arch" type="xml">
+                <xpath expr='//notebook/page[@string="Message Details"]/..'
+                       position="before">
+                    <div attrs="{'invisible': [('state', '!=', 'exception')]}">
+                        <label for="error_msg" />
+                        <field name="error_msg" />
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
