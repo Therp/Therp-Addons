@@ -24,12 +24,7 @@ from openerp import SUPERUSER_ID
 from openerp.osv import orm
 from openerp.addons.mail.mail_mail import mail_mail, _logger
 
-
-class MailMailMonkeypatch(orm.AbstractModel):
-    _name = 'mail.mail.monkeypatch'
-    _description = 'Mail model monkeypatch'
-
-    def send(self, cr, uid, ids, auto_commit=False, recipient_ids=None, context=None):
+def send(self, cr, uid, ids, auto_commit=False, recipient_ids=None, context=None):
         """
         Copy of this method in mail.mail. If an error occurs when sending
         a mail, write the error in the mail record itself.
@@ -37,7 +32,6 @@ class MailMailMonkeypatch(orm.AbstractModel):
         This method is monkeypatched into the original model, to preserve
         inheritance of this method.
         """
-        print "You are here"
         ir_mail_server = self.pool.get('ir.mail_server')
         for mail in self.browse(cr, uid, ids, context=context):
             try:
@@ -87,17 +81,23 @@ class MailMailMonkeypatch(orm.AbstractModel):
                     self._postprocess_sent_message(cr, uid, mail, context=context)
             except Exception, e:
                 _logger.exception('failed sending mail.mail %s', mail.id)
-                ### Only change here
+                ### mail_error start changes
                 vals = {'state': 'exception'}
                 if 'error_msg' in mail._columns and e.args:
                     vals['error_msg'] = e.args[-1]
                 mail.write(vals)
-                ###
+                ### mail_error stop changes
 
             if auto_commit == True:
                 cr.commit()
         return True
 
+
+class MailMailMonkeypatch(orm.AbstractModel):
+    _name = 'mail.mail.monkeypatch'
+    _description = 'Mail model monkeypatch'
+
+
     def _register_hook(self, cr):
-        mail_mail.send = self.send
+        mail_mail.send = send
         return super(MailMailMonkeypatch, self)._register_hook(cr)
