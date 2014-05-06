@@ -344,7 +344,6 @@ class use_case_collection(osv.osv):
         'use_case_ids': fields.one2many(
             'use_case', 'collection_id',
             'Use cases',
-            required=True,
             context={'active_test': False},
             ),
         'actor_ids': fields.one2many(
