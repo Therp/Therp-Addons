@@ -14,7 +14,7 @@
                     <field name="partner_id" />
                     <field name="project_id" groups="project.group_project_user" />
                     <field name="create_uid">
-                        <filter icon="trp-personal" string="Me" domain="[('create_uid', '=', uid)]" />
+                        <filter icon="terp-personal" string="Me" domain="[('create_uid', '=', uid)]" />
                     </field>
                 </search>
             </field>
