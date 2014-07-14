@@ -4,7 +4,7 @@
         <record id="use_case_collection_search" model="ir.ui.view">
             <field name="name">Use case collection search form</field>
             <field name="model">use_case.collection</field>
-            <field name="type">form</field>
+            <field name="type">search</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="name" />
