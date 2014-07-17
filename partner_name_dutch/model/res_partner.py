@@ -40,3 +40,19 @@ class res_partner(Model):
         'initials': fields.char('Initials', size=8),
         'infix': fields.char('Infix', size=32),
     }
+
+    def _register_hook(self, cr):
+        #if firstname_display_name_trigger is installed, add our keys to
+        #the trigger
+        if hasattr(self, '_display_name_store_triggers'):
+            self._display_name_store_triggers[self._name][1].extend(
+                ['infix', 'initials'])
+            for trigger in self.pool._store_function[self._name]:
+                if trigger[0] != self._name or trigger[1] != 'display_name':
+                    continue
+                self.pool._store_function[self._name].append(
+                    trigger[:3] +
+                    ((trigger[3] + ('infix', 'initials')), ) +
+                    trigger[4:])
+                self.pool._store_function[self._name].remove(trigger)
+                break
