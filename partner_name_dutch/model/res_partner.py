@@ -25,36 +25,18 @@ from openerp.osv import fields
 
 class res_partner(Model):
     _inherit = 'res.partner'
-    _name_fields = ['firstname', 'lastname', 'initials', 'infix']
 
-    def _compute_name_custom(self, cursor, uid, ids, fname, arg,
-                             context=None):
-        if context is None:
-            context = {}
-
+    def _prepare_name_custom(self, cursor, uid, partner, context=None):
         name_template = Template(
-                context.get(
-                    'name_format',
-                    "${firstname or initials or ''}"
-                    "${(firstname or initials) and ' ' or ''}"
-                    "${infix or ''}${infix and ' ' or ''}${lastname}"))
+            context.get(
+                'name_format',
+                "${p.firstname or p.initials or ''}"
+                "${(p.firstname or p.initials) and ' ' or ''}"
+                "${p.infix or ''}${p.infix and ' ' or ''}${p.lastname}"))
 
-        result = {}
-        for rec in self.read(cursor, uid, ids, self._name_fields):
-            result[rec['id']] = name_template.render(**rec)
-        return result
-
-    def _write_name(self, cursor, uid, partner_id, field_name, field_value,
-            arg, context=None):
-        return super(res_partner, self)._write_name(
-                cursor, uid, partner_id, field_name, field_value, arg,
-                context=context)
+        return name_template.render(p=partner)
 
     _columns = {
-            'name': fields.function(_compute_name_custom, string="Name",
-                type="char", store=True,
-                select=True, readonly=True,
-                fnct_inv=_write_name),
-            'initials': fields.char('Initials', size=8),
-            'infix': fields.char('Infix', size=32),
-            }
+        'initials': fields.char('Initials', size=8),
+        'infix': fields.char('Infix', size=32),
+    }
