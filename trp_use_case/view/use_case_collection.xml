@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+<<<<<<< HEAD
                 
+=======
+>>>>>>> 0da1554... [ADD] Use case set search view and order by name
         <record id="use_case_collection_search" model="ir.ui.view">
             <field name="name">Use case collection search form</field>
             <field name="model">use_case.collection</field>
@@ -17,7 +20,10 @@
                 </search>
             </field>
         </record>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0da1554... [ADD] Use case set search view and order by name
         <record id="use_case_collection_form" model="ir.ui.view">
             <field name="name">Use case collection form</field>
             <field name="model">use_case.collection</field>

@@ -297,6 +297,7 @@ use_case_workload()
 class use_case_collection(osv.osv):
     _name = 'use_case.collection'
     _description = 'Set of use cases'
+    _order = 'name'
 
     def _get_hours_total(
         self, cr, uid, ids, field, args, context=None):
