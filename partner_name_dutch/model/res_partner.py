@@ -45,6 +45,8 @@ class res_partner(Model):
         #if firstname_display_name_trigger is installed, add our keys to
         #the trigger
         if hasattr(self, '_display_name_store_triggers'):
+            if self._name not in self._display_name_store_triggers:
+                continue
             self._display_name_store_triggers[self._name][1].extend(
                 ['infix', 'initials'])
             for trigger in self.pool._store_function[self._name]:
