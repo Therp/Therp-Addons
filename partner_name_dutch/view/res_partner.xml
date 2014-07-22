@@ -7,10 +7,8 @@
       <field name="arch" type="xml">
           <data>
               <field name="lastname" position="before">
-                  <field name="infix" />
-              </field>
-              <field name="firstname" position="before">
                   <field name="initials" />
+                  <field name="infix" />
               </field>
           </data>
       </field>
@@ -23,16 +21,12 @@
       <field name="arch" type="xml">
           <data>
               <field name="lastname" position="before">
+                  <field name="initials" />
                   <field name="infix" />
               </field>
-              <field name="firstname" position="before">
-                  <field name="initials" />
-              </field>
               <xpath expr="//form[@string='Contact']/sheet//group/field[@name='lastname']" position="before">
-                  <field name="infix"/>
-              </xpath>
-              <xpath expr="//form[@string='Contact']/sheet//group/field[@name='firstname']" position="before">
                   <field name="initials"/>
+                  <field name="infix"/>
               </xpath>
           </data>
       </field>
