@@ -47,6 +47,14 @@ Usage
 In the web client, save a custom filter. When doing a mail merge, choose one of
 those filters and your document will be filled with the records in the filter's
 selection.
+
+Requirements
+------------
+
+On the client side, you need to install the extension via Tools -> Extension
+Manager -> Add.
+
+You also need python-uno (*not python3-uno*) installed on the client machines.
 """,
     "website": 'http://therp.nl',
     "images": ['images/options.png', 'images/merge.png'],
