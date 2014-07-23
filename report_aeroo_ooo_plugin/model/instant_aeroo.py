@@ -34,9 +34,12 @@ single merged document.
 """
 
 import base64
-from osv import osv
-from report.report_sxw import rml_parse
-from report_aeroo.report_aeroo import Aeroo_report
+from openerp.osv import osv
+from openerp.tools.translate import _
+from openerp.tools.safe_eval import const_eval
+from openerp.report.report_sxw import rml_parse
+from openerp.addons.report_aeroo.report_aeroo import Aeroo_report
+from openerp.addons.report_aeroo.report_aeroo import AerooPrint
 
 
 class report_xml_duck(object):
@@ -49,6 +52,7 @@ class report_xml_duck(object):
     preload_mode = False
     fallback_false = True
     content_fname = False
+    report_name = ''
     id = []
 
     def __init__(self, file_data):
@@ -69,45 +73,42 @@ class Aeroo_report_instant(Aeroo_report):
         self.counters = {}
         self.table = table
         self.parser = rml_parse
+        self.active_prints = {False: AerooPrint()}
 
 
 class instant_aeroo(osv.TransientModel):
     _name = 'instant.aeroo'
     """ Wrapper for Aeroo_instant_report, as exposed through xml-rpc """
 
-    def create_report(self, cr, uid, file_data, context=None):
+    def create_report(self, cr, uid, file_data, filter_id, context=None):
         """
         Return a tuple (list_of_docs, type)
         """
         if context is None:
             context = {}
 
-        store = self.pool.get('saved_selection.selection').get(
-            cr, uid, context)
-        if not store:
-            return (False, "No saved selection defined for this user.")
+        saved_filter = self.pool['ir.filters'].browse(cr, uid, filter_id,
+                                                      context=context)
+        ids = self.pool[saved_filter.model_id].search(
+            cr, uid,
+            const_eval(saved_filter.domain),
+            context=const_eval(saved_filter.context))
 
-        # TODO: do a check against the template model?
-        (model, ids) = store
         if not ids:
-            return (False, "User's selection does not contain any items.")
+            return (False, _("User's selection does not contain any items."))
 
         data = {
             'report_type': 'aeroo',
-            'model': model
+            'model': saved_filter.model_id
         }
-        context['active_model'] = model
+        ctx = context.copy()
+        ctx['active_model'] = saved_filter.model_id
 
         try:
-            report = Aeroo_report_instant(cr, model)
+            report = Aeroo_report_instant(cr, saved_filter.model_id)
             report_xml = report_xml_duck(file_data)
-            to_return = [[], False]
-            for res_id in ids:
-                res = report.create_aeroo_report(
-                    cr, uid, [res_id], data, report_xml, context=context)
-                if res and res[0]:
-                    to_return[0].append(base64.encodestring(res[0]))
-                    to_return[1] = res[1]
-        except Exception, e:
-            to_return = (False, unicode(e))
-        return to_return
+            res = report.create_aeroo_report(
+                cr, uid, ids, data, report_xml, context=context)
+            return (base64.encodestring(res[0]), res[1])
+        except ValueError, e:
+            return (False, unicode(e))

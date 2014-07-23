@@ -93,6 +93,10 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
 
         listbox = dialog.getControl('filter')
 
+        #TODO: all this belongs on the OpenERP side so that we only have to
+        #call
+        #ir_filters.get_libreoffice_filters and get a list of (id, displayname)
+        #this way, other modules can tinker with this list
         def ir_filters(method, *args):
             return self.sock.execute(
                 database, uid, password, 'ir.filters', method, *args)
@@ -102,8 +106,8 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
                 'read',
                 ir_filters(
                     'search',
-                    [('user_id', 'in', [uid, False])],
-                    0, 0, 'name')):
+                    [('user_id', 'in', [uid, False])]),
+                ['model_id', 'name']):
             filters.setdefault(filter_data['model_id'], [])
             filters[filter_data['model_id']].append(filter_data)
 
@@ -129,8 +133,18 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
         if firstItem:
             listbox.setText(firstItem)
 
+        filter_id = None
         if dialog.execute():
-            pass
+            filter_id = None
+            filters = [filter_data
+                       for filter_list in filters.itervalues()
+                       for filter_data in filter_list
+                       if filter_data['display_name'] == listbox.getText()]
+            if filters:
+                filter_id = int(filters[0]['id'])
+            else:
+                dialog.dispose()
+                return
         dialog.dispose()
 
         data = FileUtils.read_data_from_file(
@@ -144,7 +158,8 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
             password,
             'instant.aeroo',
             'create_report',
-            base64.encodestring(data)
+            base64.encodestring(data),
+            filter_id
             )
         if res:
             if res[0]:
@@ -154,37 +169,10 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
                 tempFile = tempfile.mkstemp('.odt')
                 os.close(tempFile[0])
                 filename = tempFile[1]
-                component = False
-                for doc in res[0]:
-                    if not component:
-                        FileUtils.write_data_to_file(
-                            filename,
-                            base64.decodestring(doc)
-                            )
-                        component = Desktop.loadComponentFromURL(
-                            Danny.convertToURL(filename),
-                            "_blank", 0,
-                            ()
-                            )
-                    else:
-                        tempFile = tempfile.mkstemp('.odt')
-                        os.close(tempFile[0])
-                        filename2 = tempFile[1]
-                        FileUtils.write_data_to_file(
-                            filename2,
-                            base64.decodestring(doc)
-                            )
-                        # Get a cursor at the end of the text
-                        oTextRange = component.Text.End
-                        oTextCursor = component.Text.createTextCursorByRange(
-                            oTextRange)
-                        # Insert page break by changing PageDescName to the
-                        # existing page style name
-                        oTextCursor.PageDescName = oTextCursor.PageStyleName
-                        # Insert document at text cursor position
-                        oTextCursor.insertDocumentFromURL(
-                            Danny.convertToURL(filename2), ())
-                        os.remove(filename2)
+                FileUtils.write_data_to_file(filename,
+                                             base64.decodestring(res[0]))
+                Desktop.loadComponentFromURL(
+                    Danny.convertToURL(filename), "_blank", 0, ())
             else:
                 # Second arg *may* contain a warning or error message
                 Danny.ErrorDialog(self.localize("error"), "%s" % res[1])
