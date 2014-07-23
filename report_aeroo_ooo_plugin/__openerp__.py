@@ -56,6 +56,17 @@ Manager -> Add. After installation, restart Writer in order to see the newly
 created menus.
 
 You also need python-uno (*not python3-uno*) installed on the client machines.
+
+Troubleshooting
+---------------
+
+If you experience an empty configuration dialog or missing translation,
+probably your extension registry is corrupt.
+
+``cd ~/.config/libreoffice/4/user && rm -rf extensions uno_packages``
+
+fixes the problem, but you lose all installed extensions, their configuration
+and have to reinstall them.
 """,
     "website": 'http://therp.nl',
     "images": ['images/options.png', 'images/merge.png'],
