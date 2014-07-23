@@ -19,12 +19,14 @@
 #
 ##############################################################################
 {
-    "name" : "Aeroo reports plugin for OpenOffice.Org",
-    "version" : "0.1r33",
-    "author" : "Therp BV",
+    "name": "Aeroo reports plugin for OpenOffice.Org",
+    "version": "0.1r33",
+    "author": "Therp BV",
     "category": 'Generic Modules/Aeroo Reporting',
     'complexity': "normal",
     "description": """
+Introduction
+------------
 This module provides an OpenOffice.org/LibreOffice extension plus a small
 interface to the Aeroo Report module on the OpenERP side to allow mail merge
 directly from the Writer application. Mail merge is performed on records
@@ -35,28 +37,22 @@ The ability to perform mail merge on the fly reliefs the administrator from
 having to create a Report XML record in the OpenERP database and upload the
 template after every change.
 
-Note that the ability to store and share selections of
-OpenERP records is provided by the Saved Selection module by Therp BV. Due
-to this dependency, this module is only fully functional in combination with
-the OpenERP web client.
-
 After installation of this module, you can download the extension file
 from your OpenERP database under
 
 Settings -> Customization -> Aeroo Reports -> Download Office Extension
 
-Known issues:
-If the resulting document does not contain page breaks between the merged
-template on different records, make sure that the document ends with a
-line break.
-
-This module is compatible with OpenERP 6.1.
-    """,
+Usage
+-----
+In the web client, save a custom filter. When doing a mail merge, choose one of
+those filters and your document will be filled with the records in the filter's
+selection.
+""",
     "website": 'http://therp.nl',
-    "images" : ['images/options.png', 'images/merge.png'],
-    "depends" : ['report_aeroo', 'trp_saved_selection'],
+    "images": ['images/options.png', 'images/merge.png'],
+    "depends": ['report_aeroo'],
     'data': [
         'view/get_plugin.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

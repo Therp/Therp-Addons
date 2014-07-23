@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    This module copyright (c) 2012 Therp BV (<http://therp.nl>)
-# 
+#
 #    Thanks to the contributors of Stackoverflow refered to below.
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -21,11 +21,14 @@
 #
 ##############################################################################
 
-import os, glob, base64
+import os
+import glob
+import base64
 import zipfile
 from StringIO import StringIO
 from osv import osv, fields
 from addons import get_module_resource
+
 
 class GetPlugin(osv.TransientModel):
     _name = 'report.aeroo.get_plugin'
@@ -33,8 +36,10 @@ class GetPlugin(osv.TransientModel):
     def get_plugin_zipfile(self, cr, uid, context=None):
 
         def addFolderToZip(myZipFile, folder, path):
-            # http://stackoverflow.com/questions/458436/adding-folders-to-a-zip-file-using-python/459419#459419
-            folder = folder.encode('ascii') #convert path to ascii for ZipFile Method
+            # http://stackoverflow.com/questions/458436/adding-folders-to-a-
+            # zip-file-using-python/459419#459419
+            #convert path to ascii for ZipFile Method
+            folder = folder.encode('ascii')
             for file in glob.glob(folder + "/*"):
                 relpath = os.path.join(path, os.path.basename(file))
                 print relpath
@@ -43,15 +48,18 @@ class GetPlugin(osv.TransientModel):
                 elif os.path.isdir(file):
                     addFolderToZip(myZipFile, file, relpath)
 
-        # http://stackoverflow.com/questions/3610221/how-to-create-an-in-memory-zip-file-with-directories-without-touching-the-disk
+        # http://stackoverflow.com/questions/3610221/how-to-create-an-in-
+        # memory-zip-file-with-directories-without-touching-the-disk
         inMemoryOutputFile = StringIO()
-        zipFile = zipfile.ZipFile(inMemoryOutputFile, 'w') 
+        zipFile = zipfile.ZipFile(inMemoryOutputFile, 'w')
         addFolderToZip(
-            zipFile, get_module_resource('report_aeroo_ooo_plugin', 'plugin'), '')
+            zipFile, get_module_resource(
+                'report_aeroo_ooo_plugin', 'plugin'),
+            '')
         zipFile.close()
         inMemoryOutputFile.seek(0)
         return base64.encodestring(inMemoryOutputFile.getvalue())
-    
+
     _columns = {
         'name': fields.char(
             'Filename', size=128, readonly=True),
