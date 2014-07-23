@@ -26,8 +26,9 @@ import glob
 import base64
 import zipfile
 from StringIO import StringIO
-from osv import osv, fields
-from addons import get_module_resource
+from openerp.osv import osv, fields
+from openerp.addons import get_module_resource
+from openerp.tools import human_size
 
 
 class GetPlugin(osv.TransientModel):
@@ -57,6 +58,11 @@ class GetPlugin(osv.TransientModel):
             '')
         zipFile.close()
         inMemoryOutputFile.seek(0)
+        data = base64.encodestring(inMemoryOutputFile.getvalue())
+
+        if context and context.get('bin_size'):
+            return human_size(len(data))
+
         return base64.encodestring(inMemoryOutputFile.getvalue())
 
     _columns = {
