@@ -83,6 +83,56 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
                         "application/vnd.oasis.opendocument.text"))
                 )
         current.store()
+
+        dialog = ctx.getServiceManager()\
+            .createInstanceWithContext(
+                "com.sun.star.awt.DialogProvider", ctx)\
+            .createDialog(
+                "vnd.sun.star.extension://org.openerp/dialogs/"
+                "FilterChooser.xdl")
+
+        listbox = dialog.getControl('filter')
+
+        def ir_filters(method, *args):
+            return self.sock.execute(
+                database, uid, password, 'ir.filters', method, *args)
+
+        filters = {}
+        for filter_data in ir_filters(
+                'read',
+                ir_filters(
+                    'search',
+                    [('user_id', 'in', [uid, False])],
+                    0, 0, 'name')):
+            filters.setdefault(filter_data['model_id'], [])
+            filters[filter_data['model_id']].append(filter_data)
+
+        def ir_model(method, *args):
+            return self.sock.execute(
+                database, uid, password, 'ir.model', method, *args)
+
+        for model in ir_model(
+                'read',
+                ir_model(
+                    'search',
+                    [('model', 'in', filters.keys())]),
+                ['name', 'model']):
+            for filter_data in filters[model['model']]:
+                filter_data['display_name'] = "%s (%s)" % (
+                    filter_data['name'], model['name'])
+
+        firstItem = None
+        for filter_list in filters.itervalues():
+            for filter_data in filter_list:
+                firstItem = filter_data['display_name']
+                listbox.addItem(filter_data['display_name'], '0')
+        if firstItem:
+            listbox.setText(firstItem)
+
+        if dialog.execute():
+            pass
+        dialog.dispose()
+
         data = FileUtils.read_data_from_file(
             FileUtils.get_absolute_file_path(
                 current.getURL()[7:]
