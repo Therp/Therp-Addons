@@ -42,7 +42,6 @@ class GetPlugin(osv.TransientModel):
             folder = folder.encode('ascii')
             for file in glob.glob(folder + "/*"):
                 relpath = os.path.join(path, os.path.basename(file))
-                print relpath
                 if os.path.isfile(file):
                     myZipFile.write(file, relpath, zipfile.ZIP_DEFLATED)
                 elif os.path.isdir(file):

@@ -2,23 +2,24 @@
 <openerp>
     <data>
         <record id="view_get_plugin" model="ir.ui.view">
-            <field name="name">Plugin download form view</field>
             <field name="model">report.aeroo.get_plugin</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
-                <form>
-                    <field name="name" invisible="1"/>
-                    <field name="plugin_file" filename="name"/>
+                <form string="Plugin download form view" version="7.0">
+                    <group>
+                        <field name="name" invisible="1"/>
+                        <field name="plugin_file" filename="name"/>
+                    </group>
                 </form>
             </field>
         </record>
 
         <record id="wizard_get_plugin" model="ir.actions.act_window">
             <field name="name">Download Office Extension</field>
-	    <field name="type">ir.actions.act_window</field>
+            <field name="type">ir.actions.act_window</field>
             <field name="res_model">report.aeroo.get_plugin</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
+            <field name="target">new</field>
         </record>
 
         <menuitem name="Download Office Extension"
