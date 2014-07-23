@@ -52,7 +52,8 @@ Requirements
 ------------
 
 On the client side, you need to install the extension via Tools -> Extension
-Manager -> Add.
+Manager -> Add. After installation, restart Writer in order to see the newly
+created menus.
 
 You also need python-uno (*not python3-uno*) installed on the client machines.
 """,
