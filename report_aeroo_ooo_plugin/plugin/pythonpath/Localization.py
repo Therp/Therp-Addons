@@ -79,9 +79,7 @@ class LocalizedObject(unohelper.Base):
                 self.loadlocalization()
             except Exception, e:
                 print e
-        print string
         if string not in self.localization: return 'unlocalized: %s' % string
-        print language
         if language in self.localization[string]:
             return self.localization[string][language]
         elif self.SUPPORTED_LANGUAGES[0] in self.localization[string]:
@@ -97,7 +95,6 @@ class LocalizedObject(unohelper.Base):
                     self.__class__.__name__
                     )
 	    for f in glob.glob(os.path.join(path, 'DialogStrings_*.properties')):
-                    print >> sys.stderr, f
 		    sf = os.path.split( f )[-1]
 		    lang = sf[sf.index( '_' )+1:sf.index( '_' )+3]
 		    for l in file( f ):
