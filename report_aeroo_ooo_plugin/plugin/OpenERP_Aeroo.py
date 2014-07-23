@@ -1,17 +1,13 @@
-##########################################################################
+# -*- coding: utf-8 -*-
+##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#
-#    This module (C) 2012 Therp BV (<http://therp.nl>)
-#
-#    Contains elements from the OpenERP Report Designer plugin
-#    for OpenOffice, Copyright (C) 2004-2012 OpenERP SA 
-#    (<http://openerp.com>). 
+#    This module copyright (C) 2012-2014 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,7 +16,6 @@
 #
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
 #
 ##############################################################################
 
@@ -32,14 +27,23 @@ import tempfile
 import traceback
 from com.sun.star.task import XJobExecutor
 
-import Danny
+try:
+    import Danny
+except ImportError:
+    #enable to run without extension context
+    sys.path.append(os.path.join(
+        os.path.dirname(__file__),
+        'pythonpath',
+    ))
+    import Danny
 import TinySocket
 import FileUtils
 import Localization
 import LoginObject
 
+
 class Merge(Localization.LocalizedObject, XJobExecutor):
-    """ 
+    """
     Send the current open document to the OpenERP server
     and trigger an Aeroo report on resources in the
     stored selection. Merge the documents into one, separated
@@ -56,15 +60,15 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
             traceback.print_exc(file=sys.stderr)
 
     def __init_wrapped__(self, ctx):
-       
-        self.ctx     = ctx
-        self.module  = "OpenERP_Aeroo"
+
+        self.ctx = ctx
+        self.module = "OpenERP_Aeroo"
         self.version = "0.1"
         login = LoginObject.LoginObject(ctx).getLogin()
         if not login:
             exit(1)
         (url, database, uid, password) = login
-        self.sock=TinySocket.RPCSession(ctx, url)
+        self.sock = TinySocket.RPCSession(ctx, url)
         Desktop = Danny.getDesktop()
         current = Desktop.getCurrentComponent()
         if not current.hasLocation():
@@ -94,7 +98,7 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
             )
         if res:
             if res[0]:
-                # Combine files, based on 
+                # Combine files, based on
                 # Russell Philip's OOO Macros
                 # http://sourceforge.net/projects/ooomacros/files/ (GPL)
                 tempFile = tempfile.mkstemp('.odt')
@@ -122,11 +126,14 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
                             )
                         # Get a cursor at the end of the text
                         oTextRange = component.Text.End
-                        oTextCursor = component.Text.createTextCursorByRange(oTextRange)
-                        # Insert page break by changing PageDescName to the existing page style name
+                        oTextCursor = component.Text.createTextCursorByRange(
+                            oTextRange)
+                        # Insert page break by changing PageDescName to the
+                        # existing page style name
                         oTextCursor.PageDescName = oTextCursor.PageStyleName
                         # Insert document at text cursor position
-                        oTextCursor.insertDocumentFromURL (Danny.convertToURL(filename2), ())
+                        oTextCursor.insertDocumentFromURL(
+                            Danny.convertToURL(filename2), ())
                         os.remove(filename2)
             else:
                 # Second arg *may* contain a warning or error message
@@ -136,12 +143,15 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
                               self.localize("not.create"))
 
 g_ImplementationHelper = unohelper.ImplementationHelper()
-g_ImplementationHelper.addImplementation( Merge, "org.openoffice.openerp.report.aeroo.merge", ("com.sun.star.task.Job",),)
+g_ImplementationHelper.addImplementation(
+    Merge,
+    "org.openoffice.openerp.report.aeroo.merge", ("com.sun.star.task.Job",),)
+
 
 class About(Localization.LocalizedObject, XJobExecutor):
     def __init__(self, ctx):
         super(About, self).__init__(ctx)
-        self.module  = "OpenERP_Aeroo"
+        self.module = "OpenERP_Aeroo"
         self.version = "0.1"
         self.win = Danny.DBModalDialog(
             60, 50, 200, 215,
@@ -151,7 +161,7 @@ class About(Localization.LocalizedObject, XJobExecutor):
         fdBigFont.Width = 20
         fdBigFont.Height = 25
         fdBigFont.Weight = 120
-        fdBigFont.Family= 3
+        fdBigFont.Family = 3
 
         oLabelProdDesc = self.win.addFixedText("lblProdDesc", 3, 30, 196, 175)
         oLabelProdDesc.Model.TextColor = 1
@@ -164,7 +174,37 @@ class About(Localization.LocalizedObject, XJobExecutor):
         oLabelProdDesc.Model.MultiLine = True
         oLabelProdDesc.Text = self.localize("content")
 
-        self.win.doModalDialog("",None)
+        self.win.doModalDialog("", None)
 
-g_ImplementationHelper.addImplementation( About, "org.openoffice.openerp.report.aeroo.about", ("com.sun.star.task.Job",),)
+g_ImplementationHelper.addImplementation(
+    About,
+    "org.openoffice.openerp.report.aeroo.about",
+    ("com.sun.star.task.Job",),)
 
+if __name__ == "__main__":
+# from https://wiki.openoffice.org/wiki/UNO_component_packaging#
+# Python_component_testing
+    import os
+    import uno
+
+    # Start OpenOffice.org, listen for connections and open testing document
+    os.system("lowriter '--accept=socket,host=localhost,port=2002;urp;' &")
+
+    # Get local context info
+    localContext = uno.getComponentContext()
+    resolver = localContext.ServiceManager.createInstanceWithContext(
+        "com.sun.star.bridge.UnoUrlResolver", localContext)
+
+    ctx = None
+
+    # Wait until the OO.o starts and connection is established
+    while ctx is None:
+        try:
+            ctx = resolver.resolve(
+                "uno:socket,host=localhost,port=2002;urp;"
+                "StarOffice.ComponentContext")
+        except:
+            pass
+
+    # Trigger our job
+    merge = Merge(ctx)
