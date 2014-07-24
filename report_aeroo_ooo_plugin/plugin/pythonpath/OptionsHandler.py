@@ -44,7 +44,8 @@ class ConfigurationProvider(object):
             "com.sun.star.configuration.ConfigurationProvider", ctx)
         self.node = uno.createUnoStruct("com.sun.star.beans.PropertyValue")
         self.node.Name = "nodepath"
-        self.node.Value = "/org.openerp.OpenERPOptions/OpenERPOptions"
+        self.node.Value = ("/org.odoo.report_aeroo_ooo_plugin.OpenERPOptions/"
+            "OpenERPOptions")
         self.cfg_names = [
             "Server",
             "ServerPort",
@@ -137,7 +138,7 @@ class OptionsHandler(unohelper.Base, XServiceInfo, XContainerWindowEventHandler)
         return False
 
     def getImplementationName(self):
-        return "org.openerp.OptionsHandler"
+        return "org.odoo.report_aeroo_ooo_plugin.OptionsHandler"
 
     def getSupportedServiceNames(self):
         return ()
@@ -183,5 +184,5 @@ class OptionsHandler(unohelper.Base, XServiceInfo, XContainerWindowEventHandler)
 # uno implementation
 g_ImplementationHelper = unohelper.ImplementationHelper()
 g_ImplementationHelper.addImplementation(
-    OptionsHandler, "org.openerp.OptionsHandler",
-    ("org.openerp.OptionsHandler",),)
+    OptionsHandler, "org.odoo.report_aeroo_ooo_plugin.OptionsHandler",
+    ("org.odoo.report_aeroo_ooo_plugin.OptionsHandler",),)

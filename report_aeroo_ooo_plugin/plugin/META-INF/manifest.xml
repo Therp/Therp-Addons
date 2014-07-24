@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest:manifest xmlns:manifest="http://openoffice.org/2001/manifest">
   <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data"
-                       manifest:full-path="registry/data/org/openerp/OpenERPOptions.xcu"/>
+      manifest:full-path="registry/data/org/odoo/report_aeroo_ooo_plugin/OpenERPOptions.xcu"/>
   <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-schema"
-                       manifest:full-path="registry/schema/org/openerp/OpenERPOptions.xcs"/>
+      manifest:full-path="registry/schema/org/odoo/report_aeroo_ooo_plugin/OpenERPOptions.xcs"/>
   <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data"
                        manifest:full-path="registry/data/org/openoffice/Office/OptionsDialog.xcu"/>
   <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data"

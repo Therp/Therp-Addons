@@ -30,7 +30,7 @@ Introduction
 This module provides an OpenOffice.org/LibreOffice extension plus a small
 interface to the Aeroo Report module on the OpenERP side to allow mail merge
 directly from the Writer application. Mail merge is performed on records
-stored in the saved selection in OpenERP. The result is a single document in
+stored in the saved selection in Odoo. The result is a single document in
 editable ODF, appearing in a new office window.
 
 The ability to perform mail merge on the fly reliefs the administrator from
@@ -38,7 +38,7 @@ having to create a Report XML record in the OpenERP database and upload the
 template after every change.
 
 After installation of this module, you can download the extension file
-from your OpenERP database under
+from your Odoo database under
 
 Settings -> Customization -> Aeroo Reports -> Download Office Extension
 
@@ -57,16 +57,19 @@ created menus.
 
 You also need python-uno (*not python3-uno*) installed on the client machines.
 
+Configure access to your database via Tools -> Options -> LibreOffice Writer ->
+Odoo Options.
+
 Troubleshooting
 ---------------
 
-If you experience an empty configuration dialog or missing translation,
+If you experience an empty configuration dialog or missing translations,
 probably your extension registry is corrupt.
 
-``cd ~/.config/libreoffice/4/user && rm -rf extensions uno_packages``
+``rm -rf ~/.config/libreoffice/4/user{extensions,uno_packages}``
 
 fixes the problem, but you lose all installed extensions, their configuration
-and have to reinstall them.
+and you'll have to reinstall them.
 """,
     "website": 'http://therp.nl',
     "images": ['images/options.png', 'images/merge.png'],

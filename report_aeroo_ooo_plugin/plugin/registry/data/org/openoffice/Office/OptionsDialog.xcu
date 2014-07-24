@@ -3,19 +3,19 @@
    <node oor:name="Nodes">
     <node oor:name="Writer" oor:op="fuse">
         <node oor:name="Leaves">
-        <node oor:name="org.openerp.OpenERP" oor:op="fuse">
+        <node oor:name="org.odoo.report_aeroo_ooo_plugin.OpenERP" oor:op="fuse">
           <prop oor:name="Id">
-            <value>org.openerp.OpenERP</value>
+            <value>org.odoo.report_aeroo_ooo_plugin.OpenERP</value>
           </prop>
           <prop oor:name="Label">
-            <value xml:lang="en-US">OpenERP Options</value>
-            <value xml:lang="nl">OpenERP Instellingen</value>
+            <value xml:lang="en-US">Odoo Options</value>
+            <value xml:lang="nl">Odoo Instellingen</value>
           </prop>
           <prop oor:name="OptionsPage">
             <value>%origin%/../../../../../dialogs/OpenERPOptions.xdl</value>
           </prop>
 	  <prop oor:name="EventHandlerService">
-            <value>org.openerp.OptionsHandler</value>
+            <value>org.odoo.report_aeroo_ooo_plugin.OptionsHandler</value>
           </prop>
         </node>
       </node>

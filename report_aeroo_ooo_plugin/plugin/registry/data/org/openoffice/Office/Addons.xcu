@@ -4,10 +4,10 @@
     oor:name="Addons" oor:package="org.openoffice.Office">
     <node oor:name="AddonUI">
         <node oor:name="OfficeMenuBar">
-            <node oor:name="org.openoffice.openerp.report.aeroo" oor:op="replace">
+            <node oor:name="org.odoo.report_aeroo_ooo_plugin.menu" oor:op="replace">
                 <prop oor:name="Title" oor:type="xs:string">
                     <value/>
-                    <value xml:lang="en-US">Aeroo (OpenERP)</value>
+                    <value xml:lang="en-US">Odoo</value>
                 </prop>
                 <prop oor:name="Target" oor:type="xs:string">
                     <value>_self</value>
@@ -18,7 +18,7 @@
                 <node oor:name="Submenu">
                     <node oor:name="m11aeroo1" oor:op="replace">
                         <prop oor:name="URL" oor:type="xs:string">
-                            <value>service:org.openoffice.openerp.report.aeroo.merge?execute</value>
+                            <value>service:org.odoo.report_aeroo_ooo_plugin.merge?execute</value>
                         </prop>
                         <prop oor:name="Title" oor:type="xs:string">
                             <value/>
@@ -42,7 +42,7 @@
                     </node>
                     <node oor:name="m51" oor:op="replace">
                         <prop oor:name="URL" oor:type="xs:string">
-                            <value>service:org.openoffice.openerp.report.aeroo.about?execute</value>
+                            <value>service:org.odoo.report_aeroo_ooo_plugin.about?execute</value>
                         </prop>
                         <prop oor:name="Title" oor:type="xs:string">
                             <value/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <oor:component-schema xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     oor:name="OpenERPOptions" oor:package="org.openerp" xml:lang="en-US">
+     oor:name="OpenERPOptions" oor:package="org.odoo.report_aeroo_ooo_plugin" xml:lang="en-US">
      <info>
          <author></author>
          <desc>Contains the options data used for the options OpenERP extension.</desc>

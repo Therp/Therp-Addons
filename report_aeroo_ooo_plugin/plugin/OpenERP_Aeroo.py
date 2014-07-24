@@ -53,22 +53,16 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
 
     def __init__(self, ctx):
         super(Merge, self).__init__(ctx)
-        try:
-            self.__init_wrapped__(ctx)
-        except Exception, e:
-            print >> sys.stderr, e
-            traceback.print_exc(file=sys.stderr)
-
-    def __init_wrapped__(self, ctx):
-
         self.ctx = ctx
         self.module = "OpenERP_Aeroo"
         self.version = "0.1"
-        login = LoginObject.LoginObject(ctx).getLogin()
+
+    def trigger(self, args):
+        login = LoginObject.LoginObject(self.ctx).getLogin()
         if not login:
             exit(1)
         (url, database, uid, password) = login
-        self.sock = TinySocket.RPCSession(ctx, url)
+        self.sock = TinySocket.RPCSession(self.ctx, url)
         Desktop = Danny.getDesktop()
         current = Desktop.getCurrentComponent()
         if not current.hasLocation():
@@ -84,12 +78,12 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
                 )
         current.store()
 
-        dialog = ctx.getServiceManager()\
+        dialog = self.ctx.getServiceManager()\
             .createInstanceWithContext(
-                "com.sun.star.awt.DialogProvider", ctx)\
+                "com.sun.star.awt.DialogProvider", self.ctx)\
             .createDialog(
-                "vnd.sun.star.extension://org.openerp/dialogs/"
-                "FilterChooser.xdl")
+                "vnd.sun.star.extension://org.odoo.report_aeroo_ooo_plugin/"
+                "dialogs/FilterChooser.xdl")
 
         listbox = dialog.getControl('filter')
         filters = self.sock.execute(
@@ -144,7 +138,8 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
 g_ImplementationHelper = unohelper.ImplementationHelper()
 g_ImplementationHelper.addImplementation(
     Merge,
-    "org.openoffice.openerp.report.aeroo.merge", ("com.sun.star.task.Job",),)
+    "org.odoo.report_aeroo_ooo_plugin.merge",
+    ("com.sun.star.task.Job",),)
 
 
 class About(Localization.LocalizedObject, XJobExecutor):
@@ -156,6 +151,7 @@ class About(Localization.LocalizedObject, XJobExecutor):
             60, 50, 200, 215,
             self.localize("about"))
 
+    def trigger(self, args):
         fdBigFont = Danny.createUnoStruct("com.sun.star.awt.FontDescriptor")
         fdBigFont.Width = 20
         fdBigFont.Height = 25
@@ -177,7 +173,7 @@ class About(Localization.LocalizedObject, XJobExecutor):
 
 g_ImplementationHelper.addImplementation(
     About,
-    "org.openoffice.openerp.report.aeroo.about",
+    "org.odoo.report_aeroo_ooo_plugin.about",
     ("com.sun.star.task.Job",),)
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-oor:name="OpenERPOptions" oor:package="org.openerp">
+oor:name="OpenERPOptions" oor:package="org.odoo.report_aeroo_ooo_plugin">
   <node oor:name="ConfigNode">
     <prop oor:name="Origin" oor:type="xs:string">
       <value>%origin%</value>

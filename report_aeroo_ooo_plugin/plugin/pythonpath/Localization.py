@@ -49,7 +49,8 @@ class LocalizedObject(unohelper.Base):
             ]
         try:
             self.ctx = args[0]
-            self.config = self.getconfig('org.openerp.OpenERPOptions/ConfigNode')
+            self.config = self.getconfig(
+                'org.odoo.report_aeroo_ooo_plugin.OpenERPOptions/ConfigNode')
             self.initpath()
             self.initlanguage()
         except Exception, e:
@@ -113,5 +114,6 @@ class LocalizedObject(unohelper.Base):
 # uno implementation
 g_ImplementationHelper = unohelper.ImplementationHelper()
 g_ImplementationHelper.addImplementation(
-    LocalizedObject, "org.openerp.LocalizedObject",
-    ("org.openerp.LocalizedObject",),)
+    LocalizedObject,
+    "org.odoo.report_aeroo_ooo_plugin.LocalizedObject",
+    ("org.odoo.report_aeroo_ooo_plugin.LocalizedObject",),)
