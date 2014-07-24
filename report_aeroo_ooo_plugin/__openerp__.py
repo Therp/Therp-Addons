@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Aeroo reports plugin for OpenOffice.Org",
-    "version": "0.1r33",
+    "version": "0.2",
     "author": "Therp BV",
     "category": 'Generic Modules/Aeroo Reporting',
     'complexity': "normal",
