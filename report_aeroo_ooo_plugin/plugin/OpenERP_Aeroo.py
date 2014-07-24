@@ -92,56 +92,17 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
                 "FilterChooser.xdl")
 
         listbox = dialog.getControl('filter')
-
-        #TODO: all this belongs on the OpenERP side so that we only have to
-        #call
-        #ir_filters.get_libreoffice_filters and get a list of (id, displayname)
-        #this way, other modules can tinker with this list
-        def ir_filters(method, *args):
-            return self.sock.execute(
-                database, uid, password, 'ir.filters', method, *args)
-
-        filters = {}
-        for filter_data in ir_filters(
-                'read',
-                ir_filters(
-                    'search',
-                    [('user_id', 'in', [uid, False])]),
-                ['model_id', 'name']):
-            filters.setdefault(filter_data['model_id'], [])
-            filters[filter_data['model_id']].append(filter_data)
-
-        def ir_model(method, *args):
-            return self.sock.execute(
-                database, uid, password, 'ir.model', method, *args)
-
-        for model in ir_model(
-                'read',
-                ir_model(
-                    'search',
-                    [('model', 'in', filters.keys())]),
-                ['name', 'model']):
-            for filter_data in filters[model['model']]:
-                filter_data['display_name'] = "%s (%s)" % (
-                    filter_data['name'], model['name'])
-
-        firstItem = None
-        for filter_list in filters.itervalues():
-            for filter_data in filter_list:
-                firstItem = filter_data['display_name']
-                listbox.addItem(filter_data['display_name'], '0')
-        if firstItem:
-            listbox.setText(firstItem)
+        filters = self.sock.execute(
+            database, uid, password, 'ir.filters', 'get_libreoffice_filters')
+        listbox.addItems(tuple(n for i, n in filters), 0)
+        listbox.setText(listbox.getItem(0))
 
         filter_id = None
         if dialog.execute():
             filter_id = None
-            filters = [filter_data
-                       for filter_list in filters.itervalues()
-                       for filter_data in filter_list
-                       if filter_data['display_name'] == listbox.getText()]
+            filters = [i for i, n in filters if n == listbox.getText()]
             if filters:
-                filter_id = int(filters[0]['id'])
+                filter_id = filters[0]
             else:
                 dialog.dispose()
                 return
