@@ -13,4 +13,7 @@
     </extension-description>
     <registration>
     </registration>
+    <icon>
+        <default xlink:href="odoo.png" />
+    </icon>
 </description>

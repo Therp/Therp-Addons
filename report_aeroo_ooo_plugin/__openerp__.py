@@ -48,6 +48,11 @@ In the web client, save a custom filter. When doing a mail merge, choose one of
 those filters and your document will be filled with the records in the filter's
 selection.
 
+Figuring out the correct fields to use can be tricky, use the web client's
+debug mode to find out a field's name. Further, consult the provided document
+template (this is a mail merge intended to work on partners) for some general
+usage hints.
+
 Requirements
 ------------
 
