@@ -36,7 +36,7 @@ single merged document.
 import base64
 from openerp.osv import osv
 from openerp.tools.translate import _
-from openerp.tools.safe_eval import const_eval
+from openerp.tools.safe_eval import safe_eval
 from openerp.report.report_sxw import rml_parse
 from openerp.addons.report_aeroo.report_aeroo import Aeroo_report
 from openerp.addons.report_aeroo.report_aeroo import AerooPrint
@@ -91,8 +91,8 @@ class instant_aeroo(osv.TransientModel):
                                                       context=context)
         ids = self.pool[saved_filter.model_id].search(
             cr, uid,
-            const_eval(saved_filter.domain),
-            context=const_eval(saved_filter.context))
+            safe_eval(saved_filter.domain),
+            context=safe_eval(saved_filter.context))
 
         if not ids:
             return (False, _("User's selection does not contain any items."))
