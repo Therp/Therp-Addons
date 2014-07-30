@@ -83,7 +83,7 @@ class ConfigurationProvider(object):
             for key, value in cfg_values.items():
                 ConfigWriter.replaceByName(key, value)
             ConfigWriter.commitChanges()
-        except Exception, e:
+        except Exception as e:
             log(e)
 
     def get_options(self):

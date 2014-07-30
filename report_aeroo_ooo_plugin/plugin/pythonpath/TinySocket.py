@@ -20,13 +20,32 @@
 #
 ##############################################################################
 import sys
+import logging
 import socket
-import cPickle
-import cStringIO
-import xmlrpclib
+try:
+    import cPickle
+except ImportError:
+    import pickle as cPickle
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from io import StringIO
+try:
+    import xmlrpclib
+except ImportError:
+    import xmlrpc.client as xmlrpclib
 import re
 import traceback
 import Localization
+
+#http://stackoverflow.com/a/11301781
+try:
+    isinstance("", basestring)
+    def isstr(s):
+        return isinstance(s, basestring)
+except NameError:
+    def isstr(s):
+        return isinstance(s, str) or isinstance(s, bytes)
 
 class Myexception(Exception):
     def __init__(self, faultCode, faultString):
@@ -60,14 +79,14 @@ class mysocket:
         while totalsent < size:
             sent = self.sock.send(msg[totalsent:])
             if sent == 0:
-                raise RuntimeError, "socket connection broken"
+                raise RuntimeError("socket connection broken")
             totalsent = totalsent + sent
     def myreceive(self):
         buf=''
         while len(buf) < 8:
             chunk = self.sock.recv(8 - len(buf))
             if chunk == '':
-                raise RuntimeError, "socket connection broken"
+                raise RuntimeError("socket connection broken")
             buf += chunk
         size = int(buf)
         buf = self.sock.recv(1)
@@ -79,9 +98,9 @@ class mysocket:
         while len(msg) < size:
             chunk = self.sock.recv(size-len(msg))
             if chunk == '':
-                raise RuntimeError, "socket connection broken"
+                raise RuntimeError("socket connection broken")
             msg = msg + chunk
-        msgio = cStringIO.StringIO(msg)
+        msgio = StringIO(msg)
         unpickler = cPickle.Unpickler(msgio)
         unpickler.find_global = None
         res = unpickler.load()
@@ -122,7 +141,7 @@ class RPCSession(Localization.LocalizedObject):
     def __init__(self, ctx, url):
         try:
             super(RPCSession, self).__init__(ctx, url)
-        except Exception, e:
+        except Exception as e:
             print >> sys.stderr, e
         m = re.match('^(http[s]?://|socket://)([\w.\-]+):(\d{1,5})$', url or '')
         if not m:
@@ -165,16 +184,16 @@ class RPCSession(Localization.LocalizedObject):
         try:
             result = self.gateway.execute(obj, method, *args)
             return self.__convert(result)
-        except Exception,e:
-          info = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))
+        except Exception as e:
+            logging.exception(e)
 
     def __convert(self, result):
 
-        if isinstance(result, basestring):
+        if isstr(result):
             # try to convert into unicode string
             try:
                 return ustr(result)
-            except Exception, e:
+            except Exception as e:
                 return result
 
         elif isinstance(result, list):
@@ -207,7 +226,7 @@ class XMLRPCGateway(RPCGateway):
         sock = xmlrpclib.ServerProxy(rpc_url + 'db')
         try:
             return sock.list()
-        except Exception, e:
+        except Exception as e:
             return -1
 
     def login(self, db, user, password):
@@ -220,8 +239,8 @@ class XMLRPCGateway(RPCGateway):
         socket.setdefaulttimeout(10)
         try:
             res = sock.login(db, user, password)
-        except Exception, e:
-            info = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))
+        except Exception as e:
+            logging.exception(e)
             return -1
         finally:
             socket.setdefaulttimeout(oldtimeout)
@@ -250,7 +269,7 @@ class NETRPCGateway(RPCGateway):
             res = sock.myreceive()
             sock.disconnect()
             return res
-        except Exception, e:
+        except Exception as e:
             return -1
 
     def login(self, db, user, password):
@@ -260,7 +279,7 @@ class NETRPCGateway(RPCGateway):
             sock.mysend(('common', 'login', db, user, password))
             res = sock.myreceive()
             sock.disconnect()
-        except Exception, e:
+        except Exception as e:
             return -1
         return res
     def execute(self,obj, method, *args):
@@ -273,5 +292,5 @@ class NETRPCGateway(RPCGateway):
             sock.disconnect()
             return res
 
-        except Exception,e:
-            info = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))
+        except Exception as e:
+            logging.exception(e)
