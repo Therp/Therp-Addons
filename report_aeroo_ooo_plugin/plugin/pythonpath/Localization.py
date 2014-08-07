@@ -111,8 +111,6 @@ class LocalizedObject(unohelper.Base):
                         if hasattr(value, 'decode'):
                             self.localization[key][lang] = value.decode( 'unicode_escape' ).replace( '\\', '' )
                         else:
-                            import pdb
-                            pdb.set_trace()
                             self.localization[key][lang] = value.encode('ascii').decode('unicode_escape').replace( '\\', '' )
         except Exception as e:
             logging.exception(e)
