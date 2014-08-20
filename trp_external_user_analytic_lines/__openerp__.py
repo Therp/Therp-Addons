@@ -35,6 +35,9 @@ Icon courtesy to http://commons.wikimedia.org/wiki/File:Geschiedenis_icon.png
         'trp_external_user',
         'analytic',
         'hr_timesheet',
+        'project',
+        'project_issue',
+        'project_timesheet',
     ],
     "data": [
         "view/account_analytic_line.xml",
