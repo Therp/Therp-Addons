@@ -27,6 +27,8 @@
                     <field name="user_id" />
                     <field name="unit_amount" />
                     <field name="to_invoice" />
+                    <field name="origin" invisible="1" />
+                    <button type="object" name="button_open_origin" string="Open origin" icon="gtk-open" attrs="{'invisible': [('origin', '=', False)]}" />
                 </tree>
             </field>
         </record>
