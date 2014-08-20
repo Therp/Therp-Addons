@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="search_account_analytic_line" model="ir.ui.view">
+            <field name="model">account.analytic.line</field>
+            <field name="type">search</field>
+            <field name="priority">999</field>
+            <field name="arch" type="xml">
+                <search>
+                    <filter name="to_be_invoiced" string="To be invoiced" domain="[('to_invoice.factor', '&lt;', 100), ('to_invoice', '!=', False), ('invoice_id', '=', False), ('date', '>', (datetime.datetime.now() - relativedelta(months=2)).strftime('%%Y-%%m-%%d'))]" icon="terp-dolar" />
+                    <field name="date" string="Date from" filter_domain="[('date', '>=', self)]" />
+                    <field name="date" string="Date to" filter_domain="[('date', '&lt;=', self)]" />
+                    <field name="account_id" />
+                    <field name="name" />
+                </search>
+            </field>
+        </record>
+        <record id="tree_account_analytic_line" model="ir.ui.view">
+            <field name="model">account.analytic.line</field>
+            <field name="type">tree</field>
+            <field name="priority">999</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="account_id" />
+                    <field name="date" />
+                    <field name="name" />
+                    <field name="user_id" />
+                    <field name="unit_amount" />
+                    <field name="to_invoice" />
+                </tree>
+            </field>
+        </record>
+        <act_window id="action_analytic_lines"
+            name="Work done"
+            view_mode="tree"
+            view_id="tree_account_analytic_line"
+            res_model="account.analytic.line"
+            domain="[('journal_id', '=', ref('hr_timesheet.analytic_journal'))]"
+            context="{'search_default_to_be_invoiced': 1}"
+        />
+        <record id="action_analytic_lines" model="ir.actions.act_window">
+            <field name="search_view_id" ref="search_account_analytic_line" />
+        </record>
+    </data>
+</openerp>
