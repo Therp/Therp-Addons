@@ -24,7 +24,7 @@ from openerp.osv import orm, fields
 
 class AccountFiscalPosition(orm.Model):
     '''Add company if possible to name of fiscal position.'''
-    _inherit = ['account.fiscal.position']
+    _inherit = 'account.fiscal.position'
                                                                                
     def name_get(self, cr, uid, ids, context=None):                            
         '''Return name, including company.'''                        
