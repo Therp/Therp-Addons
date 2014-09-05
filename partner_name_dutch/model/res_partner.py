@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2013-2014 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -33,8 +33,8 @@ class res_partner(Model):
                 "${p.firstname or p.initials or ''}"
                 "${(p.firstname or p.initials) and ' ' or ''}"
                 "${p.infix or ''}${p.infix and ' ' or ''}${p.lastname}"))
-
-        return name_template.render(p=partner)
+        name = name_template.render(p=partner)
+        return (name[0] + name[1:]) if name else ''
 
     _columns = {
         'initials': fields.char('Initials', size=8),
