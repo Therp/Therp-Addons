@@ -48,11 +48,11 @@ class AerooMailmerge(Model):
                 cr, uid, [('code', '=', user.partner_id.lang)],
                 context=context)[0],
             context=context)
-        return dict([
+        return [
             (this.id, '%s [%s]' % (
                 this.filter_id.name,
                 datetime.datetime.strptime(
                     this.create_date, DEFAULT_SERVER_DATETIME_FORMAT).strftime(
                     lang.date_format)))
             for this in self.browse(cr, uid, ids, context=context)
-        ])
+        ]
