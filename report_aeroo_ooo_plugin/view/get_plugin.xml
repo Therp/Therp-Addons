@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_get_plugin" model="ir.ui.view">
+            <field name="model">report.aeroo.get_plugin</field>
+            <field name="arch" type="xml">
+                <form string="Plugin download form view" version="7.0">
+                    <group>
+                        <field name="name" invisible="1"/>
+                        <field name="plugin_file" filename="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_get_plugin" model="ir.actions.act_window">
+            <field name="name">Download Office Extension</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.aeroo.get_plugin</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'bin_size': True}</field>
+        </record>
+
+        <menuitem name="Download Office Extension"
+            id="menu_get_plugin"
+            parent="report_aeroo.menu_ir_action_aeroo_reports_xml"
+            action="wizard_get_plugin"
+            sequence="99"/>
+
+    </data>
+</openerp>

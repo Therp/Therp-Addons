@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description xmlns="http://openoffice.org/extensions/description/2006" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <version value="0.2.0"/>
+    <identifier value="org.odoo.report_aeroo_ooo_plugin"/>
+    <display-name>
+        <name lang="en">Odoo Mail Merge</name>
+        <name lang="nl">Odoo Samenvoegen</name>
+    </display-name>
+    <publisher>
+        <name xlink:href="http://therp.nl" lang="en">Therp BV</name>
+    </publisher>
+    <extension-description>
+    </extension-description>
+    <registration>
+    </registration>
+    <icon>
+        <default xlink:href="odoo.png" />
+    </icon>
+</description>
