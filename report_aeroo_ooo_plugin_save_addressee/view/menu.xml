@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <menuitem id="menu_aeroo_mailmerge"
+            parent="base.menu_base_partner"
+            name="Mail merges" />
+        <act_window id="action_aeroo_mailmerge"
+            name="All mail merges"
+            context="{'search_default_own': 1}"
+            res_model="aeroo.mailmerge" />
+        <menuitem id="menu_aeroo_mailmerge_tree"
+            parent="menu_aeroo_mailmerge"
+            action="action_aeroo_mailmerge" />
+    </data>
+</openerp>

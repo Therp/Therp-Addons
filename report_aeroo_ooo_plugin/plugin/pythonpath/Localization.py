@@ -14,6 +14,7 @@ import glob
 import sys
 import uno
 import unohelper
+import logging
 
 def typednamedvalues( type, *args, **kwargs ):
     if args:
@@ -53,8 +54,8 @@ class LocalizedObject(unohelper.Base):
                 'org.odoo.report_aeroo_ooo_plugin.OpenERPOptions/ConfigNode')
             self.initpath()
             self.initlanguage()
-        except Exception, e:
-            print >> sys.stderr, e
+        except Exception as e:
+            logging.exception(e)
 
     def getconfig( self, nodepath, update = False ):
         if update:
@@ -68,7 +69,7 @@ class LocalizedObject(unohelper.Base):
 
     def initlanguage( self ):
         config = self.getconfig( '/org.openoffice.Setup' )
-        self.uilanguage = config.L10N.ooLocale.encode( 'ascii' ).split( '-' )[0]
+        self.uilanguage = config.L10N.ooLocale.encode( 'ascii' ).split(b'-')[0]
         if self.uilanguage not in self.SUPPORTED_LANGUAGES:
             self.uilanguage = self.SUPPORTED_LANGUAGES[0]
 
@@ -78,8 +79,8 @@ class LocalizedObject(unohelper.Base):
         if not hasattr( self, 'localization' ):
             try:
                 self.loadlocalization()
-            except Exception, e:
-                print e
+            except Exception as e:
+                logging.exception(e)
         if string not in self.localization: return 'unlocalized: %s' % string
         if language in self.localization[string]:
             return self.localization[string][language]
@@ -95,21 +96,24 @@ class LocalizedObject(unohelper.Base):
                     'Dialogs',
                     self.__class__.__name__
                     )
-	    for f in glob.glob(os.path.join(path, 'DialogStrings_*.properties')):
-		    sf = os.path.split( f )[-1]
-		    lang = sf[sf.index( '_' )+1:sf.index( '_' )+3]
-		    for l in file( f ):
-			    l = l.split( '#' )[0].strip()
-			    if len( l ) == 0: continue
-			    assert '=' in l
-			    key, value = l.split( '=', 1 )
-			    key = key.strip()
-			    value = value.strip()
-			    if key not in self.localization:
-				    self.localization[key] = {}
-			    self.localization[key][lang] = value.decode( 'unicode_escape' ).replace( '\\', '' )
-        except Exception, e:
-            print >> sys.stderr, e
+            for f in glob.glob(os.path.join(path, 'DialogStrings_*.properties')):
+                sf = os.path.split( f )[-1]
+                lang = sf[sf.index( '_' )+1:sf.index( '_' )+3]
+                for l in open( f ):
+                    l = l.split( '#' )[0].strip()
+                    if len( l ) == 0: continue
+                    assert '=' in l
+                    key, value = l.split( '=', 1 )
+                    key = key.strip()
+                    value = value.strip()
+                    if key not in self.localization:
+                        self.localization[key] = {}
+                        if hasattr(value, 'decode'):
+                            self.localization[key][lang] = value.decode( 'unicode_escape' ).replace( '\\', '' )
+                        else:
+                            self.localization[key][lang] = value.encode('ascii').decode('unicode_escape').replace( '\\', '' )
+        except Exception as e:
+            logging.exception(e)
 
 # uno implementation
 g_ImplementationHelper = unohelper.ImplementationHelper()

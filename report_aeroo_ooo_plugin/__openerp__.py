@@ -60,7 +60,7 @@ On the client side, you need to install the extension via Tools -> Extension
 Manager -> Add. After installation, restart Writer in order to see the newly
 created menus.
 
-You also need python-uno (*not python3-uno*) installed on the client machines.
+You also need python-uno (or python3-uno) installed on the client machines.
 
 Configure access to your database via Tools -> Options -> LibreOffice Writer ->
 Odoo Options.
@@ -71,7 +71,7 @@ Troubleshooting
 If you experience an empty configuration dialog or missing translations,
 probably your extension registry is corrupt.
 
-``rm -rf ~/.config/libreoffice/4/user{extensions,uno_packages}``
+``rm -rf ~/.config/libreoffice/4/user/{extensions,uno_packages}``
 
 fixes the problem, but you lose all installed extensions, their configuration
 and you'll have to reinstall them.

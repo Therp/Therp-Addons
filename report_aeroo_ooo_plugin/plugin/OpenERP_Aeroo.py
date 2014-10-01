@@ -25,6 +25,7 @@ import unohelper
 import base64
 import tempfile
 import traceback
+import codecs
 from com.sun.star.task import XJobExecutor
 
 try:
@@ -113,7 +114,7 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
             password,
             'instant.aeroo',
             'create_report',
-            base64.encodestring(data),
+            codecs.decode(base64.encodestring(data), 'ascii'),
             filter_id
             )
         if res:
@@ -124,8 +125,9 @@ class Merge(Localization.LocalizedObject, XJobExecutor):
                 tempFile = tempfile.mkstemp('.odt')
                 os.close(tempFile[0])
                 filename = tempFile[1]
-                FileUtils.write_data_to_file(filename,
-                                             base64.decodestring(res[0]))
+                FileUtils.write_data_to_file(
+                    filename,
+                    base64.decodestring(codecs.encode(res[0], 'ascii')))
                 Desktop.loadComponentFromURL(
                     Danny.convertToURL(filename), "_blank", 0, ())
             else:
