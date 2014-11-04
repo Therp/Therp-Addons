@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <menuitem
+            id="menu_analytic_lines"
+            action="action_analytic_lines"
+            web_icon="static/src/img/icon_bw.png"
+            web_icon_hover="static/src/img/icon.png"
+            groups="group_external_user_analytic_lines"
+        />
+    </data>
+</openerp>
