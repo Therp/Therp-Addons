@@ -37,13 +37,13 @@ class res_partner(Model):
         return (name[0] + name[1:]) if name else ''
 
     _columns = {
-        'initials': fields.char('Initials', size=8),
+        'initials': fields.char('Initials', size=16),
         'infix': fields.char('Infix', size=32),
     }
 
     def _register_hook(self, cr):
-        #if firstname_display_name_trigger is installed, add our keys to
-        #the trigger
+        # if firstname_display_name_trigger is installed, add our keys to
+        # the trigger
         if hasattr(self, '_display_name_store_triggers'):
             if self._name not in self._display_name_store_triggers:
                 return
