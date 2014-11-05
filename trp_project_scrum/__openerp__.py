@@ -28,6 +28,8 @@ https://github.com/EL2DE/openerp8-addons.git
 
 - Makes stages visible for non developers
 - Adds a field for technical details, visible for developers
+- Adds some placeholders for clarification
+- Show followers on user stories
     """,
     "category": "Therp addons",
     "version": "1.0",
