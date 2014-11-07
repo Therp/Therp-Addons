@@ -18,5 +18,38 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import model
-from . import wizard
+{
+    "name": "sale_invoice_customs",
+    "version": "1.0",
+    "author": "Therp BV",
+    "license": "AGPL-3",
+    "complexity": "normal",
+    "description": """
+    Create a specific invoice shipping document from a delivery or a delivery line.
+    """,
+    "category": "",
+    "depends": [
+        'stock',
+        'account',
+        'sale'
+    ],
+    "data": [
+        'view/sale_invoice_customs.xml',
+        'report/account_print_customs_invoice_nobackground.rml',
+        'report/account_print_customs_invoice.rml',
+    ],
+    "js": [
+    ],
+    "css": [
+    ],
+    "qweb": [
+    ],
+    "test": [
+    ],
+    "auto_install": False,
+    "installable": True,
+    "application": False,
+    "external_dependencies": {
+        'python': [],
+    },
+}

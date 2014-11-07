@@ -18,32 +18,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name": "account_invoice_customs",
-    "version": "1.0",
-    "author": "Therp BV",
-    "license": "AGPL-3",
-    "complexity": "normal",
-    "description": """
-    Create a specific invoice shipping document from a delivery.
-    """,
-    "category": "",
-    "depends": [
-    ],
-    "data": [
-    ],
-    "js": [
-    ],
-    "css": [
-    ],
-    "qweb": [
-    ],
-    "test": [
-    ],
-    "auto_install": False,
-    "installable": True,
-    "application": False,
-    "external_dependencies": {
-        'python': [],
-    },
-}
+from openerp.osv import fields, orm
+
+class account_invoice(orm.Model):
+    _inherit = 'account.invoice'
+    
+    _columns = {
+        'active': fields.boolean("Active"),
+    }
+    
+    _defaults = {
+        'active': True,
+    }
+    
+    
+    """def _check_valid(self, cr, uid, ids, context=None):
+        return self.active==False or not(self.invoice_id)  
+    
+    _constraints = [(_check_valid, 'only inactive invoices can be associated with a stock_picking_out', ['active'])]
+    """
