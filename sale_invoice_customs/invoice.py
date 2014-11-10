@@ -19,7 +19,7 @@
 #
 ##############################################################################
 from openerp.osv import fields, orm
-from gdata.spreadsheet.text_db import Record
+
 
 class account_invoice(orm.Model):
     _inherit = 'account.invoice'
@@ -32,20 +32,17 @@ class account_invoice(orm.Model):
         'active': True,
     }
 
-
-    #FIX this check is not working, set to true
-    def _check_valid_customs(self,cr,uid,ids,context=None):
+    def _check_valid_customs(self, cr, uid, ids, context=None):
         this = self.browse(cr, uid, ids, context=context)
         stock_pickings = self.pool.get('stock.picking')
         for data in this:
-            if not data.active and  not stock_pickings.search(
-                    cr,uid,[
-                        ('customs_invoice_id', '=' , data.id)
+            if not data.active and not stock_pickings.search(
+                    cr, uid, [
+                        ('customs_invoice_id', '=', data.id)
                     ]):
                 return False
         return True
 
-
-
     _constraints = [(_check_valid_customs,
-        'All custom invoices must be tagged False', ['active']),]
+                    'All custom invoices must be tagged False', ['active']),
+                    ]

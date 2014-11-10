@@ -25,7 +25,8 @@
     "license": "AGPL-3",
     "complexity": "normal",
     "description": """
-    Create a specific invoice shipping document from a delivery or a delivery line.
+    Create a specific invoice shipping document
+    from a delivery or a delivery line.
     """,
     "category": "",
     "depends": [

@@ -19,45 +19,39 @@
 #
 ##############################################################################
 from openerp.osv import fields, orm
-from openerp.osv import osv
-from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
-import time
 from openerp.tools.translate import _
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, float_compare
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DATETIME_FORMATS_MAP
+
 
 class stock_picking(orm.Model):
     _inherit = 'stock.picking'
     _columns = {
         'customs_invoice_id': fields.many2one('account.invoice', 'New Invoice',
-             required=False),
+                                              required=False),
     }
+
 
 class stock_picking_out(orm.Model):
     _inherit = 'stock.picking.out'
     _columns = {
         'customs_invoice_id': fields.many2one('account.invoice', 'New Invoice',
-             required=False),
+                                              required=False),
     }
 
-    def generate_from_stock(self, cr, uid, context = None):
+    def generate_from_stock(self, cr, uid, context=None):
         # this function should extend the module, if the user wants to generate
         # a customs invoice without a sale order.
         return {}
 
-    def create_invoice(self, cr, uid, ids, context  = None):
-        picking=self.browse(cr, uid, ids, context = context)[0]
+    def create_invoice(self, cr, uid, ids, context=None):
+        picking = self.browse(cr, uid, ids, context=context)[0]
         if picking.sale_id:
-            sale=picking.sale_id
+            sale = picking.sale_id
         else:
             raise osv.except_osv(_('This delivery is not derived from a sale'),
-                 _('To create a customs invoice, delivery must be \
-                  derived from a sales Order, the delivery you have chosen \
-                  does not have an associated sales order'))
-
-        sale_obj = self.pool.get('sale.order')
-        act_window = self.pool.get('ir.actions.act_window')
+                                 _('To create a customs invoice, \
+                                 delivery must be derived from a sales \
+                                 Order, the delivery you have chosen \
+                                 does not have an associated sales order'))
         res = self._make_invoice(cr, uid, ids, sale, context=None)
         view = self.open_invoices(cr, uid, [res], context=None)
         return view
@@ -65,13 +59,16 @@ class stock_picking_out(orm.Model):
     def _prepare_invoice(self, cr, uid, order, context=None):
         if context is None:
             context = {}
-        journal_ids = self.pool.get('account.journal').search(cr, uid,
-            [('type', '=', 'sale'), ('company_id', '=', order.company_id.id)],
-            limit=1)
+        journal_ids = self.pool.get('account.journal').search(
+            cr, uid, [
+                ('type', '=', 'sale'),
+                ('company_id', '=', order.company_id.id)
+                ], limit=1)
         if not journal_ids:
-            raise osv.except_osv(_('Error!'),
-                _('Please define sales journal for this company: "%s" (id:%d).')
-                 % (order.company_id.name, order.company_id.id))
+            raise osv.except_osv(
+                _('Error!'),
+                _('Please define sales journal for this company:"%s" (id:%d).')
+                % (order.company_id.name, order.company_id.id))
         invoice_lines = []
         for line in order.order_line:
             invoice_lines.append(
@@ -79,7 +76,8 @@ class stock_picking_out(orm.Model):
                  {
                      'name': line.name,
                      'price_unit': line.price_unit,
-                     'account_id': order.partner_id.property_account_receivable.id,
+                     'account_id':
+                     order.partner_id.property_account_receivable.id,
                      'quantity': line.product_uom_qty,
                  })
             )
@@ -94,9 +92,10 @@ class stock_picking_out(orm.Model):
             'invoice_line': invoice_lines,
             'currency_id': order.pricelist_id.currency_id.id,
             'comment': order.note,
-            'payment_term': order.payment_term and order.payment_term.id or False,
-            'fiscal_position': order.fiscal_position.id or \
-                 order.partner_id.property_account_position.id,
+            'payment_term': order.payment_term and order.payment_term.id
+            or False,
+            'fiscal_position': order.fiscal_position.id or
+            order.partner_id.property_account_position.id,
             'date_invoice': context.get('date_invoice', False),
             'company_id': order.company_id.id,
             'user_id': order.user_id and order.user_id.id or False
@@ -106,16 +105,16 @@ class stock_picking_out(orm.Model):
 
     def _make_invoice(self, cr, uid, ids, order, context=None):
         inv_obj = self.pool.get('account.invoice')
-        obj_invoice_line = self.pool.get('account.invoice.line')
         if context is None:
             context = {}
-        from_line_invoice_ids = []
         inv = self._prepare_invoice(cr, uid, order, context=context)
         inv_id = inv_obj.create(cr, uid, inv, context=context)
         record = self.browse(cr, uid, ids, context=context)
-        self.write(cr,uid,[record[0].id],
-            {'customs_invoice_id': inv_id}, context=context)
-        inv_obj.write(cr,uid,[inv_id],{'active': False},context=context)
+        self.write(cr, uid, [record[0].id],
+                   {
+                   'customs_invoice_id': inv_id
+                   }, context=context)
+        inv_obj.write(cr, uid, [inv_id], {'active': False}, context=context)
         inv_obj.button_compute(cr, uid, [inv_id])
         return inv_id
 
@@ -133,7 +132,7 @@ class stock_picking_out(orm.Model):
             'res_model': 'account.invoice',
             'res_id': invoice_ids[0],
             'view_id': False,
-            'views': [(form_id,'form')],
-            'context': "{'type': 'out_invoice'}",
+            'views': [(form_id, 'form')],
+            'context': "{'type' : 'out_invoice'}",
             'type': 'ir.actions.act_window',
         }

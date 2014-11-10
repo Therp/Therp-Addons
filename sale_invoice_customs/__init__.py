@@ -21,4 +21,3 @@
 
 import stock_picking_out
 import invoice
-
