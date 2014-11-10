@@ -38,10 +38,11 @@ class account_invoice(orm.Model):
         this = self.browse(cr, uid, ids, context=context)
         stock_pickings = self.pool.get('stock.picking')
         for data in this:
-            if ((data.active==False and len(stock_pickings.search(cr,uid,[
-                ('customs_invoice_id', '=' , data.id)
-                ]))>0) or (data.active== True)):
-                return True
+            if not data.active and  not stock_pickings.search(
+                    cr,uid,[
+                        ('customs_invoice_id', '=' , data.id)
+                    ]):
+                return False
         return True
 
 

@@ -36,6 +36,10 @@ class stock_picking(orm.Model):
 
 class stock_picking_out(orm.Model):
     _inherit = 'stock.picking.out'
+    _columns = {
+        'customs_invoice_id': fields.many2one('account.invoice', 'New Invoice',
+             required=False),
+    }
 
     def generate_from_stock(self, cr, uid, context = None):
         # this function should extend the module, if the user wants to generate
