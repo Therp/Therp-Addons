@@ -48,17 +48,3 @@ class account_invoice(orm.Model):
                     ]
 
 
-    def invoice_print(self, cr, uid, ids, context=None):
-
-        assert len(ids) == 1, 'This option should only be used for a single id at a time.'
-        datas = {
-             'ids': ids,
-             'model': 'account.invoice',
-             'form': self.read(cr, uid, ids[0], context=context)
-        }
-        return {
-            'type': 'ir.actions.report.xml',
-            'report_name': 'account.invoice',
-            'datas': datas,
-            'nodestroy' : True
-        }

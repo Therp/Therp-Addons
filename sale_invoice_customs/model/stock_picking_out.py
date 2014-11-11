@@ -121,23 +121,5 @@ class stock_picking_out(orm.Model):
         inv_obj.button_compute(cr, uid, [inv_id])
         return inv_id
 
-    def open_invoices(self, cr, uid, invoice_ids, context=None):
-        """ open a view on one of the given invoice_ids """
-        ir_model_data = self.pool.get('ir.model.data')
-        form_res = ir_model_data.get_object_reference(
-            cr, uid, 'sale_invoice_customs', 'customs_invoice_form')
-        form_id = form_res[1] or False
-
-        return {
-            'name': _('Advance Invoice'),
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'account.invoice',
-            'res_id': invoice_ids[0],
-            'view_id': False,
-            'views': [(form_id, 'form')],
-            'context': "{'type' : 'out_invoice'}",
-            'type': 'ir.actions.act_window',
-        }
 
 
