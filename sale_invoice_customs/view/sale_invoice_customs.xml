@@ -19,19 +19,16 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"></field>
             <field name="arch" type="xml">
-                <form string="Invoice" version="7.0">
                 <header position="replace">
                     <button name="invoice_print" string="Print" type="object"  class="oe_highlight" groups="base.group_user"/>
-                    <button name="invoice_open" states="draft" string="Validate" class="oe_highlight" groups="base.group_user"/>
+                    <button name="invoice_open" states="draft" string="Validate" class="oe_highlight" groups="base.group_user" invisible="1"/>
                     <button name="invoice_cancel" states="draft,proforma2,open" string="Cancel Invoice" groups="base.group_no_one"/>
+                    <field name="state" invisible="1"/>
+                    <field name="active" invisible="1"/>
                 </header>
                         <h1 position="replace">
-                            <label string="Customs Invoice"/>
+                            <h1> <label string="Customs Invoice"/></h1>
                         </h1>
-                    <field name="partner_id" position="after">
-                            <field name="active" readonly="1"/>
-                     </field>
-                </form>
             </field>
         </record>
 
@@ -40,25 +37,37 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_tree"></field>
             <field name="arch" type="xml">
-                    <field name="state" position="after">
-                        <field name="active" readonly="1"/>
+                    <field name="partner_id" position="after">
+                        <field name="active" invisible="1"/>
                     </field>
             </field>
         </record>
 
 
-
-        <record id="action_custom_invoice_tree" model="ir.actions.act_window">
+        <record id="action_custom_invoice" model="ir.actions.act_window">
             <field name="name">Customs Invoices</field>
             <field name="res_model">account.invoice</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="customs_invoice_tree"/>
             <field name="search_view_id" ref="account.view_account_invoice_filter"/>
             <field name="domain">[("active","=",False)]</field>
         </record>
 
-        <menuitem action="action_custom_invoice_tree" id="menu_action_custom_invoice_tree" parent="stock.menu_stock_warehouse_mgmt"/>
+        <record model="ir.actions.act_window.view" id="act_hr_customs_invoice_tree_view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="customs_invoice_tree"/>
+            <field name="act_window_id" ref="action_custom_invoice"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_hr_customs_invoice_form_view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="customs_invoice_form"/>
+            <field name="act_window_id" ref="action_custom_invoice"/>
+        </record>
+
+        <menuitem action="action_custom_invoice" id="menu_action_custom_invoice" parent="stock.menu_stock_warehouse_mgmt"/>
 
 
 
