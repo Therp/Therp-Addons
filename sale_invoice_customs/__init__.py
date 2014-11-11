@@ -19,5 +19,5 @@
 #
 ##############################################################################
 
-import stock_picking_out
-import invoice
+from . import model
+
