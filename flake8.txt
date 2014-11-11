@@ -1,5 +1,0 @@
-sale_invoice_customs/__init__.py:22:1: F401 'stock_picking_out' imported but unused
-sale_invoice_customs/__init__.py:23:1: F401 'invoice' imported but unused
-sale_invoice_customs/__openerp__.py:28:80: E501 line too long (83 > 79 characters)
-sale_invoice_customs/stock_picking_out.py:50:19: F821 undefined name 'osv'
-sale_invoice_customs/stock_picking_out.py:68:19: F821 undefined name 'osv'
