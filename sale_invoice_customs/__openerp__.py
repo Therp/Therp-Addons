@@ -36,8 +36,8 @@
     ],
     "data": [
         'view/sale_invoice_customs.xml',
-        'report/account_print_customs_invoice_nobackground.rml',
-        'report/account_print_customs_invoice.rml',
+        'report/account_print_invoice_nobackground.rml',
+        'report/account_print_invoice.rml',
     ],
     "js": [
     ],

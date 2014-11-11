@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import fields, orm
+from openerp.osv import fields, orm , osv
 from openerp.tools.translate import _
 
 
@@ -98,7 +98,8 @@ class stock_picking_out(orm.Model):
             order.partner_id.property_account_position.id,
             'date_invoice': context.get('date_invoice', False),
             'company_id': order.company_id.id,
-            'user_id': order.user_id and order.user_id.id or False
+            'user_id': order.user_id and order.user_id.id or False,
+            'state': 'draft',
         }
 
         return invoice_vals
@@ -107,10 +108,12 @@ class stock_picking_out(orm.Model):
         inv_obj = self.pool.get('account.invoice')
         if context is None:
             context = {}
+        record = self.browse(cr, uid, ids, context=context)[0]
+        if record:
+            return record.customs_invoice_id.id
         inv = self._prepare_invoice(cr, uid, order, context=context)
         inv_id = inv_obj.create(cr, uid, inv, context=context)
-        record = self.browse(cr, uid, ids, context=context)
-        self.write(cr, uid, [record[0].id],
+        self.write(cr, uid, [record.id],
                    {
                    'customs_invoice_id': inv_id
                    }, context=context)
@@ -136,3 +139,5 @@ class stock_picking_out(orm.Model):
             'context': "{'type' : 'out_invoice'}",
             'type': 'ir.actions.act_window',
         }
+
+
