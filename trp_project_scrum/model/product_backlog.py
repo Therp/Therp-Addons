@@ -30,3 +30,16 @@ class ProductBacklog(models.Model):
     # Change some field labels
     role_id = fields.Many2one(string='As a')
     for_then = fields.Char('So that')
+
+    def create(self, cr, uid, values, context=None):
+        """
+        Subscribe the project manager to new user stories
+        """
+        res_id = super(ProductBacklog, self).create(
+            cr, uid, values, context=context)
+        story = self.browse(cr, uid, res_id, context=context)
+        if story.project_id.user_id:
+            story.message_subscribe_users(
+                user_ids=[story.project_id.user_id.id],
+                )
+        return res_id
