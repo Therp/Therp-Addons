@@ -32,19 +32,13 @@
               <h1 position="attributes" >
                      <attribute name="attrs" > {'invisible' : [('active' , '=' , False)]} </attribute>
               </h1>
-              <h1 position="after" >
-                   <h1>
+              <h1 position="replace" >
+                    <h1 attrs="{'invisible' : [('active', '=' , True)]}" >
                      <label string="Customs Invoice"/>
                    </h1>
               </h1>
-
-
-
             </field>
         </record>
-
-
-
 
         <record id="action_custom_invoice" model="ir.actions.act_window">
             <field name="name">Customs Invoices</field>
@@ -71,8 +65,6 @@
         </record>
 
         <menuitem action="action_custom_invoice" id="menu_action_custom_invoice" parent="stock.menu_stock_warehouse_mgmt"/>
-
-
 
 
 </data>
