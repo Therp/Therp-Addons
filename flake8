@@ -1,0 +1,17 @@
+sale_invoice_customs/__openerp__.py:38:8: E121 continuation line under-indented for hanging indent
+sale_invoice_customs/__init__.py:22:1: F401 'model' imported but unused
+sale_invoice_customs/__init__.py:23:1: F401 'report' imported but unused
+sale_invoice_customs/__init__.py:24:1: W391 blank line at end of file
+sale_invoice_customs/model/invoice.py:37:5: E303 too many blank lines (2)
+sale_invoice_customs/model/invoice.py:48:9: E303 too many blank lines (2)
+sale_invoice_customs/model/invoice.py:51:5: E303 too many blank lines (2)
+sale_invoice_customs/model/invoice.py:65:9: E303 too many blank lines (2)
+sale_invoice_customs/model/invoice.py:65:33: E231 missing whitespace after ','
+sale_invoice_customs/model/invoice.py:74:1: W391 blank line at end of file
+sale_invoice_customs/report/__init__.py:1:1: F401 'report' imported but unused
+sale_invoice_customs/report/report.py:2:1: F401 'time' imported but unused
+sale_invoice_customs/model/__init__.py:22:1: F401 'invoice' imported but unused
+sale_invoice_customs/model/__init__.py:23:1: F401 'stock_picking_out' imported but unused
+sale_invoice_customs/model/stock_picking_out.py:21:36: E203 whitespace before ','
+sale_invoice_customs/model/stock_picking_out.py:46:5: E303 too many blank lines (2)
+sale_invoice_customs/model/stock_picking_out.py:145:1: W391 blank line at end of file

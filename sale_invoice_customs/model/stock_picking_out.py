@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import fields, orm , osv
+from openerp.osv import fields, orm, osv
 from openerp.tools.translate import _
 
 
@@ -52,8 +52,8 @@ class stock_picking_out(orm.Model):
                                  delivery must be derived from a sales \
                                  Order, the delivery you have chosen \
                                  does not have an associated sales order'))
-        res = self._make_invoice(cr, uid, ids, sale, context=None)
-        view = self.open_invoices(cr, uid, [res], context=None)
+        res = self._make_invoice(cr, uid, ids, sale, context=context)
+        view = self.open_invoices(cr, uid, [res], context=context)
         return view
 
     def _prepare_invoice(self, cr, uid, order, context=None):
@@ -100,6 +100,7 @@ class stock_picking_out(orm.Model):
             'company_id': order.company_id.id,
             'user_id': order.user_id and order.user_id.id or False,
             'state': 'draft',
+
         }
 
         return invoice_vals
@@ -109,7 +110,7 @@ class stock_picking_out(orm.Model):
         if context is None:
             context = {}
         record = self.browse(cr, uid, ids, context=context)[0]
-        if record:
+        if record.customs_invoice_id:
             return record.customs_invoice_id.id
         inv = self._prepare_invoice(cr, uid, order, context=context)
         inv_id = inv_obj.create(cr, uid, inv, context=context)
@@ -121,5 +122,21 @@ class stock_picking_out(orm.Model):
         inv_obj.button_compute(cr, uid, [inv_id])
         return inv_id
 
+    def open_invoices(self, cr, uid, invoice_ids, context=None):
+        """ open a view on one of the given invoice_ids """
+        ir_model_data = self.pool.get('ir.model.data')
+        form_res = ir_model_data.get_object_reference(
+            cr, uid, 'sale_invoice_customs', 'customs_invoice_form')
+        form_id = form_res[1] or False
 
-
+        return {
+            'name': _('Advance Invoice'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'account.invoice',
+            'res_id': invoice_ids[0],
+            'view_id': False,
+            'views': [(form_id, 'form')],
+            'context': "{'type' : 'out_invoice','active': False}",
+            'type': 'ir.actions.act_window',
+        }

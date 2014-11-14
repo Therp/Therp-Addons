@@ -19,5 +19,5 @@
 #
 ##############################################################################
 
-import invoice
-import stock_picking_out
+from . import invoice
+from . import stock_picking_out

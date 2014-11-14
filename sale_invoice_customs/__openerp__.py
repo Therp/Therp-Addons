@@ -30,8 +30,8 @@
     """,
     "category": "",
     "depends": [
-        'stock',
         'account',
+        'stock',
         'sale'
     ],
     "data": [

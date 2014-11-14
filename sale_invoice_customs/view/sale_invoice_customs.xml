@@ -8,7 +8,7 @@
              <field name="inherit_id" ref="stock.view_picking_form"></field>
              <field name="arch" type="xml">
                  <xpath expr="/form/header//button[@name='action_process']" position="after">
-                     <button name="create_invoice" string="Create Customs Invoice" type="object"  />
+                     <button name="create_invoice" string="Customs Invoice" type="object" />
                  </xpath>
              </field>
        </record>
@@ -19,29 +19,31 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"></field>
             <field name="arch" type="xml">
-                <header position="replace">
-                    <button name="invoice_print" string="Print" type="object"  class="oe_highlight" groups="base.group_user"/>
-                    <button name="invoice_open" states="draft" string="Validate" class="oe_highlight" groups="base.group_user" invisible="1"/>
-                    <button name="invoice_cancel" states="draft,proforma2,open" string="Cancel Invoice" groups="base.group_no_one"/>
-                    <field name="state" invisible="1"/>
-                    <field name="active" invisible="1"/>
-                </header>
-                        <h1 position="replace">
-                            <h1> <label string="Customs Invoice"/></h1>
-                        </h1>
+              <header position="attributes" >
+                     <attribute name="attrs" > {'invisible' : [('active' , '=' , False)]} </attribute>
+              </header>
+              <header position="after" >
+                     <header attrs= "{'invisible' : [('active' , '=' , True)]}" >
+                     <button name="invoice_print" string="Print" type="object"  class="oe_highlight" groups="base.group_user"/>
+                     <button name="invoice_open" states="draft" string="Validate" class="oe_highlight" groups="base.group_user"/>
+                     <field name="active" invisible="1"/>
+                    </header>
+              </header>
+              <h1 position="attributes" >
+                     <attribute name="attrs" > {'invisible' : [('active' , '=' , False)]} </attribute>
+              </h1>
+              <h1 position="after" >
+                   <h1>
+                     <label string="Customs Invoice"/>
+                   </h1>
+              </h1>
+
+
+
             </field>
         </record>
 
-       <record id="customs_invoice_tree" model="ir.ui.view">
-            <field name="name">account.invoice.tree</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_tree"></field>
-            <field name="arch" type="xml">
-                    <field name="partner_id" position="after">
-                        <field name="active" invisible="1"/>
-                    </field>
-            </field>
-        </record>
+
 
 
         <record id="action_custom_invoice" model="ir.actions.act_window">
@@ -51,12 +53,13 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="account.view_account_invoice_filter"/>
             <field name="domain">[("active","=",False)]</field>
+            <field name="context">{'active': False}</field>
         </record>
 
         <record model="ir.actions.act_window.view" id="act_hr_customs_invoice_tree_view">
             <field eval="1" name="sequence"/>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="customs_invoice_tree"/>
+            <field name="view_id" ref="account.invoice_tree"/>
             <field name="act_window_id" ref="action_custom_invoice"/>
         </record>
 
