@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="use_case_inline_form" model="ir.ui.view">
-            <field name="name">Use case inline form</field>
+        <record id="use_case_form" model="ir.ui.view">
+            <field name="name">Use case form</field>
             <field name="model">use_case</field>
-            <field name="type">form</field>
-            <field name="priority" eval="30"/>
             <field name="arch" type="xml">
                 <form>
                     <group colspan="4" col="6">
                         <field name="name" colspan="6"/>
+                        <field name="collection_id"/>
                         <field name="sequence" colspan="1"/>
                         <field name="active"/>
                     </group>
@@ -31,8 +30,8 @@
                     <group colspan="1" col="1" string="Actors">
                         <field name="actor_ids"
                                nolabel="1"
-                               domain="[('collection_id', '=', parent.res_id)]"
-                               />
+                               domain="[('collection_id', '=', collection_id)]"
+                               context="{'default_collection_id': collection_id}"/>
                     </group>
                     <group colspan="3" col="3" string="Workload">
                         <field name="workload_ids" nolabel="1"/>
@@ -40,17 +39,16 @@
                 </form>
             </field>
         </record>
-        <record id="use_case_inline_tree" model="ir.ui.view">
-            <field name="name">Use case inline tree</field>
+        <record id="use_case_tree" model="ir.ui.view">
+            <field name="name">Use case tree</field>
             <field name="model">use_case</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree colors="grey:(active==False)">
-                    <field name="sequence" invisible="1"/>
-                    <field name="active" invisible="1"/>
-                    <field name="number"/>
+                    <field name="collection_id"/>
+                    <field name="number" />
                     <field name="name"/>
                     <field name="hours"/>
+                    <field name="active" invisible="1"/>
                 </tree>
             </field>
         </record>
