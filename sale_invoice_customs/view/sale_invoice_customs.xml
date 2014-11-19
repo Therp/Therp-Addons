@@ -40,6 +40,7 @@
             </field>
         </record>
 
+
         <record id="action_custom_invoice" model="ir.actions.act_window">
             <field name="name">Customs Invoices</field>
             <field name="res_model">account.invoice</field>

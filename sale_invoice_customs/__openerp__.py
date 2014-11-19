@@ -26,7 +26,7 @@
     "complexity": "normal",
     "description": """
     Create a specific invoice shipping document
-    from a delivery or a delivery line.
+    from a delivery.
     """,
     "category": "",
     "depends": [
@@ -36,8 +36,6 @@
     ],
     "data": [
         'view/sale_invoice_customs.xml',
-        'report/account_print_invoice_nobackground.rml',
-        'report/account_print_invoice.rml',
     ],
     "js": [
     ],
@@ -47,9 +45,7 @@
     ],
     "test": [
     ],
-    "auto_install": False,
     "installable": True,
-    "application": False,
     "external_dependencies": {
         'python': [],
     },
