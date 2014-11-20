@@ -29,14 +29,14 @@
                      <field name="active" invisible="1"/>
                     </header>
               </header>
-              <h1 position="attributes" >
-                     <attribute name="attrs" > {'invisible' : [('active' , '=' , False)]} </attribute>
-              </h1>
-              <h1 position="replace" >
-                    <h1 attrs="{'invisible' : [('active', '=' , True)]}" >
-                     <label string="Customs Invoice"/>
-                   </h1>
-              </h1>
+              <!-- Hide the regular draft invoice label in case of a customs invoice -->
+              <xpath expr="//h1/label[@string='Draft Invoice ']" position="attributes">
+                  <attribute name="attrs">{'invisible': ['|', '|', ('active', '=' , False), ('state','not in',('draft',)), ('type','&lt;&gt;','out_invoice')]}</attribute>
+              </xpath>
+              <!-- Display alternative label in case of a customs invoice -->
+              <xpath expr="//h1/label[@string='Draft Invoice ']" position="after">
+                  <label string="Customs Invoice" attrs="{'invisible': [('active', '=', True)]}" />
+              </xpath>
             </field>
         </record>
 
