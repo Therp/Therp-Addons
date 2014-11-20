@@ -30,7 +30,6 @@
               <header position="after" >
                      <header attrs= "{'invisible' : [('active' , '=' , True)]}" >
                      <button name="invoice_print" string="Print" type="object"  class="oe_highlight" groups="base.group_user"/>
-                     <button name="invoice_open" states="draft" string="Validate" class="oe_highlight" groups="base.group_user"/>
                      <field name="active" invisible="1"/>
                     </header>
               </header>
