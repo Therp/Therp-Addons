@@ -18,6 +18,11 @@
             <field name="name">account.custominvoice.form</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"></field>
+            <!--
+                Set to a really high (=low) priority because we add an extra header tag
+                and we want all other modules to put their buttons in the first one.
+            -->
+            <field name="priority" eval="999" />
             <field name="arch" type="xml">
               <header position="attributes" >
                      <attribute name="attrs" > {'invisible' : [('active' , '=' , False)]} </attribute>
