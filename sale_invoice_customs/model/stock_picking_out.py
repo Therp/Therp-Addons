@@ -114,10 +114,10 @@ class stock_picking_out(orm.Model):
             return record.customs_invoice_id.id
         inv = self._prepare_invoice(cr, uid, order, context=context)
         inv_id = inv_obj.create(cr, uid, inv, context=context)
-        self.write(cr, uid, [record.id],
-                   {
-                   'customs_invoice_id': inv_id
-                   }, context=context)
+        self.write(
+            cr, uid, [record.id], {
+                'customs_invoice_id': inv_id,
+                }, context=context)
         inv_obj.write(cr, uid, [inv_id], {'active': False}, context=context)
         inv_obj.button_compute(cr, uid, [inv_id])
         return inv_id
