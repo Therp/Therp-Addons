@@ -25,16 +25,18 @@ from openerp.tools.translate import _
 class stock_picking(orm.Model):
     _inherit = 'stock.picking'
     _columns = {
-        'customs_invoice_id': fields.many2one('account.invoice', 'New Invoice',
-                                              required=False),
+        'customs_invoice_id': fields.many2one(
+            'account.invoice', 'Customs Invoice',
+            ),
     }
 
 
 class stock_picking_out(orm.Model):
     _inherit = 'stock.picking.out'
     _columns = {
-        'customs_invoice_id': fields.many2one('account.invoice', 'New Invoice',
-                                              required=False),
+        'customs_invoice_id': fields.many2one(
+            'account.invoice', 'New Invoice',
+            ),
     }
 
     def generate_from_stock(self, cr, uid, context=None):
