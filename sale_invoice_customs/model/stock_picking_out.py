@@ -35,7 +35,7 @@ class stock_picking_out(orm.Model):
     _inherit = 'stock.picking.out'
     _columns = {
         'customs_invoice_id': fields.many2one(
-            'account.invoice', 'New Invoice',
+            'account.invoice', 'Customs Invoice',
             ),
     }
 
