@@ -8,8 +8,18 @@
              <field name="inherit_id" ref="stock.view_picking_form"></field>
              <field name="arch" type="xml">
                  <xpath expr="/form/header//button[@name='action_process']" position="after">
-                     <button name="create_invoice" string="Customs Invoice" type="object" />
+                     <button name="create_customs_invoice" type="object"
+                             string="Create Customs Invoice"
+                             attrs="{'invisible': [('customs_invoice_id', '!=', False)]}"
+                             />
+                     <button name="create_customs_invoice" type="object"
+                             string="Show Customs Invoice"
+                             attrs="{'invisible': [('customs_invoice_id', '=', False)]}"
+                             />
                  </xpath>
+                 <field name="partner_id" position="after">
+                     <field name="customs_invoice_id" invisible="1" />
+                 </field>
              </field>
        </record>
 

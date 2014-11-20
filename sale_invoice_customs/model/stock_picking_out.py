@@ -44,7 +44,7 @@ class stock_picking_out(orm.Model):
         # a customs invoice without a sale order.
         return {}
 
-    def create_invoice(self, cr, uid, ids, context=None):
+    def create_customs_invoice(self, cr, uid, ids, context=None):
         picking = self.browse(cr, uid, ids, context=context)[0]
         if picking.sale_id:
             sale = picking.sale_id
