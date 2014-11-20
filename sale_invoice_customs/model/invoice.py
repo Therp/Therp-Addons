@@ -54,6 +54,10 @@ class account_invoice(orm.Model):
                 raise orm.except_orm(
                     'Error',
                     'Customs invoices always need to be set to inactive.')
+            if not data.active and data.state != 'draft':
+                raise orm.except_orm(
+                    'Error',
+                    'Customs invoices cannot be processed any further.')
         return True
 
     _constraints = [(_check_valid_customs,
