@@ -58,7 +58,7 @@ class stock_picking_out(orm.Model):
         view = self.open_invoices(cr, uid, [res], context=context)
         return view
 
-    def _prepare_invoice(self, cr, uid, order, context=None):
+    def _prepare_custums_invoice(self, cr, uid, order, context=None):
         if context is None:
             context = {}
         journal_ids = self.pool.get('account.journal').search(
@@ -114,7 +114,7 @@ class stock_picking_out(orm.Model):
         record = self.browse(cr, uid, ids, context=context)[0]
         if record.customs_invoice_id:
             return record.customs_invoice_id.id
-        inv = self._prepare_invoice(cr, uid, order, context=context)
+        inv = self._prepare_customs_invoice(cr, uid, order, context=context)
         inv_id = inv_obj.create(cr, uid, inv, context=context)
         self.write(
             cr, uid, [record.id], {
