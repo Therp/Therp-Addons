@@ -25,8 +25,13 @@
     "license": "AGPL-3",
     "complexity": "normal",
     "description": """
-    Create a specific invoice shipping document
-    from a delivery.
+Create a specific invoice shipping document from a delivery, for customs
+purposes. This document looks like an invoice, reuses the invoice table and
+views but internally, these invoices will always be kept in draft state and
+are set to inactive so that they don't influence the accounting and don't even
+show up in other contexts. Only one customs invoice can be created per
+shipping. In order to regenerate a customs invoice for a picking from scratch,
+delete the existing one.
     """,
     "category": "",
     "depends": [

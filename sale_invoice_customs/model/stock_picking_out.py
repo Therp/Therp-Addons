@@ -20,29 +20,27 @@
 ##############################################################################
 from openerp.osv import fields, orm, osv
 from openerp.tools.translate import _
+from openerp.tools.float_utils import float_round
 
 
 class stock_picking(orm.Model):
     _inherit = 'stock.picking'
     _columns = {
-        'customs_invoice_id': fields.many2one('account.invoice', 'New Invoice',
-                                              required=False),
+        'customs_invoice_id': fields.many2one(
+            'account.invoice', 'Customs Invoice',
+            ),
     }
 
 
 class stock_picking_out(orm.Model):
     _inherit = 'stock.picking.out'
     _columns = {
-        'customs_invoice_id': fields.many2one('account.invoice', 'New Invoice',
-                                              required=False),
+        'customs_invoice_id': fields.many2one(
+            'account.invoice', 'Customs Invoice',
+            ),
     }
 
-    def generate_from_stock(self, cr, uid, context=None):
-        # this function should extend the module, if the user wants to generate
-        # a customs invoice without a sale order.
-        return {}
-
-    def create_invoice(self, cr, uid, ids, context=None):
+    def create_customs_invoice(self, cr, uid, ids, context=None):
         picking = self.browse(cr, uid, ids, context=context)[0]
         if picking.sale_id:
             sale = picking.sale_id
@@ -56,69 +54,71 @@ class stock_picking_out(orm.Model):
         view = self.open_invoices(cr, uid, [res], context=context)
         return view
 
-    def _prepare_invoice(self, cr, uid, order, context=None):
-        if context is None:
-            context = {}
-        journal_ids = self.pool.get('account.journal').search(
-            cr, uid, [
-                ('type', '=', 'sale'),
-                ('company_id', '=', order.company_id.id)
-                ], limit=1)
-        if not journal_ids:
-            raise osv.except_osv(
-                _('Error!'),
-                _('Please define sales journal for this company:"%s" (id:%d).')
-                % (order.company_id.name, order.company_id.id))
-        invoice_lines = []
-        for line in order.order_line:
-            invoice_lines.append(
-                (0, 0,
-                 {
-                     'name': line.name,
-                     'price_unit': line.price_unit,
-                     'account_id':
-                     order.partner_id.property_account_receivable.id,
-                     'quantity': line.product_uom_qty,
-                 })
+    def _prepare_customs_invoice_line(self, cr, uid, stock_move, context=None):
+        """
+        Bits and bobs from sale_order_line::_prepare_order_line_invoice_line()
+        in sale/sale.py. Take care to convert the price unit to the price per
+        sale unit.
+        """
+        line = stock_move.sale_line_id
+        price_unit = line.price_unit
+        if stock_move.product_uom != stock_move.product_uos:
+            price_unit = float_round(
+                line.price_unit * (
+                    stock_move.product_uom_qty / stock_move.product_uos_qty),
+                self.pool.get('decimal.precision').precision_get(
+                    cr, uid, 'Product Price'))
+
+        return {
+            'name': line.name,
+            'sequence': line.sequence,
+            'origin': line.order_id.name,
+            'price_unit': price_unit,
+            'quantity': stock_move.product_uos_qty,
+            'discount': line.discount,
+            'uos_id': stock_move.product_uos.id,
+            'product_id': line.product_id.id,
+            'invoice_line_tax_id': [(6, 0, [x.id for x in line.tax_id])],
+            'account_analytic_id': line.order_id.project_id.id,
+            }
+
+    def _prepare_customs_invoice(self, cr, uid, ids, order, context=None):
+        """
+        Reuse the standard method from the sale model to create an invoice
+        """
+        invoice_line_ids = []
+        invoice_line_obj = self.pool['account.invoice.line']
+        picking = self.browse(cr, uid, ids[0], context=context)
+        for move in picking.move_lines:
+            if not move.sale_line_id:
+                continue
+            invoice_line_vals = self._prepare_customs_invoice_line(
+                cr, uid, move, context=context)
+            invoice_line_ids.append(
+                invoice_line_obj.create(
+                    cr, uid, invoice_line_vals, context=context))
+
+        invoice_vals = self.pool['sale.order']._prepare_invoice(
+            cr, uid, order, invoice_line_ids, context=context)
+        invoice_vals.update(
+            active=False,
+            customs_invoice_for_picking_ids=[(6, 0, [ids[0]])],
             )
-        invoice_vals = {
-            'name': order.client_order_ref or '',
-            'origin': order.name,
-            'type': 'out_invoice',
-            'reference': order.client_order_ref or order.name,
-            'account_id': order.partner_id.property_account_receivable.id,
-            'partner_id': order.partner_invoice_id.id,
-            'journal_id': journal_ids[0],
-            'invoice_line': invoice_lines,
-            'currency_id': order.pricelist_id.currency_id.id,
-            'comment': order.note,
-            'payment_term': order.payment_term and order.payment_term.id
-            or False,
-            'fiscal_position': order.fiscal_position.id or
-            order.partner_id.property_account_position.id,
-            'date_invoice': context.get('date_invoice', False),
-            'company_id': order.company_id.id,
-            'user_id': order.user_id and order.user_id.id or False,
-            'state': 'draft',
-
-        }
-
         return invoice_vals
 
     def _make_invoice(self, cr, uid, ids, order, context=None):
+        """
+        Get or create a customs invoice
+        """
         inv_obj = self.pool.get('account.invoice')
         if context is None:
             context = {}
         record = self.browse(cr, uid, ids, context=context)[0]
         if record.customs_invoice_id:
             return record.customs_invoice_id.id
-        inv = self._prepare_invoice(cr, uid, order, context=context)
+        inv = self._prepare_customs_invoice(
+            cr, uid, ids, order, context=context)
         inv_id = inv_obj.create(cr, uid, inv, context=context)
-        self.write(cr, uid, [record.id],
-                   {
-                   'customs_invoice_id': inv_id
-                   }, context=context)
-        inv_obj.write(cr, uid, [inv_id], {'active': False}, context=context)
         inv_obj.button_compute(cr, uid, [inv_id])
         return inv_id
 
@@ -130,13 +130,13 @@ class stock_picking_out(orm.Model):
         form_id = form_res[1] or False
 
         return {
-            'name': _('Advance Invoice'),
+            'name': _('Customs Invoice'),
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'account.invoice',
             'res_id': invoice_ids[0],
             'view_id': False,
             'views': [(form_id, 'form')],
-            'context': "{'type' : 'out_invoice','active': False}",
+            'context': "{'type': 'out_invoice', 'active': False}",
             'type': 'ir.actions.act_window',
         }

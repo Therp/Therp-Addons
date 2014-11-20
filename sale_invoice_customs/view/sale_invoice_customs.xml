@@ -8,8 +8,18 @@
              <field name="inherit_id" ref="stock.view_picking_form"></field>
              <field name="arch" type="xml">
                  <xpath expr="/form/header//button[@name='action_process']" position="after">
-                     <button name="create_invoice" string="Customs Invoice" type="object" />
+                     <button name="create_customs_invoice" type="object"
+                             string="Create Customs Invoice"
+                             attrs="{'invisible': [('customs_invoice_id', '!=', False)]}"
+                             />
+                     <button name="create_customs_invoice" type="object"
+                             string="Show Customs Invoice"
+                             attrs="{'invisible': [('customs_invoice_id', '=', False)]}"
+                             />
                  </xpath>
+                 <field name="partner_id" position="after">
+                     <field name="customs_invoice_id" invisible="1" />
+                 </field>
              </field>
        </record>
 
@@ -18,6 +28,11 @@
             <field name="name">account.custominvoice.form</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"></field>
+            <!--
+                Set to a really high (=low) priority because we add an extra header tag
+                and we want all other modules to put their buttons in the first one.
+            -->
+            <field name="priority" eval="999" />
             <field name="arch" type="xml">
               <header position="attributes" >
                      <attribute name="attrs" > {'invisible' : [('active' , '=' , False)]} </attribute>
@@ -25,18 +40,17 @@
               <header position="after" >
                      <header attrs= "{'invisible' : [('active' , '=' , True)]}" >
                      <button name="invoice_print" string="Print" type="object"  class="oe_highlight" groups="base.group_user"/>
-                     <button name="invoice_open" states="draft" string="Validate" class="oe_highlight" groups="base.group_user"/>
                      <field name="active" invisible="1"/>
                     </header>
               </header>
-              <h1 position="attributes" >
-                     <attribute name="attrs" > {'invisible' : [('active' , '=' , False)]} </attribute>
-              </h1>
-              <h1 position="replace" >
-                    <h1 attrs="{'invisible' : [('active', '=' , True)]}" >
-                     <label string="Customs Invoice"/>
-                   </h1>
-              </h1>
+              <!-- Hide the regular draft invoice label in case of a customs invoice -->
+              <xpath expr="//h1/label[@string='Draft Invoice ']" position="attributes">
+                  <attribute name="attrs">{'invisible': ['|', '|', ('active', '=' , False), ('state','not in',('draft',)), ('type','&lt;&gt;','out_invoice')]}</attribute>
+              </xpath>
+              <!-- Display alternative label in case of a customs invoice -->
+              <xpath expr="//h1/label[@string='Draft Invoice ']" position="after">
+                  <label string="Customs Invoice" attrs="{'invisible': [('active', '=', True)]}" />
+              </xpath>
             </field>
         </record>
 

@@ -27,6 +27,9 @@ class account_invoice(orm.Model):
 
     _columns = {
         'active': fields.boolean("Active"),
+        'customs_invoice_for_picking_ids': fields.one2many(
+            'stock.picking', 'customs_invoice_id',
+            'Customs invoice for picking', readonly=True),
     }
 
     _defaults = {
@@ -34,14 +37,25 @@ class account_invoice(orm.Model):
     }
 
     def _check_valid_customs(self, cr, uid, ids, context=None):
+        """
+        Raise locally because there are two different situations.
+        Don't bother translating because this Should Not Happen.
+        """
         this = self.browse(cr, uid, ids, context=context)
-        stock_pickings = self.pool.get('stock.picking')
         for data in this:
-            if not data.active and not stock_pickings.search(
-                    cr, uid, [
-                        ('customs_invoice_id', '=', data.id)
-                    ]):
-                return False
+            if not data.active and not data.customs_invoice_for_picking_ids:
+                raise orm.except_orm(
+                    'Error',
+                    'You cannot set an invoice to inactive if '
+                    'this invoice is not a customs invoice.')
+            if data.active and data.customs_invoice_for_picking_ids:
+                raise orm.except_orm(
+                    'Error',
+                    'Customs invoices always need to be set to inactive.')
+            if not data.active and data.state != 'draft':
+                raise orm.except_orm(
+                    'Error',
+                    'Customs invoices cannot be processed any further.')
         return True
 
     _constraints = [(_check_valid_customs,
