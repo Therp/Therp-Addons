@@ -39,11 +39,6 @@ class stock_picking_out(orm.Model):
             ),
     }
 
-    def generate_from_stock(self, cr, uid, context=None):
-        # this function should extend the module, if the user wants to generate
-        # a customs invoice without a sale order.
-        return {}
-
     def create_customs_invoice(self, cr, uid, ids, context=None):
         picking = self.browse(cr, uid, ids, context=context)[0]
         if picking.sale_id:
