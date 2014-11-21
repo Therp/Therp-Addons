@@ -4,15 +4,14 @@
         <record id="use_case_collection_form" model="ir.ui.view">
             <field name="name">Use case collection form</field>
             <field name="model">use_case.collection</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form>
                     <group colspan="4" col="3">
                         <group colspan="2" col="4">
                             <field name="name"/>
                             <field name="partner_id"/>
-                            <field name="create_date"/>
-                            <field name="create_uid"/>
+                            <field name="create_date" readonly="True" />
+                            <field name="create_uid" readonly="True" />
                         </group>
                         <group colspan="1" col="2">
                             <field name="hours_total"/>
@@ -22,9 +21,9 @@
                     </group>
                     <notebook colspan="4">
                         <page string="Use cases">
-                            <field name="res_id" invisible="1"/>
+                            <field name="id" invisible="1"/>
                             <field name="use_case_ids"
-                                   mode="tree,form"
+                                   mode="tree"
                                    nolabel="1"
                                    colspan="4"
                                    context="{
@@ -45,7 +44,6 @@
         <record id="use_case_collection_tree" model="ir.ui.view">
             <field name="name">Use case collection tree</field>
             <field name="model">use_case.collection</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
@@ -59,7 +57,6 @@
         <record id="use_case_workload_tree" model="ir.ui.view">
             <field name="name">Use case workload tree</field>
             <field name="model">use_case.workload</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree editable="top">
                     <field name="sequence"/>
@@ -72,7 +69,6 @@
         <record id="use_case_actor_tree" model="ir.ui.view">
             <field name="name">Use case actor tree</field>
             <field name="model">use_case.actor</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree editable="top">
                     <field name="name"/>
@@ -82,7 +78,6 @@
         <record id="use_case_version_tag_tree" model="ir.ui.view">
             <field name="name">Use case version tag tree</field>
             <field name="model">use_case.version_tag</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree editable="top">
                     <field name="user"/>
@@ -104,13 +99,14 @@
             <field name="res_model">use_case</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="use_case_tree" />
             <field name="context">{'active_test': False}</field>
         </record>
+        <menuitem id="menu_use_case_main_menu"
+                  name="Use cases" />
         <menuitem id="menu_use_case_main"
                   name="Use cases"
-                  action="action_use_case_collections"
-                  web_icon="images/use_cases.png"
-                  web_icon_hover="images/use_cases-hover.png"
+                  parent="menu_use_case_main_menu"
                   />
         <menuitem id="menu_use_case_collections"
                   name="Sets of use cases"

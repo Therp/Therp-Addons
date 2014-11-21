@@ -25,8 +25,8 @@
     "category": 'Base',
     'complexity': "normal",
     "description": """
-Compose collections of use case descriptions and print them with an aeroo report
-which is included in this module.
+Compose collections of use case descriptions and print them with an aeroo
+report which is included in this module.
     """,
     'website': 'http://therp.nl',
     'images': [],
@@ -39,6 +39,5 @@ which is included in this module.
         'security/ir.model.access.csv',
     ],
     "license": 'AGPL-3',
-    'installable': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
