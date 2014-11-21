@@ -20,6 +20,7 @@
 ##############################################################################
 from openerp.osv import fields, orm, osv
 from openerp.tools.translate import _
+from openerp.tools.float_utils import float_round
 
 
 class stock_picking(orm.Model):
@@ -53,18 +54,18 @@ class stock_picking_out(orm.Model):
         view = self.open_invoices(cr, uid, [res], context=context)
         return view
 
-    def _prepare_customs_invoice_line(self, cr, uid, line, context=None):
+    def _prepare_customs_invoice_line(self, cr, uid, stock_move, context=None):
         """
         Bits and bobs from sale_order_line::_prepare_order_line_invoice_line()
-        in sale/sale.py
+        in sale/sale.py. Take care to convert the price unit to the price per
+        sale unit.
         """
-        sale_line_obj = self.pool['sale.order.line']
-        uosqty = sale_line_obj._get_line_qty(cr, uid, line, context=context)
-        uos_id = sale_line_obj._get_line_uom(cr, uid, line, context=context)
-        pu = line.price_unit
-        if uosqty:
-            pu = round(
-                line.price_unit * line.product_uom_qty / uosqty,
+        line = stock_move.sale_line_id
+        price_unit = line.price_unit
+        if stock_move.product_uom != stock_move.product_uos:
+            price_unit = float_round(
+                line.price_unit * (
+                    stock_move.product_uom_qty / stock_move.product_uos_qty),
                 self.pool.get('decimal.precision').precision_get(
                     cr, uid, 'Product Price'))
 
@@ -72,10 +73,10 @@ class stock_picking_out(orm.Model):
             'name': line.name,
             'sequence': line.sequence,
             'origin': line.order_id.name,
-            'price_unit': pu,
-            'quantity': uosqty,
+            'price_unit': price_unit,
+            'quantity': stock_move.product_uos_qty,
             'discount': line.discount,
-            'uos_id': uos_id,
+            'uos_id': stock_move.product_uos.id,
             'product_id': line.product_id.id,
             'invoice_line_tax_id': [(6, 0, [x.id for x in line.tax_id])],
             'account_analytic_id': line.order_id.project_id.id,
@@ -87,9 +88,12 @@ class stock_picking_out(orm.Model):
         """
         invoice_line_ids = []
         invoice_line_obj = self.pool['account.invoice.line']
-        for line in order.order_line:
+        picking = self.browse(cr, uid, ids[0], context=context)
+        for move in picking.move_lines:
+            if not move.sale_line_id:
+                continue
             invoice_line_vals = self._prepare_customs_invoice_line(
-                cr, uid, line, context=context)
+                cr, uid, move, context=context)
             invoice_line_ids.append(
                 invoice_line_obj.create(
                     cr, uid, invoice_line_vals, context=context))
