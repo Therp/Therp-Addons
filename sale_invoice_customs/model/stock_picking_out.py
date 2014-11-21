@@ -100,7 +100,6 @@ class stock_picking_out(orm.Model):
             active=False,
             customs_invoice_for_picking_ids=[(6, 0, [ids[0]])],
             )
-        print invoice_vals
         return invoice_vals
 
     def _make_invoice(self, cr, uid, ids, order, context=None):
