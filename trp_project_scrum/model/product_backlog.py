@@ -43,3 +43,9 @@ class ProductBacklog(models.Model):
                 user_ids=[story.project_id.user_id.id],
                 )
         return res_id
+
+    _track = {
+        'stage_id': {
+            'trp_project_scrum.mt_stage_change':
+                lambda self, cr, uid, obj, ctx=None: True,
+            }}

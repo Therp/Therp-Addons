@@ -38,5 +38,6 @@ https://github.com/EL2DE/openerp8-addons.git
     "depends": ['project_scrum'],
     "data": [
         "view/product_backlog.xml",
+        "data/mail_message_subtype.xml",
         ],
 }
