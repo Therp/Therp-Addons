@@ -8,7 +8,8 @@
             <field name="inherit_id" ref="base.view_country_form"/>
             <field name="arch" type="xml">
                 <field name="code" position="after">
-                    <field name="property_account_position" widget="selection"/>
+                    <field name="property_account_position" domain="[('company_id.user_ids', '=', uid)]"   
+                        widget="selection"/>
                 </field>
             </field>
         </record>
