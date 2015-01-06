@@ -24,8 +24,6 @@ from osv import fields, osv
 class Country(osv.osv):
     _inherit = 'res.country'
     _columns = {
-        #   'fiscal_position_id': fields.many2one(
-        #   'account.fiscal.position','Default fiscal position'),
         'property_account_position': fields.property
         ('account.fiscal.position',
             type='many2one',
@@ -37,4 +35,3 @@ class Country(osv.osv):
                  taxes and the accounts used for the country,
                  if not set specifically elsewere.""",),
     }
-Country()
