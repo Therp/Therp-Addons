@@ -1,2 +1,2 @@
-from . import res_partner
-from . import res_country
+import res_country
+import res_partner

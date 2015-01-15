@@ -28,7 +28,7 @@ class ResPartner(orm.Model):
             self, cr, uid, ids, country_id, context=None):
 
         if not country_id:
-            return {}
+            return {} 
         country = self.pool['res.country'].browse(cr, uid,
                                                   country_id, context=context)
         fis_pos_id = country.property_account_position.id

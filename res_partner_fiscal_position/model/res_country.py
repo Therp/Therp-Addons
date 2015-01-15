@@ -18,20 +18,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
+from openerp import models, fields
 
 
-class Country(osv.osv):
+class Country(models.Model):
     _inherit = 'res.country'
-    _columns = {
-        'property_account_position': fields.property
-        ('account.fiscal.position',
-            type='many2one',
-            relation='account.fiscal.position',
+    property_account_position = fields.Many2one(  
+            
+            comodel_name='account.fiscal.position',
             string="Default Fiscal Position",
-            method=True,
-            view_load=True,
+            company_dependent = True, 
             help="""The fiscal position will determine
                  taxes and the accounts used for the country,
-                 if not set specifically elsewere.""",),
-    }
+                 if not set specifically elsewere.""",)
+   
