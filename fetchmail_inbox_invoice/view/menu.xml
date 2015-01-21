@@ -5,7 +5,7 @@
             res_model="mail.message"
             view_mode="tree,form"
             domain="[('model', '=', 'fetchmail.inbox.invoice')]"
-            context="{'default_res_model': 'account.invoice'}"
+            context="{'set_default_res_model': 'account.invoice'}"
             name="Invoices per mail"
             view_id="fetchmail_inbox.tree_mail_message_fetchmail_inbox"
             />

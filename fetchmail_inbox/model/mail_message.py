@@ -37,9 +37,9 @@ class MailMessage(Model):
                 }
 
     def fetchmail_inbox_create(self, cr, uid, ids, context=None):
-        if context and context.get('default_res_model'):
+        if context and context.get('set_default_res_model'):
             model_id = self.pool.get('ir.model').search(
-                    cr, uid, [('model', '=', context['default_res_model'])],
+                    cr, uid, [('model', '=', context['set_default_res_model'])],
                     context=None)
             model_id = model_id and model_id[0]
             wizard_model = self.pool.get('fetchmail.inbox.create.wizard')
