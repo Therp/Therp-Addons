@@ -107,8 +107,6 @@ class MailMessage(Model):
                 'model': res_model,
                 'res_id': res_id,
                 })
-            inbox_model.unlink(cr, uid, inbox_ids, context=context)
-
             for attachment in this.attachment_ids:
                 if context.get('fetchmail_invoice_delete_original', True) and\
                         attachment.datas_fname == 'original_email.eml':
@@ -119,6 +117,8 @@ class MailMessage(Model):
                         'res_model': res_model,
                         'res_id': res_id,
                         })
+
+            inbox_model.unlink(cr, uid, inbox_ids, context=context)
 
     def _needaction_count(self, cr, uid, dom, context=None):
         if dom == [('model', '=', 'fetchmail.inbox')]:
