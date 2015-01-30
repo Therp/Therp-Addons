@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2012 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2012-2015 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Support branding",
-    "summary": "Adds you branding to an Odoo instance",
+    "summary": "Adds your branding to an Odoo instance",
     "category": "Dependecy/Hidden",
     "version": "2.0",
     "author": "Therp BV",

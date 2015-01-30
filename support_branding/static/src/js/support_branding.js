@@ -1,6 +1,6 @@
 /* 
 
-   Copyright (C) 2012 Therp BV
+   Copyright (C) 2012-2015 Therp BV
    License: GNU AFFERO GENERAL PUBLIC LICENSE
             Version 3 or any later version
 

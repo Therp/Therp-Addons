@@ -4,8 +4,8 @@
         <t t-jquery="div" t-operation="after">
             <div>
                 <form class="support-branding-submit-form" action="mailto:" enctype="text/plain" method="get">
-                    <input type="hidden" name="subject" t-attf-value="#{error.message}" />
-                    <input type="hidden" name="body" t-attf-value="#{session.db}@#{session.server}\n#{error.data.debug}" />
+                    <input type="hidden" name="subject" t-attf-value="#{session.username}@#{session.db} [#{session.server}]: #{error.message}" />
+                    <input type="hidden" name="body" t-attf-value="#{error.data.debug}" />
                     <button class="oe_highlight">Email to support company</button>
                 </form>
             </div>
