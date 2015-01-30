@@ -18,34 +18,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-
 {
     "name": "Support branding",
-    "description": """If you run an OpenERP support company and you support
-customers without an OPW, you can brand the OpenERP instance
-accordingly using this module. This module will replace the unfriendly
-message about the OpenERP instance not being supported with the information
-that your customers need to contact you.
-
-Ths is a web module. You cannot install it through the OpenERP modules
-interface. Instaed, to enable this module set 'active' to True in
-support_branding/__openerp__.py and restart the OpenERP server.
-
-To configure this module, please enter the values for thetwo
-variables 'support_name' and 'support_link' in the file
-support_branding/static/src/js/chrome.js.
-
-This module is compatible with OpenERP 6.1.
-""",
-    "category": "Therp web addons",
-    "version": "1.0r4",
+    "summary": "Adds you branding to an Odoo instance",
+    "category": "Dependecy/Hidden",
+    "version": "2.0",
     "author": "Therp BV",
     "website": 'http://therp.nl',
-    "depends": ['web'],
-    "js": ["static/src/js/chrome.js"],
-    "qweb": ["static/src/xml/base.xml"],
-    "css": [],
-    'active': False,
-    'installable': False,
+    "depends": [
+        'web',
+    ],
+    'active': True,
 }
