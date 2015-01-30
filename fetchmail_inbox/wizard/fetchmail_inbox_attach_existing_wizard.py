@@ -41,16 +41,24 @@ class FetchmailInboxAttachExistingWizard(TransientModel):
             'mail_id': fields.many2one('mail.message', 'Email', required=True),
     }
 
+    def default_get(self, cr, uid, fields, context=None):
+        if context and context.get('set_default_res_model'):
+            context['default_res_model'] = context['set_default_res_model']
+        return super(FetchmailInboxAttachExistingWizard, self).default_get(
+            cr, uid, fields, context=context)
+
     def fields_view_get(self, cr, user, view_id=None, view_type='form',
                         context=None, toolbar=False, submenu=False):
         result = super(FetchmailInboxAttachExistingWizard, self)\
                 .fields_view_get(
                         cr, user, view_id=view_id, view_type=view_type, 
                         context=context, toolbar=toolbar, submenu=submenu)
-        if context and context.get('default_res_model'):
+        # Can't use the standard 'default_' key because it is purged
+        # in between actions to prevent erratic defaults for other models
+        if context and context.get('set_default_res_model'):
             result['fields']['res_id']['type'] = 'many2one'
             result['fields']['res_id']['relation'] = \
-                    context['default_res_model']
+                    context['set_default_res_model']
             result['fields']['res_id']['context'] = {}
         return result
 

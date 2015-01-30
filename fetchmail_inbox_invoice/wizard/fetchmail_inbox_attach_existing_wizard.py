@@ -30,7 +30,7 @@ class FetchmailInboxAttachExistingWizard(TransientModel):
                         cr, user, view_id=view_id, view_type=view_type, 
                         context=context, toolbar=toolbar, submenu=submenu)
         if context and context.get('default_mail_id') and\
-                context.get('default_res_model') == 'account.invoice':
+                context.get('set_default_res_model') == 'account.invoice':
             mail = self.pool.get('mail.message').browse(
                     cr, user, context.get('default_mail_id'), context=context)
             result['fields']['res_id']['domain'] = [
