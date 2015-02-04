@@ -22,7 +22,7 @@ openerp.support_branding = function(instance) {
         {
             this._super.apply(this, arguments);
             var ir_config_parameter = new openerp.web.Model('ir.config_parameter');
-            var form = jQuery('.support-branding-submit-form');
+            var form = jQuery('.support-branding-submit-form')[0];
             ir_config_parameter.call(
                 'get_param', ['support_branding.support_email']).then(
                 function(email)
