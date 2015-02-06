@@ -18,28 +18,48 @@ openerp.support_branding = function(instance) {
     _t = instance.web._t;
     
     instance.web.CrashManager.include({
-        show_error: function(error)
+        init: function()
         {
-            this._super.apply(this, arguments);
-            var ir_config_parameter = new openerp.web.Model('ir.config_parameter');
-            var form = jQuery('.support-branding-submit-form');
+            var self = this,
+                ir_config_parameter = new openerp.web.Model('ir.config_parameter');
             ir_config_parameter.call(
                 'get_param', ['support_branding.support_email']).then(
                 function(email)
                 {
-                    form.attr('action', 'mailto:' + email);
+                    self.support_branding_support_email = email;
                 });
             ir_config_parameter.call(
                 'get_param', ['support_branding.company_name']).then(
                 function(name)
                 {
-                    var button = form.find('button');
-                    button.text(
-                        _.str.sprintf(
-                            openerp.web._t('Email to %s'), name));
+                    self.support_branding_company_name = name;
                 });
-            form.prependTo(
-                form.parents('.modal-dialog').find('.modal-footer'));
+            return this._super(this, arguments);
+        },
+        show_error: function(error)
+        {
+            var self = this;
+            this._super.apply(this, arguments);
+            jQuery('.support-branding-submit-form').each(function()
+            {
+                var $form = jQuery(this),
+                    $button = $form.find('button');
+                if(self.support_branding_support_email)
+                {
+                    $form.attr(
+                        'action',
+                        'mailto:' + self.support_branding_support_email);
+                }
+                if(self.support_branding_company_name)
+                {
+                    $button.text(
+                        _.str.sprintf(
+                            openerp.web._t('Email to %s'),
+                            self.support_branding_company_name));
+                }
+                $form.prependTo(
+                    $form.parents('.modal-dialog').find('.modal-footer'));
+            });
         }
     });
 };
