@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="installer_action" model="ir.actions.act_window">
+            <field name="name">Set override action</field>
+            <field name="res_model">ir.config_parameter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="override_mail_recipients.override_email_to" />
+        </record>
+        <record id="installer_todo" model="ir.actions.todo">
+            <field name="action_id" ref="installer_action" />
+            <field name="type">automatic</field>
+        </record>
+    </data>
+</openerp>
