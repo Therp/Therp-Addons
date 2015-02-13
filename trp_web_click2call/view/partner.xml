@@ -7,11 +7,11 @@
             <field name="arch" type="xml">
                 <field name="phone" position="attributes">
                     <attribute name="widget">click2call</attribute>
-                    <attribute name="context">{'partner_id': partner_id}</attribute>
+                    <attribute name="context">{'partner_id': id}</attribute>
                 </field>
                 <field name="mobile" position="attributes">
                     <attribute name="widget">click2call</attribute>
-                    <attribute name="context">{'partner_id': partner_id}</attribute>
+                    <attribute name="context">{'partner_id': id}</attribute>
                 </field>
             </field>
         </record>
@@ -21,11 +21,11 @@
             <field name="arch" type="xml">
                 <field name="phone" position="attributes">
                     <attribute name="widget">click2call</attribute>
-                    <attribute name="context">{'partner_id': parent.id}</attribute>
+                    <attribute name="context">{'partner_id': id}</attribute>
                 </field>
                 <field name="mobile" position="attributes">
                     <attribute name="widget">click2call</attribute>
-                    <attribute name="context">{'partner_id': parent.id}</attribute>
+                    <attribute name="context">{'partner_id': id}</attribute>
                 </field>
                 <xpath expr="//field[@name='child_ids']//form//field[@name='phone']" position="attributes">
                     <attribute name="widget">click2call</attribute>
