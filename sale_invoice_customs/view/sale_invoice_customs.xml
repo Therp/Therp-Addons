@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+      <record id="shipping_doc" model="ir.ui.view">
+             <field name="name">showcustoms_form</field>
+             <field name="model">stock.picking.out</field>
+             <field name="inherit_id" ref="stock.view_picking_form"></field>
+             <field name="arch" type="xml">
+                 <xpath expr="/form/header//button[@name='action_process']" position="after">
+                     <button name="create_customs_invoice" type="object"
+                             string="Create Customs Invoice"
+                             attrs="{'invisible': [('customs_invoice_id', '!=', False)]}"
+                             />
+                     <button name="create_customs_invoice" type="object"
+                             string="Show Customs Invoice"
+                             attrs="{'invisible': [('customs_invoice_id', '=', False)]}"
+                             />
+                 </xpath>
+                 <field name="partner_id" position="after">
+                     <field name="customs_invoice_id" invisible="1" />
+                 </field>
+             </field>
+       </record>
+
+
+   <record id="customs_invoice_form" model="ir.ui.view">
+            <field name="name">account.custominvoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"></field>
+            <!--
+                Set to a really high (=low) priority because we add an extra header tag
+                and we want all other modules to put their buttons in the first one.
+            -->
+            <field name="priority" eval="999" />
+            <field name="arch" type="xml">
+              <header position="attributes" >
+                     <attribute name="attrs" > {'invisible' : [('active' , '=' , False)]} </attribute>
+              </header>
+              <header position="after" >
+                     <header attrs= "{'invisible' : [('active' , '=' , True)]}" >
+                     <button name="invoice_print" string="Print" type="object"  class="oe_highlight" groups="base.group_user"/>
+                     <field name="active" invisible="1"/>
+                    </header>
+              </header>
+              <!-- Hide the regular draft invoice label in case of a customs invoice -->
+              <xpath expr="//h1/label[@string='Draft Invoice ']" position="attributes">
+                  <attribute name="attrs">{'invisible': ['|', '|', ('active', '=' , False), ('state','not in',('draft',)), ('type','&lt;&gt;','out_invoice')]}</attribute>
+              </xpath>
+              <!-- Display alternative label in case of a customs invoice -->
+              <xpath expr="//h1/label[@string='Draft Invoice ']" position="after">
+                  <label string="Customs Invoice" attrs="{'invisible': [('active', '=', True)]}" />
+              </xpath>
+            </field>
+        </record>
+
+
+        <record id="action_custom_invoice" model="ir.actions.act_window">
+            <field name="name">Customs Invoices</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+            <field name="domain">[("active","=",False)]</field>
+            <field name="context">{'active': False}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_hr_customs_invoice_tree_view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account.invoice_tree"/>
+            <field name="act_window_id" ref="action_custom_invoice"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_hr_customs_invoice_form_view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="customs_invoice_form"/>
+            <field name="act_window_id" ref="action_custom_invoice"/>
+        </record>
+
+        <menuitem action="action_custom_invoice" id="menu_action_custom_invoice" parent="stock.menu_stock_warehouse_mgmt"/>
+
+
+</data>
+</openerp>
+
