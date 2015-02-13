@@ -27,18 +27,13 @@
     'website': 'http://therp.nl',
     'depends': ['web'],
     'data': [
+        "view/qweb.xml",
         'view/click2call.xml',
         'view/partner.xml'
     ],
-    'js': [
-        'static/src/js/click2call.js',
-        ],
     'qweb': [
         'static/src/xml/click2call.xml',
     ],
-    'css': [
-        'static/src/css/click2call.css',
-        ],
     'external_dependencies': {
         'python': [
             'urllib',
