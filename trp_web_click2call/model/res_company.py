@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2012 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2015 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,31 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'Click2call',
-    'category': 'web',
-    'summary': 'Web widget for click2call on Astium PBX',
-    'version': '8.0.1.0',
-    'author': 'Therp BV',
-    'website': 'http://therp.nl',
-    'depends': ['web'],
-    'data': [
-        'view/click2call.xml',
-        'view/partner.xml'
-    ],
-    'js': [
-        'static/src/js/click2call.js',
-        ],
-    'qweb': [
-        'static/src/xml/click2call.xml',
-    ],
-    'css': [
-        'static/src/css/click2call.css',
-        ],
-    'external_dependencies': {
-        'python': [
-            'urllib',
-            'urllib2',
-        ],
-    },
-}
+from openerp import models, fields
+
+
+class ResCompany(models.Model):
+    _inherit = 'res.company'
+
+    pbx_shortname = fields.Char('PBX shortname')
+    pbx_url = fields.Char('PBX URL')

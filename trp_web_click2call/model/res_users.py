@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2012 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2015 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,31 +18,24 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'Click2call',
-    'category': 'web',
-    'summary': 'Web widget for click2call on Astium PBX',
-    'version': '8.0.1.0',
-    'author': 'Therp BV',
-    'website': 'http://therp.nl',
-    'depends': ['web'],
-    'data': [
-        'view/click2call.xml',
-        'view/partner.xml'
-    ],
-    'js': [
-        'static/src/js/click2call.js',
-        ],
-    'qweb': [
-        'static/src/xml/click2call.xml',
-    ],
-    'css': [
-        'static/src/css/click2call.css',
-        ],
-    'external_dependencies': {
-        'python': [
-            'urllib',
-            'urllib2',
-        ],
-    },
-}
+import re
+from openerp import models, fields, api, exceptions, _
+
+
+class ResUsers(models.Model):
+    _inherit = 'res.users'
+
+    def __init__(self, pool, cr):
+        super(ResUsers, self).__init__(pool, cr)
+        self.SELF_WRITEABLE_FIELDS.append('phone_extension')
+
+    phone_extension = fields.Char('Extension')
+
+    @api.constrains('phone_extension')
+    @api.one
+    def _check_phone(self):
+        if self.phone_extension and not re.match(
+                '^[\d+-]*$', self.phone_extension):
+            raise exceptions.ValidationError(
+                _('Phone numbers can only contain the following characters: '
+                  '01234567890+-'))
