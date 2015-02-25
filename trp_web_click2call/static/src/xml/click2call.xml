@@ -7,7 +7,7 @@
             <t t-call="FieldChar"/>
         </td>
         <td width="16">
-            <button class="oe_button oe_field_button" type="button" title="Call with click2call">
+            <button class="oe_button oe_field_button trp_web_click2call" type="button" title="Call with click2call">
                 <img t-att-src='_s + "/web/static/src/img/icons/terp-call-start.png"'/>
             </button>
         </td>
