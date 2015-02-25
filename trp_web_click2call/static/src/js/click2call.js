@@ -22,11 +22,9 @@ openerp.trp_web_click2call = function(instance) {
 
     instance.web.form.Click2call = instance.web.form.FieldChar.extend({
         template: 'click2call',
-        start: function() {
+        initialize_content: function() {
             this._super.apply(this, arguments);
-            var $button = this.$el.find('button');
-            $button.click(this.on_button_clicked);
-            this.setupFocus($button);
+            this.$el.find('button').click(this.on_button_clicked);
         },
         on_button_clicked: function() {
             click2call(this);
