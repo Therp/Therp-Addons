@@ -1,1 +1,0 @@
-import hr_contract_legacy
