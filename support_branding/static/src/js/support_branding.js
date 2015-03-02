@@ -22,6 +22,10 @@ openerp.support_branding = function(instance) {
         {
             var self = this,
                 ir_config_parameter = new instance.web.Model('ir.config_parameter');
+            if(!instance.client.session.uid)
+            {
+                return this._super(this, arguments);
+            }
             ir_config_parameter.call(
                 'get_param', ['support_branding.support_email']).then(
                 function(email)
