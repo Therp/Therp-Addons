@@ -74,6 +74,13 @@ openerp.support_branding = function(instance) {
             jQuery.when(this._super(this, arguments))
             .then(function()
             {
+                if(!self.session.uid)
+                {
+                    d1.resolve();
+                    d2.resolve();
+                    d3.resolve();
+                    return;
+                }
                 var $link = self.$el.find('.support_branding_link');
                 ir_config_parameter.call(
                     'get_param', ['support_branding.company_name'])
