@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="trp_web_click2call_assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/trp_web_click2call/static/src/js/click2call.js"></script>
+                <link rel="stylesheet" href="/trp_web_click2call/static/src/css/click2call.css"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

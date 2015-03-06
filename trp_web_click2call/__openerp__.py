@@ -18,39 +18,26 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 {
-    'name': 'Web widget for click2call on Astium PBX',
+    'name': 'Click2call',
     'category': 'web',
-    'description':
-        '''
-Click2call is a simple extension on Asterisk based Astium PBX.
-This module adds a field for the user's phone extension as well
-as some simple configuration data on the company.
-Phone numbers in OpenERP are complemented with buttons that perform the
-call to the PBX so that the user gets connected with the partner
-that the phone number belongs to.
-        ''',
-    'version': '6.1.r109',
+    'summary': 'Web widget for click2call on Astium PBX',
+    'version': '8.0.1.0',
     'author': 'Therp BV',
     'website': 'http://therp.nl',
     'depends': ['web'],
     'data': [
+        "view/qweb.xml",
         'view/click2call.xml',
         'view/partner.xml'
-        ],
-    'js': [
-        'static/src/js/click2call.js',
-        ],
+    ],
     'qweb': [
         'static/src/xml/click2call.xml',
+    ],
+    'external_dependencies': {
+        'python': [
+            'urllib',
+            'urllib2',
         ],
-    'css': [
-        'static/src/css/click2call.css',
-        ],
-    'python' : [
-        'urllib',
-        'urllib2',
-        ],
-    'installable': False,
+    },
 }
