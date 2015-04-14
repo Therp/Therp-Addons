@@ -40,7 +40,7 @@ openerp.trp_web_click2call = function(instance) {
                 {
                     get_value: function() { return number },
                     is_valid: function() { return true },
-                    session: {user_context: instance.connection.user_context},
+                    session: instance.session,
                     build_context: function() { return {} },
                     do_action: function() {},
                 });
