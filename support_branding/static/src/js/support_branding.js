@@ -16,46 +16,77 @@
 openerp.support_branding = function(instance) {
     var QWeb = instance.web.qweb,
     _t = instance.web._t;
-    
-    instance.web.CrashManager.include({
-        init: function()
+
+    instance.web.Session.include({
+        session_authenticate: function()
+        {
+            var self = this;
+            return this._super.apply(this, arguments)
+            .then(function()
+            {
+                return self.setup_branding()
+            });
+        },
+        session_init: function()
+        {
+            var self = this;
+            return this._super.apply(this, arguments)
+            .then(function()
+            {
+                return self.setup_branding()
+            });
+        },
+        setup_branding: function()
         {
             var self = this,
                 ir_config_parameter = new instance.web.Model('ir.config_parameter');
-            ir_config_parameter.call(
-                'get_param', ['support_branding.support_email']).then(
-                function(email)
+            if(!self.uid)
+            {
+                return jQuery.when();
+            };
+            return (new instance.web.Model('ir.config_parameter'))
+                .query(['key', 'value'])
+                .filter([
+                    [
+                        'key', 'in', [
+                            'support_branding.support_email',
+                            'support_branding.company_name',
+                            'support_branding.company_color',
+                            'support_branding.company_url',
+                        ],
+                    ]
+                ])
+                .all()
+                .then(function(branding_values)
                 {
-                    self.support_branding_support_email = email;
+                    _.each(branding_values, function(record)
+                    {
+                        self[record.key.replace('.', '_')] = record.value;
+                    });
                 });
-            ir_config_parameter.call(
-                'get_param', ['support_branding.company_name']).then(
-                function(name)
-                {
-                    self.support_branding_company_name = name;
-                });
-            return this._super(this, arguments);
         },
+    });
+
+    instance.web.CrashManager.include({
         show_error: function(error)
         {
-            var self = this;
             this._super.apply(this, arguments);
             jQuery('.support-branding-submit-form').each(function()
             {
                 var $form = jQuery(this),
                     $button = $form.find('button');
-                if(self.support_branding_support_email)
+                if(instance.client.session.support_branding_support_email)
                 {
                     $form.attr(
                         'action',
-                        'mailto:' + self.support_branding_support_email);
+                        'mailto:' + instance.client.session.support_branding_support_email);
                 }
-                if(self.support_branding_company_name)
+                if(instance.client.session.support_branding_company_name)
                 {
                     $button.text(
                         _.str.sprintf(
                             instance.web._t('Email to %s'),
-                            self.support_branding_company_name));
+                            instance.client.session.support_branding_company_name));
                 }
                 $form.prependTo(
                     $form.parents('.ui-dialog').find('.ui-dialog-buttonpane'));
@@ -64,41 +95,17 @@ openerp.support_branding = function(instance) {
     });
 
     instance.web.WebClient.include({
-        start: function()
+        show_application: function()
         {
-            var self = this,
-                ir_config_parameter = new instance.web.Model('ir.config_parameter'),
-                d1 = jQuery.Deferred(),
-                d2 = jQuery.Deferred(),
-                d3 = jQuery.Deferred();
-            jQuery.when(this._super(this, arguments))
+            var self = this;
+            return jQuery.when(this._super(this, arguments))
             .then(function()
             {
                 var $link = self.$el.find('.support_branding_link');
-                ir_config_parameter.call(
-                    'get_param', ['support_branding.company_name'])
-                    .then(function(name)
-                    {
-                        $link.text(name);
-                        d1.resolve();
-                    });
-                ir_config_parameter.call(
-                    'get_param', ['support_branding.company_color'])
-                    .then(function(color)
-                    {
-                        $link.css('color', color);
-                        d2.resolve();
-                    });
-                ir_config_parameter.call(
-                    'get_param', ['support_branding.company_url'])
-                    .then(function(url)
-                    {
-                        $link.attr('href', url);
-                        d3.resolve();
-                    });
-
+                $link.text(instance.client.session.support_branding_company_name);
+                $link.css('color', instance.client.session.support_branding_company_color);
+                $link.attr('href', instance.client.session.support_branding_company_url);
             });
-            return jQuery.when(d1, d2, d3);
         },
     });
 };
