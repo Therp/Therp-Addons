@@ -17,5 +17,18 @@
             <field name="key">support_branding.support_email</field>
             <field name="value">issues@helpdesk.therp.nl</field>
         </record>
+        <record id="config_parameter_support_text_prefix" model="ir.config_parameter">
+            <field name="key">support_branding.support_text_prefix</field>
+            <field name="value">Dear Support,
+
+An error has occurred,
+
+Steps to reproduce:
+*
+*
+
+Technical information:
+</field>
+        </record>
     </data>
 </openerp>
