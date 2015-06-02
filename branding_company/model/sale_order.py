@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Extend sale.order model."""
 ##############################################################################
 #
 #    Odoo, an open source suite of business applications
@@ -18,22 +19,29 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name": "Report per shop",
-    "version": "1.0",
-    "author": "Therp BV",
-    "website": "http://www.therp.nl",
-    "category": "Sale",
-    "depends": [
-        'sale',
-        'account',
-        'stock',
-    ],
-    "data": [
-        'view/sale_shop_logo.xml',
-        'view/sale_order.xml',
-        'view/account_invoice.xml',
-    ],
-}
+from openerp import models, fields
+
+
+class SaleOrder(models.Model):
+    """Extend sale.order model.
+
+    Set default shop from user, and pass shop id to invoice.
+    """
+    _inherit = "sale.order"
+
+    def _prepare_invoice(self, cr, uid, order, lines, context=None):
+        """Pass branding_company_id to invoice created."""
+        invoice_vals = super(SaleOrder, self)._prepare_invoice(
+            cr, uid, order, lines, context=context)
+        invoice_vals['branding_company_id'] = (
+            order.branding_company_id and order.branding_company_id.id or
+            False
+        )
+        return invoice_vals
+
+    branding_company_id = fields.Many2one(
+        string='Branding Company',
+        comodel_name='branding.company',
+    )
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

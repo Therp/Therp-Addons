@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Extend stock.picking for shop_report."""
+"""Create branding.company model."""
 ##############################################################################
 #
 #    Odoo, an open source suite of business applications
-#    This module copyright (C) 2014 Therp BV <http://therp.nl>.
+#    This module copyright (C) 2014-2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,27 +19,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv.orm import Model
-from openerp.osv import fields
+from openerp import models, fields
 
 
-class StockPicking(Model):
-    """Extend stock.picking for shop_report."""
-    _inherit = 'stock.picking'
+class BrandingCompany(models.Model):
+    """Create branding.company model."""
+    _name = "branding.company"
+    _description = """\
+        Allows to replace standard company logo, name, address etc. in all
+        supporting models and reports.
+        """
 
-    def _prepare_invoice(
-            self, cr, uid, picking, partner, inv_type, journal_id,
-            context=None):
-        """Add shop_id to invoice if present in stock.picking."""
-        invoice_vals = super(StockPicking, self)._prepare_invoice(
-            cr, uid, picking, partner, inv_type, journal_id, context=context)
-        if picking.shop_id:
-            invoice_vals['shop_id'] = picking.shop_id.id
-        return invoice_vals
-
-    _columns = {
-        'shop_id': fields.related(
-            'sale_id', 'shop_id', type='many2one', obj='sale.shop'),
-    }
+    name = fields.Char()
+    logo = fields.Binary()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

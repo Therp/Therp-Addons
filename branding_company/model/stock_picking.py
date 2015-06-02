@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Extend stock.picking with branding."""
 ##############################################################################
 #
 #    Odoo, an open source suite of business applications
@@ -18,10 +19,26 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import sale_shop
-from . import sale_order
-from . import stock_picking
-from . import account_invoice
-from . import sale_order_invoice_wizard
+from openerp import models, fields
+
+
+class StockPicking(models.Model):
+    """Extend stock.picking with branding."""
+    _inherit = 'stock.picking'
+
+    def _prepare_invoice(
+            self, cr, uid, picking, partner, inv_type, journal_id,
+            context=None):
+        """Add branding_company_id to invoice if present in stock.picking."""
+        vals = super(StockPicking, self)._prepare_invoice(
+            cr, uid, picking, partner, inv_type, journal_id, context=context)
+        if picking.branding_company_id:
+            vals['branding_company_id'] = picking.branding_company_id.id
+        return vals
+
+    branding_company_id = fields.Many2one(
+        string='Branding Company',
+        comodel_name='branding.company',
+    )
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

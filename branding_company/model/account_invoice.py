@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Extend account.invoice with shop_id."""
+"""Extend account.invoice with branding_company_id."""
 ##############################################################################
 #
 #    Odoo, an open source suite of business applications
@@ -19,16 +19,16 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv.orm import Model
-from openerp.osv import fields
+from openerp import models, fields
 
 
-class AccountInvoice(Model):
-    """Extend account.invoice with shop_id."""
+class AccountInvoice(models.Model):
+    """Extend account.invoice with branding_company_id."""
     _inherit = 'account.invoice'
 
-    _columns = {
-        'shop_id': fields.many2one('sale.shop', 'Shop'),
-    }
+    branding_company_id = fields.Many2one(
+        string='Branding',
+        comodel_name='branding.company',
+    )
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

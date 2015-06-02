@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-"""Extend sale.order model."""
 ##############################################################################
 #
 #    Odoo, an open source suite of business applications
@@ -19,27 +18,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields
-
-
-class SaleOrder(models.Model):
-    """Extend sale.order model.
-
-    Set default shop from user, and pass shop id to invoice.
-    """
-    _inherit = "sale.order"
-
-    def _prepare_invoice(self, cr, uid, order, lines, context=None):
-        """Pass shop_id to invoice created."""
-        invoice_vals = super(SaleOrder, self)._prepare_invoice(
-            cr, uid, order, lines, context=context)
-        invoice_vals['shop_id'] = (
-            order.shop_id and order.shop_id.id or False)
-        return invoice_vals
-
-    shop_id = fields.Many2one(
-        string='Shop',
-        comodel_name='sale.shop',
-    )
+from . import branding_company
+from . import sale_order
+from . import stock_picking
+from . import account_invoice
+from . import sale_order_invoice_wizard
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

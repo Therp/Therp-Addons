@@ -19,10 +19,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
+from openerp import models
 
 
-class SaleOrderInvoiceWizard(orm.Model):
+class SaleOrderInvoiceWizard(models.Model):
     """Extend sale.advance.payment.inv model.
 
     Pass shop id to newly created invoices.
@@ -30,7 +30,7 @@ class SaleOrderInvoiceWizard(orm.Model):
     _inherit = "sale.advance.payment.inv"
 
     def create_invoices(self, cr, uid, ids, context=None):
-        """Wrap super method to add shop_id to new invoices created."""
+        """Add branding_company_id to new invoices created."""
         res = super(SaleOrderInvoiceWizard, self).create_invoices(
             cr, uid, ids, context=context)
         sale_ids = context.get('active_ids', [])
@@ -39,12 +39,14 @@ class SaleOrderInvoiceWizard(orm.Model):
             sale_model = self.pool['sale.order']
             for sale_obj in sale_model.browse(
                     cr, uid, sale_ids, context=context):
-                if sale_obj.shop_id:
+                if sale_obj.branding_company_id:
                     for invoice_obj in sale_obj.invoice_ids:
-                        # Fill shop_id in invoices that don't have one yet.
-                        if not invoice_obj.shop_id:
+                        # Fill branding_company_id in invoices that don't
+                        # have one yet.
+                        if not invoice_obj.branding_company_id:
                             invoice_obj.write(
-                                {'shop_id': sale_obj.shop_id.id},
+                                {'branding_company_id':
+                                    sale_obj.branding_company_id.id},
                                 context=context
                             )
         return res
