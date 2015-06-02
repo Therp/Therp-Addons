@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Odoo, an open source suite of business applications
-#    This module copyright (C) 2014 Therp BV <http://therp.nl>.
+#    This module copyright (C) 2014-2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,7 +21,6 @@
 from . import sale_shop
 from . import sale_order
 from . import stock_picking
-# from . import stock_picking_out
 from . import account_invoice
 from . import sale_order_invoice_wizard
 

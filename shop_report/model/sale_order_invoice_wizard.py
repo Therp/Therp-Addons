@@ -3,7 +3,7 @@
 ##############################################################################
 #
 #    Odoo, an open source suite of business applications
-#    This module copyright (C) 2014 Therp BV <http://therp.nl>.
+#    This module copyright (C) 2014-2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -25,7 +25,8 @@ from openerp.osv import orm
 class SaleOrderInvoiceWizard(orm.Model):
     """Extend sale.advance.payment.inv model.
 
-    Pass shop id to newly created invoices."""
+    Pass shop id to newly created invoices.
+    """
     _inherit = "sale.advance.payment.inv"
 
     def create_invoices(self, cr, uid, ids, context=None):
