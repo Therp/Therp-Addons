@@ -19,11 +19,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
+from openerp import models, fields
+from openerp.exceptions import except_orm
 from openerp.tools.translate import _
 
 
-class SaleOrder(orm.Model):
+class SaleOrder(models.Model):
     """Extend sale.order model.
 
     Set default shop from user, and pass shop id to invoice."""
@@ -33,8 +34,6 @@ class SaleOrder(orm.Model):
         """Pass shop_id to invoice created."""
         invoice_vals = super(SaleOrder, self)._prepare_invoice(
             cr, uid, order, lines, context=context)
-        import pdb
-        pdb.set_trace()
         invoice_vals['shop_id'] = (
             order.shop_id and order.shop_id.id or False)
         return invoice_vals
@@ -46,10 +45,15 @@ class SaleOrder(orm.Model):
         shop_ids = self.pool.get('sale.shop', 'company.logo').search(
             cr, uid, [('company_id', '=', company_id)], context=context)
         if not shop_ids:
-            raise orm.except_orm(
+            raise except_orm(
                 _('Error!'),
                 _('There is no default shop for the current user\'s company!')
             )
         return shop_ids[0]
+
+    shop_id = fields.Many2one(
+        string='Shop',
+        comodel_name='sale.shop',
+    )
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

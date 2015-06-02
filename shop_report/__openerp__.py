@@ -31,6 +31,7 @@
     ],
     "data": [
         'view/sale_shop_logo.xml',
+        'view/sale_order.xml',
         'view/account_invoice.xml',
     ],
 }

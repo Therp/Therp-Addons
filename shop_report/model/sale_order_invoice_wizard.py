@@ -43,7 +43,7 @@ class SaleOrderInvoiceWizard(orm.Model):
                         # Fill shop_id in invoices that don't have one yet.
                         if not invoice_obj.shop_id:
                             invoice_obj.write(
-                                {'shop_id': sale_obj.shop_id.id,},
+                                {'shop_id': sale_obj.shop_id.id},
                                 context=context
                             )
         return res

@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
+#    Odoo, an open source suite of business applications
 #    This module copyright (C) 2014 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -17,9 +18,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import sale_shop_logo
+from . import sale_shop
+from . import sale_order
 from . import stock_picking
-from . import stock_picking_out
+# from . import stock_picking_out
 from . import account_invoice
 from . import sale_order_invoice_wizard
 

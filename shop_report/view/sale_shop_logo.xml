@@ -1,16 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+
         <record id="view_shop_form" model="ir.ui.view">
+            <field name="name">sale.shop</field>
             <field name="model">sale.shop</field>
-            <field name="inherit_id" ref="sale.view_shop_form" />
             <field name="arch" type="xml">
-                <data>
-                    <field name="pricelist_id" position="after">
+                <form string="Sales Shop">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name"/></h1>
+                    <group name="shop">
+                        <field
+                            name="company_id"
+                            widget="selection"
+                            groups="base.group_multi_company"
+                        />
                         <field name="logo_company_id" />
-                    </field>
-                </data>
+                    </group>
+                </form>
+           </field>
+        </record>
+
+        <record id="view_shop_tree" model="ir.ui.view">
+            <field name="name">sale.shop</field>
+            <field name="model">sale.shop</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Shop">
+                    <field name="name"/>
+                        <field
+                            name="company_id"
+                            groups="base.group_multi_company"
+                        />
+                    <field name="logo_company_id" />
+                </tree>
             </field>
         </record>
+
+        <record id="action_shop_form" model="ir.actions.act_window">
+            <field name="name">Shop</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.shop</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_shop_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to define a new sale shop.
+              </p><p>
+                Each quotation or sales order can be linked to a shop.
+              </p>
+            </field>
+        </record>
+
+        <menuitem
+            action="action_shop_form"
+            id="menu_action_shop_form"
+            parent="base.menu_base_config"
+            sequence="35"
+            groups="base.group_sale_manager"
+        />
+
     </data>
 </openerp>
