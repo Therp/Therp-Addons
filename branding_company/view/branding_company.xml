@@ -7,29 +7,34 @@
             <field name="model">branding.company</field>
             <field name="arch" type="xml">
                 <form string="Branding Company">
-                  <sheet>                                                      
-                    <div>                                                      
+                  <sheet>
+                    <div>
                         <field
                             name="logo"
                             widget="image"
                             class="oe_avatar oe_left"
                         />
-                    </div>                                                     
-                    <div class="oe_title">                                     
-                        <label for="name" class="oe_edit_only"/>               
-                        <h1>                                                   
-                            <field name="name" class="oe_inline"/>             
-                        </h1>                                                  
-                    </div>                                                     
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+                    </div>
                     <div
                         attrs="{'invisible' : [('logo','!=',False)]}"
                         class="oe_view_nocontent oe_clear"
                     >
-                        <p class="oe_view_nocontent_create oe_edit_only">         
-                            Click to set branding company logo.                    
-                        </p>                                                   
+                        <p class="oe_view_nocontent_create oe_edit_only">
+                            Click to set branding company logo.
+                        </p>
                     </div>
-                </sheet>                                                      
+                    <group colspan="4" col="2">
+                        <field name="email" />
+                        <field name="website" />
+                        <field name="rml_footer" />
+                    </group>
+                </sheet>
                 </form>
             </field>
         </record>

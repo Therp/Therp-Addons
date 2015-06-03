@@ -32,5 +32,17 @@ class BrandingCompany(models.Model):
 
     name = fields.Char()
     logo = fields.Binary()
+    rml_footer = fields.Text(
+        string='Report Footer',
+        help="""Footer text displayed at the bottom of all reports."""
+    )
+    email = fields.Char(
+        string='Email',
+        size=64
+    )
+    website = fields.Char(
+        string='Website',
+        size=64
+    )
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
