@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2015 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'Country fiscal position',
-    'version': '7.0',
+    'version': '8.0',
     'category': 'Accounting',
     'description': '''
      This module automatically select the fiscal position from the country 
@@ -37,7 +37,6 @@
     ],
     'data': [
         'view/res_country.xml',
-        'view/res_partner.xml',
     ],
     "installable": True,
 }

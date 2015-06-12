@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2014 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2015 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,19 +18,16 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
+from openerp import models, api
 
 
-class ResPartner(orm.Model):
+class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    def on_change_country_id(
-            self, cr, uid, ids, country_id, context=None):
-
-        if not country_id:
-            return {} 
-        country = self.pool['res.country'].browse(cr, uid,
-                                                  country_id, context=context)
-        fis_pos_id = country.property_account_position.id
-
-        return {'value': {'property_account_position': fis_pos_id}}
+    @api.onchange('country_id')
+    def on_change_country_id(self):
+        if not self.country_id:
+           return False   
+	else: 
+            fis_pos_id = self.country_id.property_account_position.id
+	    self.property_account_position = fis_pos_id
