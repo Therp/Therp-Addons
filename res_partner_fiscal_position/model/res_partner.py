@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -27,7 +27,6 @@ class ResPartner(models.Model):
     @api.onchange('country_id')
     def on_change_country_id(self):
         if not self.country_id:
-           return False   
-	else: 
-            fis_pos_id = self.country_id.property_account_position.id
-	    self.property_account_position = fis_pos_id
+            return False
+        self.property_account_position = (
+            self.country_id.property_account_position.id)

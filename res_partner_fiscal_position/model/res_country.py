@@ -23,12 +23,10 @@ from openerp import models, fields
 
 class Country(models.Model):
     _inherit = 'res.country'
-    property_account_position = fields.Many2one(  
-            
-            comodel_name='account.fiscal.position',
-            string="Default Fiscal Position",
-            company_dependent = True, 
-            help="""The fiscal position will determine
-                 taxes and the accounts used for the country,
-                 if not set specifically elsewere.""",)
-   
+    property_account_position = fields.Many2one(
+        comodel_name='account.fiscal.position',
+        string="Default Fiscal Position",
+        company_dependent=True,
+        help="""The fiscal position will determine
+             taxes and the accounts used for the country,
+             if not set specifically elsewere.""",)
