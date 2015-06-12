@@ -22,6 +22,9 @@ from openerp import models, fields
 
 
 class Country(models.Model):
+    """
+    adds a fiscal position to a country
+    """
     _inherit = 'res.country'
     property_account_position = fields.Many2one(
         comodel_name='account.fiscal.position',

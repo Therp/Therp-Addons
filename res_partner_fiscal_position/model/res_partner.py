@@ -24,6 +24,10 @@ from openerp import models, api
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
+    """
+    when changing the partner's country update the 
+    property_account_position to the one of that country
+    """
     @api.onchange('country_id')
     def on_change_country_id(self):
         if not self.country_id:
