@@ -29,7 +29,7 @@ class ResPartner(models.Model):
     property_account_position to the one of that country
     """
     @api.onchange('country_id')
-    def on_change_country_id(self):
+    def get_country_fiscal_position(self):
         if not self.country_id:
             return False
         self.property_account_position = (

@@ -22,8 +22,6 @@
     'name': 'Country fiscal position',
     'version': '8.0',
     'category': 'Accounting',
-    'description': '''
-   ''',
     'author': 'Therp BV',
     'website': 'http://www.therp.nl',
     'depends': [

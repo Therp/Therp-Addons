@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-
+      <!--domain allows so show only the fiscal positions of the companies the user is associated with -->
         <record model="ir.ui.view" id="res_partner_fiscal_position_form">
             <field name="name">res.partner.fiscal.position.form</field>
             <field name="model">res.country</field>
