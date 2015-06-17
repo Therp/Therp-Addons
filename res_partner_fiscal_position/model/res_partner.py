@@ -25,7 +25,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     """
-    when changing the partner's country update the 
+    when changing the partner's country update the
     property_account_position to the one of that country
     """
     @api.onchange('country_id')
