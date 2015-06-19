@@ -1,1 +1,1 @@
-import model
+ifrom . import model

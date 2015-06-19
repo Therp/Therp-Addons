@@ -1,8 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2015 Therp BV <http://therp.nl>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,13 +18,12 @@
 #
 ##############################################################################
 {
-    'name': 'Country fiscal position',
+    'name': 'Fiscal position by country',
     'version': '8.0',
     'category': 'Accounting',
     'author': 'Therp BV',
     'website': 'http://www.therp.nl',
     'depends': [
-        'base',
         'account',
     ],
     'data': [
