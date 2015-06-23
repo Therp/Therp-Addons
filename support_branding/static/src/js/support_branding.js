@@ -34,6 +34,12 @@ openerp.support_branding = function(instance) {
                 {
                     self.support_branding_company_name = name;
                 });
+            ir_config_parameter.call(
+                'get_param', ['support_branding.support_text_prefix']).then(
+                function(text_prefix)
+                {
+                    self.support_branding_support_text_prefix = text_prefix;
+                });
             return this._super(this, arguments);
         },
         show_error: function(error)
@@ -43,7 +49,8 @@ openerp.support_branding = function(instance) {
             jQuery('.support-branding-submit-form').each(function()
             {
                 var $form = jQuery(this),
-                    $button = $form.find('button');
+                    $button = $form.find('button'),
+                    $body = $form.find("input[name='body']");
                 if(self.support_branding_support_email)
                 {
                     $form.attr(
@@ -56,6 +63,12 @@ openerp.support_branding = function(instance) {
                         _.str.sprintf(
                             openerp.web._t('Email to %s'),
                             self.support_branding_company_name));
+                }
+                if(self.support_branding_support_text_prefix)
+                {
+                    var stacktrace = $body.attr('value');
+                    $body.attr(
+                        'value', self.support_branding_support_text_prefix + stacktrace);
                 }
                 $form.prependTo(
                     $form.parents('.modal-dialog').find('.modal-footer'));
