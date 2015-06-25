@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+"""Extend res.users model to link user to branding."""
 ##############################################################################
 #
 #    Odoo, an open source suite of business applications
-#    This module copyright (C) 2014-2015 Therp BV <http://therp.nl>.
+#    This module copyright (C) 2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,12 +19,19 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import branding_company
-from . import res_users
-from . import res_partner
-from . import sale_order
-from . import stock_picking
-from . import account_invoice
-from . import sale_order_invoice_wizard
+from openerp import models, fields
+
+
+class ResUsers(models.Model):
+    """Extend res.users model to link user to branding.
+
+    Set default branding for sales orders and invoices created by this user.
+    """
+    _inherit = "res.users"
+
+    branding_company_id = fields.Many2one(
+        string='Branding Company',
+        comodel_name='branding.company',
+    )
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -7,13 +7,27 @@ Branding companies provide the same information as companies. However, they
 are not linked to accounting in any way. Branding companies are there to
 provide a different "face" to different groups of customers or other partners.
 
-For the moment, we just use the alternative logo. It would be logical
-to also use the name and address of the "logo" company, to provide a
-completely separate branding.
+The following attributes are already supported:
+- logo
+- name
+- email
+- website
+- rml_footer
+
+The following attributes might make sense to support as well:
+- rml_header
+- address (link to res_partner)
+And maybe others.
 
 Further, it would be nice if the replacement of the normal company logo (and
 other information) on reports could be completely automatic for objects linked
 to a shop. As it is, we need to customize the reports.
+
+Both users and partners might be linked to a certain branding. If a user is
+linked to a branding, sales orders and invoices created by that user will
+default to that branding. If a partner (customer) is linked to a branding, it
+will also be the default for invoices and sales order for that customer. The
+customer default overrides (is more important) them the user default.
 
 You can use the branding logo in the header of your reports that use the
 standard header by adding the following definition to the rml header of the
