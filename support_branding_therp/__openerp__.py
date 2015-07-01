@@ -19,21 +19,17 @@
 #
 ##############################################################################
 {
-    "name": "Support branding",
-    "summary": "Adds your branding to an Odoo instance",
+    "name": "Support branding (Therp)",
+    "summary": "Adds Therp's branding to an Odoo instance",
     "category": "Dependecy/Hidden",
     "version": "2.0",
     "author": "Therp BV",
     "website": 'http://therp.nl',
     "depends": [
-        'web',
-    ],
-    "qweb": [
-        'static/src/xml/base.xml',
+        'support_branding',
     ],
     "data": [
         "data/ir_config_parameter.xml",
-        'views/qweb.xml',
     ],
     'active': True,
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="support_branding.config_parameter_company_name" model="ir.config_parameter">
+            <field name="value">Therp BV</field>
+        </record>
+        <record id="support_branding.config_parameter_company_url" model="ir.config_parameter">
+            <field name="value">https://therp.nl</field>
+        </record>
+        <record id="support_branding.config_parameter_company_color" model="ir.config_parameter">
+            <field name="value">#48c9f4</field>
+        </record>
+        <record id="support_branding.config_parameter_support_email" model="ir.config_parameter">
+            <field name="value">issues@helpdesk.therp.nl</field>
+        </record>
+    </data>
+</openerp>
