@@ -43,6 +43,7 @@ openerp.trp_web_click2call = function(instance) {
                     session: instance.session,
                     build_context: function() { return {} },
                     do_action: function() {},
+                    do_notify: instance.webclient.do_notify,
                 });
     };
 }

@@ -68,3 +68,10 @@ msgstr "Click2call"
 #, python-format
 msgid "Phone numbers can only contain the following characters: 01234567890+-"
 msgstr "Telefoonnummers mogen alleen bestaan uit de volgende lettertekens: 01234567890+-"
+
+#. module: trp_web_click2call
+#. openerp-web
+#: code:addons/trp_web_click2call/static/src/js/click2call.js:42
+#, python-format
+msgid "Calling"
+msgstr "Aan het bellen"
