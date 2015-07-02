@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Odoo, an open source suite of business applications
-#    This module copyright (C) 2014-2015 Therp BV <http://therp.nl>.
+#    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,21 +18,19 @@
 #
 ##############################################################################
 {
-    "name": "Branding Company",
-    "version": "1.0",
-    "author": "Therp BV",
-    "website": "http://www.therp.nl",
-    "category": "Sale",
-    "depends": [
+    'name': 'Branding Company',
+    'version': '1.0',
+    'author': 'Therp BV',
+    'website': 'http://www.therp.nl',
+    'category': 'Sale',
+    'depends': [
         'sale',
         'account',
         'stock',
     ],
-    "data": [
+    'data': [
         'view/branding_company.xml',
         'view/sale_order.xml',
         'view/account_invoice.xml',
     ],
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+"""Load new and inherited model definitions."""
 ##############################################################################
 #
-#    Odoo, an open source suite of business applications
-#    This module copyright (C) 2014-2015 Therp BV <http://therp.nl>.
+#    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -25,5 +25,3 @@ from . import sale_order
 from . import stock_picking
 from . import account_invoice
 from . import sale_order_invoice_wizard
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

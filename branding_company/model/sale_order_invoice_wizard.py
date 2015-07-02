@@ -2,8 +2,7 @@
 """Extend wizard model that creates invoices from sale-order."""
 ##############################################################################
 #
-#    Odoo, an open source suite of business applications
-#    This module copyright (C) 2014-2015 Therp BV <http://therp.nl>.
+#    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -50,5 +49,3 @@ class SaleOrderInvoiceWizard(models.Model):
                                 context=context
                             )
         return res
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
