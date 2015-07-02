@@ -30,6 +30,8 @@
     ],
     'data': [
         'view/branding_company.xml',
+        'view/res_users.xml',
+        'view/res_partner.xml',
         'view/sale_order.xml',
         'view/account_invoice.xml',
     ],

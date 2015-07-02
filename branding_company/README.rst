@@ -27,7 +27,11 @@ Both users and partners might be linked to a certain branding. If a user is
 linked to a branding, sales orders and invoices created by that user will
 default to that branding. If a partner (customer) is linked to a branding, it
 will also be the default for invoices and sales order for that customer. The
-customer default overrides (is more important) them the user default.
+customer default overrides (is more important) then the user default.
+
+Actually for invoices the default branding will be taken from the sales order,
+if a sales order is present. This can be no branding. Only when a customer
+invoice is NOT linked to a sales order, the default branding applies.
 
 You can use the branding logo in the header of your reports that use the
 standard header by adding the following definition to the rml header of the

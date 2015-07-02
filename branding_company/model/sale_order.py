@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields
+from openerp import api, models, fields
 
 
 class SaleOrder(models.Model):
@@ -27,6 +27,35 @@ class SaleOrder(models.Model):
     Set default shop from user, and pass shop id to invoice.
     """
     _inherit = "sale.order"
+
+    @api.multi
+    def onchange_partner_id(self, partner_id):
+        """When partner changes, branding company changes.
+
+        Decorater @api.onchange did not work.
+        """
+        result = super(SaleOrder, self).onchange_partner_id(partner_id)
+        partner_model = self.env['res.partner']
+        vals = 'value' in result and result['value'] or {}
+        if partner_id:
+            partner_obj = partner_model.browse(partner_id)
+            branding_company_id = (
+                partner_obj and partner_obj.branding_company_id and
+                partner_obj.branding_company_id.id or False)
+        if not branding_company_id:
+            branding_company_id = self._get_user_branding_company()
+        vals['branding_company_id'] = branding_company_id
+        result['value'] = vals
+        return result
+
+    def _get_user_branding_company(self):
+        """Default branding dependent on active user."""
+        user_model = self.env['res.users']
+        user_objs = user_model.browse(self.env.uid)
+        return (
+            user_objs and user_objs[0].branding_company_id and
+            user_objs[0].branding_company_id or False
+        )
 
     def _prepare_invoice(self, cr, uid, order, lines, context=None):
         """Pass branding_company_id to invoice created."""
@@ -41,4 +70,5 @@ class SaleOrder(models.Model):
     branding_company_id = fields.Many2one(
         string='Branding Company',
         comodel_name='branding.company',
+        default=_get_user_branding_company,
     )
