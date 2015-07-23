@@ -25,17 +25,31 @@ class StockPicking(models.Model):
     """Extend stock.picking with branding."""
     _inherit = 'stock.picking'
 
-    def _prepare_invoice(
-            self, cr, uid, picking, partner, inv_type, journal_id,
-            context=None):
+    def _compute_branding(self):
+        """Branding for a delivery order is taken from sales order.
+
+        We use the procurement group to find all relates sale orders.
+        The first sale order found will determine the branding.
+        """
+        sale_model = self.env['sale.order']
+        sale_orders = sale_model.search([
+            ('procurement_group_id', '=', self.group_id)])
+        return (
+            sale_orders and
+            sale_orders[0].branding_company and
+            sale_orders[0].branding_company.id or False
+        )
+
+    def _create_invoice_from_picking(
+            self, cr, uid, picking, vals, context=None):
         """Add branding_company_id to invoice if present in stock.picking."""
-        vals = super(StockPicking, self)._prepare_invoice(
-            cr, uid, picking, partner, inv_type, journal_id, context=context)
         if picking.branding_company_id:
             vals['branding_company_id'] = picking.branding_company_id.id
-        return vals
+        return super(StockPicking, self)._create_invoice_from_picking(
+            cr, uid, picking, vals, context=context)
 
     branding_company_id = fields.Many2one(
         string='Branding Company',
         comodel_name='branding.company',
+        compute='_compute_branding',
     )

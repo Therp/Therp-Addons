@@ -29,6 +29,29 @@ class BrandingCompany(models.Model):
         supporting models and reports.
         """
 
+    def get_partner_branding_company(self, partner_id):
+        """Returns recordset with branding company for partner or False."""
+        if not partner_id:
+            return False
+        partner_model = self.env['res.partner']
+        partner_obj = partner_model.browse(partner_id)
+        return partner_obj and partner_obj.branding_company_id or False
+
+    def get_user_branding_company(self, uid):
+        """Returns recordset with branding company for user or False."""
+        user_model = self.env['res.users']
+        user_objs = user_model.browse(uid)
+        return user_objs and user_objs[0].branding_company_id or False
+
+    def get_default_branding_company(self, partner_id, uid):
+        """Returns branding company (recordset) for partner or user."""
+        return (
+            self.get_partner_branding_company(partner_id) or
+            self.get_user_branding_company(uid) or
+            False
+        )
+
+
     name = fields.Char()
     logo = fields.Binary()
     rml_footer = fields.Text(

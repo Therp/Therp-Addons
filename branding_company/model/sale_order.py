@@ -24,7 +24,8 @@ from openerp import api, models, fields
 class SaleOrder(models.Model):
     """Extend sale.order model.
 
-    Set default shop from user, and pass shop id to invoice.
+    Set default branding company from user, and pass branding company
+    to invoice.
     """
     _inherit = "sale.order"
 
@@ -32,30 +33,31 @@ class SaleOrder(models.Model):
     def onchange_partner_id(self, partner_id):
         """When partner changes, branding company changes.
 
+        Would be nice if existing branding_company_id could be safe
+        from change, but already existing onchange method only passes
+        partner-id.
+
         Decorater @api.onchange did not work.
         """
         result = super(SaleOrder, self).onchange_partner_id(partner_id)
-        partner_model = self.env['res.partner']
-        vals = 'value' in result and result['value'] or {}
         if partner_id:
-            partner_obj = partner_model.browse(partner_id)
-            branding_company_id = (
-                partner_obj and partner_obj.branding_company_id and
-                partner_obj.branding_company_id.id or False)
-        if not branding_company_id:
-            branding_company_id = self._get_user_branding_company()
-        vals['branding_company_id'] = branding_company_id
-        result['value'] = vals
+            branding_model = self.env['branding.company']
+            branding_company = (
+                branding_model.get_default_branding_company(
+                    partner_id, self.env.uid)
+            )
+            if branding_company:
+                vals = 'value' in result and result['value'] or {}
+                vals['branding_company_id'] = branding_company.id
+                result['value'] = vals
         return result
 
     def _get_user_branding_company(self):
         """Default branding dependent on active user."""
-        user_model = self.env['res.users']
-        user_objs = user_model.browse(self.env.uid)
-        return (
-            user_objs and user_objs[0].branding_company_id and
-            user_objs[0].branding_company_id or False
-        )
+        branding_model = self.env['branding.company']
+        branding_company = (
+            branding_model.get_user_branding_company(self.env.uid))
+        return branding_company and branding_company.id or False
 
     def _prepare_invoice(self, cr, uid, order, lines, context=None):
         """Pass branding_company_id to invoice created."""
