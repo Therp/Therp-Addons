@@ -45,11 +45,11 @@ class stock_picking_out(orm.Model):
         if picking.sale_id:
             sale = picking.sale_id
         else:
-            raise osv.except_osv(_('This delivery is not derived from a sale'),
-                                 _('To create a customs invoice, \
-                                 delivery must be derived from a sales \
-                                 Order, the delivery you have chosen \
-                                 does not have an associated sales order'))
+            raise osv.except_osv(
+                _('This delivery is not derived from a sale'),
+                _('To create a customs invoice, delivery must be derived '
+                  'from a sales order. The delivery you have chosen does '
+                  'not have an associated sales order'))
         res = self._make_invoice(cr, uid, ids, sale, context=context)
         view = self.open_invoices(cr, uid, [res], context=context)
         return view
