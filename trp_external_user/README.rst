@@ -15,8 +15,3 @@ users group in this module).
 
 This module also disables the default assignment of the 'user' and 'partner manager'
 groups to new users.
-
-Caution
-=======
-
-This module is incompatible with the sahe module.

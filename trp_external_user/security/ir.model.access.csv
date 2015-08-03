@@ -1,4 +1,2 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 "external_access_partner","Read access on partners for external users","base.model_res_partner","trp_external_user.group_external_user",1,0,0,0
-"external_access_menu","Read access on menus for external users","base.model_ir_ui_menu","trp_external_user.group_external_user",1,0,0,0
-"external_access_user","Read access on users for external users","base.model_res_users","trp_external_user.group_external_user",1,0,0,0

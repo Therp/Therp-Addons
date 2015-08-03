@@ -25,9 +25,10 @@
     "author": "Therp BV",
     "category": 'External users',
     'website': 'http://therp.nl',
-    'depends': ['web'],
+    'depends': [
+        'share',
+    ],
     'data': [
-        "view/templates.xml",
         'data/ir_module_category.xml',
         'security/res_groups.xml',
         'security/ir.model.access.csv',

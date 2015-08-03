@@ -30,12 +30,17 @@ report which is included in this module.
     """,
     'website': 'http://therp.nl',
     'images': [],
-    'depends': ['base', 'report_aeroo'],
+    'depends': [
+        'base',
+        'report_aeroo',
+        'trp_external_user',
+    ],
     'data': [
         'view/use_case.xml',
         'view/use_case_inline.xml',
         'view/use_case_collection.xml',
         'report/report_use_case.xml',
+        'security/res_groups.xml',
         'security/ir.model.access.csv',
     ],
     "license": 'AGPL-3',
