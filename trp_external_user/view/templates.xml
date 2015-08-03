@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+            <xpath expr="//nav[@id='oe_main_menu_navbar']" position="attributes">
+                <attribute name="groups">base.group_user,base.group_portal,trp_external_user.group_external_user</attribute>
+            </xpath>
+            <xpath expr="//div[@class='openerp openerp_webclient_container']//div" position="attributes">
+                <attribute name="groups">base.group_user,base.group_portal,trp_external_user.group_external_user</attribute>
+            </xpath>
+        </template>
+    </data>
+</openerp>
