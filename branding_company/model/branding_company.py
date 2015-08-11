@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields
+from openerp import api, models, fields
 
 
 class BrandingCompany(models.Model):
@@ -29,6 +29,7 @@ class BrandingCompany(models.Model):
         supporting models and reports.
         """
 
+    @api.model
     def get_partner_branding_company(self, partner_id):
         """Returns recordset with branding company for partner or False."""
         if not partner_id:
@@ -37,12 +38,14 @@ class BrandingCompany(models.Model):
         partner_obj = partner_model.browse(partner_id)
         return partner_obj and partner_obj.branding_company_id or False
 
+    @api.model
     def get_user_branding_company(self, uid):
         """Returns recordset with branding company for user or False."""
         user_model = self.env['res.users']
         user_objs = user_model.browse(uid)
         return user_objs and user_objs[0].branding_company_id or False
 
+    @api.model
     def get_default_branding_company(self, partner_id, uid):
         """Returns branding company (recordset) for partner or user."""
         return (
