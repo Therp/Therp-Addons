@@ -43,7 +43,7 @@ class AccountInvoice(models.Model):
                     partner_id, self.env.uid)
             )
             if branding_company:
-                vals = 'value' in result and result['value'] or {}
+                vals = result.get('value', {})
                 vals['branding_company_id'] = branding_company.id
                 result['value'] = vals
         return result

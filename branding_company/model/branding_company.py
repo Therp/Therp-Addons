@@ -51,7 +51,6 @@ class BrandingCompany(models.Model):
             False
         )
 
-
     name = fields.Char()
     logo = fields.Binary()
     rml_footer = fields.Text(
