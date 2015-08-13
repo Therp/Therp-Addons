@@ -30,28 +30,31 @@ class BrandingCompany(models.Model):
         """
 
     @api.model
-    def get_partner_branding_company(self, partner_id):
-        """Returns recordset with branding company for partner or False."""
+    def get_partner_branding(self, partner_id):
+        """Returns recordset with branding company for partner."""
+        empty_set = self.browse([])
         if not partner_id:
-            return False
+            return empty_set
         partner_model = self.env['res.partner']
         partner_obj = partner_model.browse(partner_id)
-        return partner_obj and partner_obj.branding_company_id or False
+        return partner_obj and partner_obj.branding_id or empty_set
 
     @api.model
-    def get_user_branding_company(self, uid):
+    def get_user_branding(self, user_id):
         """Returns recordset with branding company for user or False."""
+        empty_set = self.browse([])
         user_model = self.env['res.users']
-        user_objs = user_model.browse(uid)
-        return user_objs and user_objs[0].branding_company_id or False
+        user_objs = user_model.browse(user_id)
+        return user_objs and user_objs[0].branding_id or empty_set
 
     @api.model
-    def get_default_branding_company(self, partner_id, uid):
+    def get_default_branding(self, partner_id, user_id):
         """Returns branding company (recordset) for partner or user."""
+        empty_set = self.browse([])
         return (
-            self.get_partner_branding_company(partner_id) or
-            self.get_user_branding_company(uid) or
-            False
+            self.get_partner_branding(partner_id) or
+            self.get_user_branding(user_id) or
+            empty_set
         )
 
     name = fields.Char()

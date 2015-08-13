@@ -34,22 +34,18 @@ class StockPicking(models.Model):
         sale_model = self.env['sale.order']
         sale_orders = sale_model.search([
             ('procurement_group_id', '=', self.group_id)])
-        return (
-            sale_orders and
-            sale_orders[0].branding_company and
-            sale_orders[0].branding_company.id or False
-        )
+        return sale_orders.branding_id.id
 
     def _create_invoice_from_picking(
             self, cr, uid, picking, vals, context=None):
-        """Add branding_company_id to invoice if present in stock.picking."""
-        if picking.branding_company_id:
-            vals['branding_company_id'] = picking.branding_company_id.id
+        """Add branding_id to invoice if present in stock.picking."""
+        vals['branding_id'] = picking.branding_id.id
         return super(StockPicking, self)._create_invoice_from_picking(
             cr, uid, picking, vals, context=context)
 
-    branding_company_id = fields.Many2one(
+    branding_id = fields.Many2one(
         string='Branding Company',
         comodel_name='branding.company',
         compute='_compute_branding',
+        oldname='branding_company_id',
     )

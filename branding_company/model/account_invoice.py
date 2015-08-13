@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Extend account.invoice with branding_company_id."""
+"""Extend account.invoice with branding_id."""
 ##############################################################################
 #
 #    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
@@ -22,14 +22,14 @@ from openerp import api, models, fields
 
 
 class AccountInvoice(models.Model):
-    """Extend account.invoice with branding_company_id."""
+    """Extend account.invoice with branding_id."""
     _inherit = 'account.invoice'
 
     @api.multi
     def onchange_partner_id(self, partner_id):
         """When partner changes, branding company changes.
 
-        Would be nice if existing branding_company_id could be safe
+        Would be nice if existing branding_id could be safe
         from change, but already existing onchange method only passes
         partner-id.
 
@@ -38,25 +38,24 @@ class AccountInvoice(models.Model):
         result = super(AccountInvoice, self).onchange_partner_id(partner_id)
         if partner_id:
             branding_model = self.env['branding.company']
-            branding_company = (
-                branding_model.get_default_branding_company(
+            branding = (
+                branding_model.get_default_branding(
                     partner_id, self.env.uid)
             )
-            if branding_company:
+            if branding:
                 vals = result.get('value', {})
-                vals['branding_company_id'] = branding_company.id
+                vals['branding_id'] = branding.id
                 result['value'] = vals
         return result
 
-    def _get_user_branding_company(self):
+    def _get_user_branding(self):
         """Default branding dependent on active user."""
         branding_model = self.env['branding.company']
-        branding_company = (
-            branding_model.get_user_branding_company(self.env.uid))
-        return branding_company and branding_company.id or False
+        return branding_model.get_user_branding(self.env.uid).id
 
-    branding_company_id = fields.Many2one(
+    branding_id = fields.Many2one(
         string='Branding',
         comodel_name='branding.company',
-        default=_get_user_branding_company,
+        default=_get_user_branding,
+        oldname='branding_company_id',
     )

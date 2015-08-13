@@ -34,5 +34,6 @@
         'view/res_partner.xml',
         'view/sale_order.xml',
         'view/account_invoice.xml',
+        'security/ir.model.access.csv',
     ],
 }

@@ -28,7 +28,8 @@ class ResPartner(models.Model):
     """
     _inherit = "res.partner"
 
-    branding_company_id = fields.Many2one(
+    branding_id = fields.Many2one(
         string='Branding Company',
         comodel_name='branding.company',
+        oldname='branding_company_id',
     )
