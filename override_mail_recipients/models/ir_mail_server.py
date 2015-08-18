@@ -42,7 +42,8 @@ class IrMailServer(models.Model):
                 message[field] = COMMASPACE.join(
                     '"%s" <%s>' % (
                         original.replace('\\', '').replace('"', '\\"')
-                        .replace('<', '[').replace('>', ']'),
+                        .replace('<', '[').replace('>', ']')
+                        .replace('@', '(at)'),
                         email
                     )
                     for email in extract_rfc2822_addresses(override_email))
