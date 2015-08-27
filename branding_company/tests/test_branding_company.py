@@ -23,7 +23,7 @@ from openerp.tests.common import TransactionCase
 class TestBrandingCompany(TransactionCase):
     """Run branding company tests."""
 
-    def setUp(self):                                                           
+    def setUp(self):
         super(TestBrandingCompany, self).setUp()
         # Create two branding companies
         branding_model = self.env['branding.company']
@@ -96,7 +96,9 @@ class TestBrandingCompany(TransactionCase):
 
     def test_sale_order(self):
         """Test branding on sale order."""
+        # Models to use:
         so_model = self.env['sale.order']
+        sol_model = self.env['sale.order.line']
         # Check wether default for user works:.
         so_defaults = so_model.sudo(
             self.demo_user
@@ -115,3 +117,39 @@ class TestBrandingCompany(TransactionCase):
             "Expected branding %d not equal to returned branding %d." %
             (self.pietersen_branding.id, ret['value']['branding_id'])
         )
+        # Order line vals to use on all test orders
+        pc_assemble_product = self.env.ref('product.product_product_3')
+        sol_vals = sol_model.product_id_change(
+            False, pc_assemble_product.id,
+            partner_id=self.agrolait_partner.id,
+        )['value']
+        sol_vals['state'] = 'confirmed'
+        sol_vals['product_id'] = pc_assemble_product.id
+        # Check that a manual invoice for a sale order uses branding,
+        # and an invoice after delivery also, by creating two sale orders.
+        so_manual_vals = so_defaults.copy()
+        so_manual_vals['partner_id'] = self.agrolait_partner.id
+        so_manual_vals.update(ret['value'])
+        # Create sales order already in manual state and invoice order
+        so_manual_vals['order_policy'] = 'manual'
+        so_manual_vals['state'] = 'manual'
+        so_manual_vals['branding_id'] = self.jansen_branding.id
+        so_manual = so_model.create(so_manual_vals)
+        sol_vals['order_id'] = so_manual.id
+        sol_model.create(sol_vals)
+        so_manual.action_invoice_create()
+        # We should have an invoice now...
+        self.assertTrue(
+            so_manual.invoice_ids,
+            "No invoice created for manual policy sales order."
+        )
+        # ... and it should have jansen_branding
+        self.assertEqual(
+            self.jansen_branding.id, so_manual.invoice_ids.branding_id.id,
+            "Expected branding %d not equal to invoice branding %d." %
+            (self.jansen_branding.id, so_manual.invoice_ids.branding_id.id)
+        )
+        # Tried also to add a test with invoice created from shipping
+        # but this failed due to strange intractions with delivery module.
+        # This module adds a weight_uom_id as required field to stock_move
+        # and stock_picking, resulting in a NULL value error.

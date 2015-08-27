@@ -33,7 +33,7 @@ class StockPicking(models.Model):
         """
         sale_model = self.env['sale.order']
         sale_orders = sale_model.search([
-            ('procurement_group_id', '=', self.group_id)])
+            ('procurement_group_id', '=', self.group_id.id)])
         return sale_orders.branding_id.id
 
     def _create_invoice_from_picking(

@@ -44,8 +44,7 @@ class SaleOrderInvoiceWizard(models.Model):
                         # have one yet.
                         if not invoice_obj.branding_id:
                             invoice_obj.write(
-                                {'branding_id':
-                                    sale_obj.branding_id.id},
+                                {'branding_id': sale_obj.branding_id.id},
                                 context=context
                             )
         return res

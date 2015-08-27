@@ -24,9 +24,7 @@
     'website': 'http://www.therp.nl',
     'category': 'Sale',
     'depends': [
-        'sale',
-        'account',
-        'stock',
+        'sale_stock',
     ],
     'data': [
         'view/branding_company.xml',
