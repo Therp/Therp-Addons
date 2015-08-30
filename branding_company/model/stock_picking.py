@@ -32,9 +32,10 @@ class StockPicking(models.Model):
         The first sale order found will determine the branding.
         """
         sale_model = self.env['sale.order']
-        sale_orders = sale_model.search([
-            ('procurement_group_id', '=', self.group_id.id)])
-        return sale_orders.branding_id.id
+        for rec in self:
+            sale_orders = sale_model.search([
+                ('procurement_group_id', '=', rec.group_id.id)])
+            rec.branding_id.id = sale_orders.branding_id.id
 
     def _create_invoice_from_picking(
             self, cr, uid, picking, vals, context=None):
