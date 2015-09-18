@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2012 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,30 +19,21 @@
 #
 ##############################################################################
 {
-    "name": "Use case development",
-    "version": "1.0r45",
+    "name": "External users",
+    "summary": "Allow external users on your system",
+    "version": "1.0r87",
     "author": "Therp BV",
-    "category": 'Base',
-    'complexity': "normal",
-    "description": """
-Compose collections of use case descriptions and print them with an aeroo
-report which is included in this module.
-    """,
+    "category": 'External users',
     'website': 'http://therp.nl',
-    'images': [],
     'depends': [
-        'base',
-        'report_aeroo',
-        'trp_external_user',
+        'share',
     ],
     'data': [
-        'view/use_case.xml',
-        'view/use_case_inline.xml',
-        'view/use_case_collection.xml',
-        'report/report_use_case.xml',
+        'data/ir_module_category.xml',
         'security/res_groups.xml',
         'security/ir.model.access.csv',
+        'security/ir_rule.xml',
+        'view/res_users.xml',
     ],
-    "license": 'AGPL-3',
+    'license': 'AGPL-3',
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="group_external_user" model="res.groups">
+            <field name="name">External users</field>
+            <field name="category_id" ref="module_category_external_users"/>
+            <field name="implied_ids" eval="[(4, ref('share.group_shared'))]" />
+        </record>
+
+    </data>
+</openerp>
