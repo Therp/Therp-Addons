@@ -41,6 +41,7 @@ report which is included in this module.
         'view/use_case_collection.xml',
         'report/report_use_case.xml',
         'security/res_groups.xml',
+        'security/ir_rule.xml',
         'security/ir.model.access.csv',
     ],
     "license": 'AGPL-3',
