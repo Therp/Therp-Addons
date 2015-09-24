@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Adds a fiscal position to a country."""
 ##############################################################################
 #
 #    Copyright (C) 2011 Agile Business Group sagl (<http://www.agilebg.com>)
@@ -22,14 +23,12 @@ from openerp import models, fields
 
 
 class Country(models.Model):
-    """
-    adds a fiscal position to a country
-    """
+    """Adds a fiscal position to a country."""
     _inherit = 'res.country'
     property_account_position = fields.Many2one(
         comodel_name='account.fiscal.position',
         string="Default Fiscal Position",
         company_dependent=True,
-        help="""The fiscal position will determine
-             taxes and the accounts used for the country,
-             if not set specifically elsewere.""",)
+        help="The fiscal position will determine taxes and the accounts"
+             " used for the country, if not set specifically elsewere.",
+    )
