@@ -2,8 +2,7 @@
 """Extend stock.picking with branding."""
 ##############################################################################
 #
-#    Odoo, an open source suite of business applications
-#    This module copyright (C) 2014-2015 Therp BV <http://therp.nl>.
+#    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -26,19 +25,28 @@ class StockPicking(models.Model):
     """Extend stock.picking with branding."""
     _inherit = 'stock.picking'
 
-    def _prepare_invoice(
-            self, cr, uid, picking, partner, inv_type, journal_id,
-            context=None):
-        """Add branding_company_id to invoice if present in stock.picking."""
-        vals = super(StockPicking, self)._prepare_invoice(
-            cr, uid, picking, partner, inv_type, journal_id, context=context)
-        if picking.branding_company_id:
-            vals['branding_company_id'] = picking.branding_company_id.id
-        return vals
+    def _compute_branding(self):
+        """Branding for a delivery order is taken from sales order.
 
-    branding_company_id = fields.Many2one(
+        We use the procurement group to find all relates sale orders.
+        The first sale order found will determine the branding.
+        """
+        sale_model = self.env['sale.order']
+        for rec in self:
+            sale_orders = sale_model.search([
+                ('procurement_group_id', '=', rec.group_id.id)])
+            rec.branding_id.id = sale_orders.branding_id.id
+
+    def _create_invoice_from_picking(
+            self, cr, uid, picking, vals, context=None):
+        """Add branding_id to invoice if present in stock.picking."""
+        vals['branding_id'] = picking.branding_id.id
+        return super(StockPicking, self)._create_invoice_from_picking(
+            cr, uid, picking, vals, context=context)
+
+    branding_id = fields.Many2one(
         string='Branding Company',
         comodel_name='branding.company',
+        compute='_compute_branding',
+        oldname='branding_company_id',
     )
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,8 +1,10 @@
-# -*- coding: utf-8 -*-
-"""Load new and inherited model definitions."""
+# -*- encoding: utf-8 -*-
+"""Run module tests."""
 ##############################################################################
 #
-#    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
+#    Copyright (C) 2015 Therp BV <http://therp.nl>.
+#
+#    All other contributions are (C) by their respective contributors
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,10 +20,4 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import branding_company
-from . import res_users
-from . import res_partner
-from . import sale_order
-from . import stock_picking
-from . import account_invoice
-from . import sale_order_invoice_wizard
+from . import test_branding_company

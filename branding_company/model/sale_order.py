@@ -2,8 +2,7 @@
 """Extend sale.order model."""
 ##############################################################################
 #
-#    Odoo, an open source suite of business applications
-#    This module copyright (C) 2014-2015 Therp BV <http://therp.nl>.
+#    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,29 +18,55 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields
+from openerp import api, models, fields
 
 
 class SaleOrder(models.Model):
     """Extend sale.order model.
 
-    Set default shop from user, and pass shop id to invoice.
+    Set default branding company from user, and pass branding company
+    to invoice.
     """
     _inherit = "sale.order"
 
+    @api.multi
+    def onchange_partner_id(self, partner_id):
+        """When partner changes, branding company changes.
+
+        Would be nice if existing branding_id could be safe
+        from change, but already existing onchange method only passes
+        partner-id.
+
+        Decorater @api.onchange did not work.
+        """
+        result = super(SaleOrder, self).onchange_partner_id(partner_id)
+        if partner_id:
+            branding_model = self.env['branding.company']
+            branding = (
+                branding_model.get_default_branding(
+                    partner_id, self.env.uid)
+            )
+            if branding:
+                vals = result.get('value', {})
+                vals['branding_id'] = branding.id
+                result['value'] = vals
+        return result
+
+    def _get_user_branding(self):
+        """Default branding dependent on active user."""
+        branding_model = self.env['branding.company']
+        return branding_model.get_user_branding(self.env.uid).id
+
     def _prepare_invoice(self, cr, uid, order, lines, context=None):
-        """Pass branding_company_id to invoice created."""
+        """Pass branding_id to invoice created."""
         invoice_vals = super(SaleOrder, self)._prepare_invoice(
             cr, uid, order, lines, context=context)
-        invoice_vals['branding_company_id'] = (
-            order.branding_company_id and order.branding_company_id.id or
-            False
-        )
+        invoice_vals['branding_id'] = order.branding_id.id
         return invoice_vals
 
-    branding_company_id = fields.Many2one(
+    branding_id = fields.Many2one(
         string='Branding Company',
         comodel_name='branding.company',
+        default=_get_user_branding,
+        oldname='branding_company_id',
     )
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
