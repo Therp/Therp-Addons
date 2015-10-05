@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+      <!--domain allows so show only the fiscal positions of the companies the user is associated with -->
+        <record model="ir.ui.view" id="res_partner_fiscal_position_form">
+            <field name="name">res.partner.fiscal.position.form</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_form"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="property_account_position" domain="[('company_id.user_ids', '=', uid)]"   
+                        widget="selection"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+
