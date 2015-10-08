@@ -23,30 +23,21 @@ from openerp import api, models, fields
 
 class AccountInvoice(models.Model):
     """Extend account.invoice with branding_id."""
+    # pylint: disable=too-many-public-methods
     _inherit = 'account.invoice'
 
-    @api.multi
-    def onchange_partner_id(self, partner_id):
-        """When partner changes, branding company changes.
-
-        Would be nice if existing branding_id could be safe
-        from change, but already existing onchange method only passes
-        partner-id.
-
-        Decorater @api.onchange did not work.
-        """
-        result = super(AccountInvoice, self).onchange_partner_id(partner_id)
-        if partner_id:
+    @api.onchange('partner_id')
+    def onchange_partner_id_api(self):
+        """When partner changes, branding company changes."""
+        # pylint: disable=no-member
+        if self.partner_id:
             branding_model = self.env['branding.company']
             branding = (
                 branding_model.get_default_branding(
-                    partner_id, self.env.uid)
+                    self.partner_id, self.env.uid)
             )
             if branding:
-                vals = result.get('value', {})
-                vals['branding_id'] = branding.id
-                result['value'] = vals
-        return result
+                self.branding_id = branding.id
 
     def _get_user_branding(self):
         """Default branding dependent on active user."""
