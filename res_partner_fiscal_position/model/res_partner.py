@@ -1,8 +1,8 @@
 #-*- coding: utf-8 -*-
+"""Extend res.partner with country specific fiscal position."""
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2014 Therp BV (<http://therp.nl>).
+#    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,15 +22,15 @@ from openerp.osv import orm
 
 
 class ResPartner(orm.Model):
+    """Extend res.partner with country specific fiscal position."""
     _inherit = 'res.partner'
 
     def on_change_country_id(
             self, cr, uid, ids, country_id, context=None):
-
+        """Change fiscal position when country changes."""
         if not country_id:
             return {}
-        country = self.pool['res.country'].browse(cr, uid,
-                                                  country_id, context=context)
+        country = self.pool['res.country'].browse(
+            cr, uid, country_id, context=context)
         fis_pos_id = country.property_account_position.id
-
         return {'value': {'property_account_position': fis_pos_id}}

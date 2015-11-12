@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+"""Adds a fiscal position to a country."""
 ##############################################################################
 #
 #    Copyright (C) 2011 Agile Business Group sagl (<http://www.agilebg.com>)
 #    Copyright (C) 2011 Domsense srl (<http://www.domsense.com>)
+#    Copyright (C) 2015 Therp BV <http://therp.nl>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -18,20 +20,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
+from openerp.osv import fields, orm
 
 
-class Country(osv.osv):
+class Country(orm.Model):
+    """Adds a fiscal position to a country."""
     _inherit = 'res.country'
     _columns = {
-        'property_account_position': fields.property
-        ('account.fiscal.position',
+        'property_account_position': fields.property (
+            'account.fiscal.position',
             type='many2one',
             relation='account.fiscal.position',
             string="Default Fiscal Position",
             method=True,
             view_load=True,
-            help="""The fiscal position will determine
-                 taxes and the accounts used for the country,
-                 if not set specifically elsewere.""",),
+            help="The fiscal position will determine"
+                 " taxes and the accounts used for the country,"
+                 " if not set specifically elsewere.",
+        ),
     }
