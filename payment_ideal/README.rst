@@ -14,12 +14,12 @@ Installation
 For the installation to run flawlessly, you probably need a few extra
 dependendies on your server:
 
-======== ===================================================== ========
-name     debian/ubuntu                                         windows
-======== ===================================================== ========
-xmlsec   sudo apt-get install python-pkgconfig libxmlsec1-dev  untested
-         pip install xmlsec
-======== ===================================================== ========
+======== ====================================================== ========
+name     debian/ubuntu                                          windows
+======== ====================================================== ========
+xmlsec   | sudo apt-get install python-pkgconfig libxmlsec1-dev untested
+         | sudo pip install xmlsec
+======== ====================================================== ========
 
 Then just install as usual.
 
