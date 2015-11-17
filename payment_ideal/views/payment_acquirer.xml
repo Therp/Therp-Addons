@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="acquirer_form" model="ir.ui.view">
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form" />
+            <field name="arch" type="xml">
+                <group name="acquirer_display" position="after">
+                    <group name="payment_ideal" attrs="{'invisible': [('provider', '!=', 'ideal')]}">
+                        <field name="ideal_merchant_id" attrs="{'required': [('provider', '=', 'ideal')]}" />
+                        <field name="ideal_merchant_sub_id" attrs="{'required': [('provider', '=', 'ideal')]}" />
+                        <field name="ideal_merchant_certificate" attrs="{'required': [('provider', '=', 'ideal')]}" />
+                        <field name="ideal_merchant_privkey" attrs="{'required': [('provider', '=', 'ideal')]}" />
+                        <field name="ideal_merchant_privkey_passphrase" password="1" />
+                        <field name="ideal_acquirer_endpoint" attrs="{'required': [('provider', '=', 'ideal')]}" widget="url" />
+                        <field name="ideal_acquirer_certificate" attrs="{'required': [('provider', '=', 'ideal')]}" />
+                    </group>
+                </group>
+                <sheet position="after">
+                    <footer invisible="not context.get('payment_ideal_config_wizard')">
+                        <button type="object" name="write" string="Save" class="oe_highlight" />
+                        or
+                        <button type="special" special="cancel" string="Cancel" class="oe_link" />
+                    </footer>
+                </sheet>
+            </field>
+        </record>
+    </data>
+</openerp>

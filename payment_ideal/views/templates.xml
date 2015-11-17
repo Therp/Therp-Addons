@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="ideal_payment_button">
+            <form t-if="acquirer.ideal_merchant_id" t-att-action="tx_url" method="post" target="_self">
+                <select placeholder="Choose your bank..." required="required" class="form-control" name="issuer_id">
+                    <t t-foreach="acquirer._ideal_issuer_countries().iteritems()" t-as="issuer_country">
+                        <option selected="selected" disabled="diabled" value="">Choose your bank...</option>
+                        <optgroup t-att-label="issuer_country[0]">
+                            <t t-foreach="issuer_country[1]" t-as="issuer">
+                                <option t-att-value="issuer.id"><t t-esc="issuer.name" /></option>
+                            </t>
+                        </optgroup>
+                    </t>
+                </select>
+                <input type="hidden" name="return_url" t-att-value="tx_values['return_url']" />
+                <br />
+                <button type="submit" t-att-class="submit_class">
+                    <img t-if="not submit_txt" src="/payment_ideal/static/src/img/ideal_icon.png"/>
+                    <span t-if="submit_txt"><t t-esc="submit_txt"/><span class="fa fa-long-arrow-right"/></span>
+                </button>
+            </form>
+        </template>
+    </data>
+</openerp>
