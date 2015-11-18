@@ -18,10 +18,14 @@
 #
 ##############################################################################
 import base64
-import xmlsec
 from collections import OrderedDict
 from openerp import _, models, fields, api, exceptions, tools
-from .. import ideal
+try:
+    import xmlsec
+    from .. import ideal
+except ImportError:
+    import logging
+    logging.error('Unable to load xmlsec, payment_ideal is not going to work')
 
 
 class PaymentAcquirer(models.Model):
