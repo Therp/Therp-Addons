@@ -138,7 +138,7 @@ class Acquirer(object):
         ctx.sign(xmlsec.tree.find_node(request_xml, xmlsec.Node.SIGNATURE))
         data = etree.tostring(request_xml, xml_declaration=True,
                               encoding='utf-8')
-        log.debug('write: %s', data)
+        log.debug('write: %s', data.decode('utf8'))
 
         # Call the server
         url = re.sub('^ssl://', 'https://', self.endpoint)
@@ -146,7 +146,7 @@ class Acquirer(object):
         res = urllib2.urlopen(req)
         body = res.read()
         res.close()
-        log.debug('read: %s', body)
+        log.debug('read: %s', body.decode('utf8'))
 
         try:
             ctx = xmlsec.SignatureContext()
