@@ -13,7 +13,7 @@
                         </optgroup>
                     </t>
                 </select>
-                <input type="hidden" name="return_url" t-att-value="tx_values['return_url']" />
+                <input type="hidden" name="return_url" t-att-value="tx_values.get('return_url')" />
                 <br />
                 <button type="submit" t-att-class="submit_class">
                     <img t-if="not submit_txt" src="/payment_ideal/static/src/img/ideal_icon.png"/>
