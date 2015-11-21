@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="use_case_collections_report"
+            model="use_case.collection"
+            string="Use cases report(qweb)"
+            report_type="qweb-pdf"
+            name="trp_use_case.report_usecaseqweb"
+            file="trp_use_case.report_usecaseqweb"
+            menu="True"
+        />
+
+        <report
+            id="use_case_collections_int_report"
+            model="use_case.collection"
+            string="Use cases internal report(qweb)"
+            report_type="qweb-pdf"
+            name="use_case.collection.report_usecaseqweb"
+            file="use_case.collection.report_usecaseqweb"
+            menu="False"
+        />
+
+    </data>
+</openerp>
+

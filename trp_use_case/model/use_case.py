@@ -165,6 +165,16 @@ class use_case_collection(models.Model):
             collection.hours_total_nonoptional = \
                 values['hours_total_nonoptional']
 
+    def set_draft(self, cr, uid, ids, context=None):
+	collection = self.browse(cr, uid, ids[0], context=context)
+	collection.state = 'draft'
+    def set_open(self, cr, uid, ids, context=None):
+	collection = self.browse(cr, uid, ids[0], context=context)
+	collection.state = 'open'
+    def set_done(self, cr, uid, ids, context=None):
+	collection = self.browse(cr, uid, ids[0], context=context)
+	collection.state = 'done'
+    
     name = fields.Char('Name', required=True)
     description = fields.Text('Description')
     partner_id = fields.Many2one('res.partner', 'Partner')
@@ -181,3 +191,9 @@ class use_case_collection(models.Model):
         compute=_get_hours_total, string="Total nr. of optional hours")
     hours_total_nonoptional = fields.Float(
         compute=_get_hours_total, string="Total nr. of non optional hours")
+    state = fields.Selection([('draft','Draft'),('open','Open'),
+        ('done','Done'),],'State', select=True, readonly=True, default='draft')
+
+    defaults = {
+        'state': 'draft',
+    }

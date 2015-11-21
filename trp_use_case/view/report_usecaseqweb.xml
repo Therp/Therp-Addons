@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_usecaseqweb">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <h2><span t-field="o.name"/></h2>
+                    <h3>For<div t-if="o.partner_id"><span t-field="o.partner_id"/><span t-field="o.partner_id.name"/></div></h3>
+	        <table>
+                <thead>
+		<tr>
+                    <th style="width:35%;">Revisions</th>
+		</tr>
+                </thead>
+                <tbody>
+		    <tr t-foreach="o.version_tag_ids" t-as="u">
+		   	<td t-if="u.date == True"> <span t-field="u.user"/>:<span t-field="u.name"/></td>
+                    </tr>
+                </tbody>
+                </table>
+		<div t-if="o.description">
+                    <strong>Introduction:</strong>
+                    <p t-field="o.description"/>
+                </div>
+	        <table>
+                <thead>
+		<tr>
+                    <th style="width:35%;">Use cases</th>
+		</tr>
+                </thead>
+                <tbody>
+		    <tr t-foreach="o.use_case_ids" t-as="u">
+		   	<td t-if="u.active == True"><span t-field="uc.number"/>.<span t-field="uc.name"/></td>
+                    </tr>
+                </tbody>
+                </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>
