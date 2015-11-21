@@ -131,6 +131,8 @@ class PaymentAcquirer(models.Model):
     @api.multi
     def _ideal_connection(self):
         self.ensure_one()
+        if self.env.context.get('bin_size'):
+            self = self.with_context(bin_size=False)
         return ideal.IDEALConnector(
             merchant=ideal.Merchant(
                 self.ideal_merchant_id, self.ideal_merchant_sub_id,
