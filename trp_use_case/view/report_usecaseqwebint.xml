@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_usecaseqwebint_document">
+            <t t-call="report.internal_layout">
+                <div class="page">
+					  <div class="col-lg-12">
+					    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height: 45px;"/>
+				      </div>
+                  <h2><span t-field="o.name"/></h2>
+                  <h3>For<div t-if="o.partner_id"><span t-field="o.partner_id.name"/></div></h3>
+				  <table class="table-bordered" style="width:100%">
+					<thead>
+						<tr>
+							<th style="width:35%;">Revisions</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr t-foreach="o.version_tag_ids" t-as="u">
+					  <td t-if="u.date == True">
+						<span t-field="u.user"/>:<span t-field="u.name"/>
+					  </td>
+                    </tr>
+                </tbody>
+                </table>
+				
+				
+				<div t-if="o.description">
+                  <strong>Introduction:</strong>
+                  <p t-field="o.description"/>
+                </div>
+				<t t-foreach="o.use_case_ids" t-as="uc">
+					<t t-if="uc.active == True" />
+					<table class="table-bordered" style="width:100%">
+					<thead>
+					  <tr>
+						<th style="width:35%;">Use cases</th>
+						<th style="width:35%;">
+                            <!--span t-field="uc.number"/>.<span t-field="uc.name"/-->
+							<span t-field="uc.name"/>
+						</th>
+					  </tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								Actor
+							</td>
+							<td>
+								<p t-foreach="uc.actor_ids" t-as="ac">
+									<span t-if="ac.name">
+									   <span t-field="ac.name" />,
+									</span>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Precondition
+							</td>
+							<td>
+								<span t-if="not uc.precondition">
+									-
+								</span>
+								<span t-if="uc.precondition">
+								   <span t-field="uc.precondition"/>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Description
+							</td>
+							<td>
+								<t t-if="uc.description"/>
+								<span t-field="uc.description"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Result
+							</td>
+							<td>
+								<t t-if="uc.result"/>
+								<span t-field="uc.result"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Exception
+							</td>
+							<td>
+								<span t-if="not uc.exceptions">
+									-
+								</span>
+								<t t-if="uc.exceptions">
+								    <span t-field="uc.exceptions" />
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							    Implementation	
+							</td>
+							<td>
+								<span t-if="not uc.implementation">
+									-
+								</span>
+								<span t-if="uc.implementation">
+								   <span t-field="uc.implementation"/>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td >
+								Workload
+							</td>
+							<td>
+								<p t-foreach="uc.workload_ids" t-as="w">
+								   <span t-if="w.optional and w.name and w.hours">
+									Optional, <span t-field="w.name"/> : <span t-field="w.hours"/>
+									<br />
+								</span>
+								</p>
+							</td>
+						</tr>
+					</tbody>
+					</table>
+					<br />
+				</t>
+                </div>
+    </t>
+</template>
+
+<template id="report_usecaseqwebint">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'trp_use_case.report_usecaseqwebint_document')"/>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

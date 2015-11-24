@@ -6,6 +6,14 @@
             <field name="model">use_case.collection</field>
             <field name="arch" type="xml">
                 <form>
+		    <header>
+			<div>
+		    	    <field name="state" widget="statusbar"/>
+			    <button string="Set Draft" type="object" name="set_draft" groups="base.group_user"/>
+			    <button string="Set Open" type="object" name="set_open" groups="base.group_user"/>
+			    <button string="Set Done" type="object" name="set_done" groups="base.group_user"/>
+			</div>
+		    </header>
                     <group colspan="4" col="3">
                         <group colspan="2" col="4">
                             <field name="name"/>
@@ -46,6 +54,7 @@
             <field name="model">use_case.collection</field>
             <field name="arch" type="xml">
                 <tree>
+		    <field name="state"/>
                     <field name="name"/>
                     <field name="partner_id"/>
                     <field name="hours_total"/>
@@ -86,12 +95,23 @@
                 </tree>
             </field>
         </record>
+	<record id="od_filter" model="ir.ui.view">
+            <field name="name">OpenDraft Fileter</field>
+            <field name="model">use_case.collection</field>
+            <field name="arch" type="xml">
+                <search string="Search by state">
+                    <filter string="Open/Draft" name="od_filter" domain="['|',('state','=','draft'),('state','=','open')]"/>
+                </search>
+            </field>
+        </record>
         <record id="action_use_case_collections"
                 model="ir.actions.act_window">
             <field name="name">Set of use cases</field>
             <field name="res_model">use_case.collection</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+	    <field name="search_view_id" ref="od_filter"/>
+	    <field name="context">{'search_default_od_filter':1}</field>
         </record>
         <record id="action_use_cases"
                 model="ir.actions.act_window">
