@@ -16,9 +16,9 @@
             model="use_case.collection"
             string="Use cases internal report(qweb)"
             report_type="qweb-pdf"
-            name="use_case.collection.report_usecaseqweb"
-            file="use_case.collection.report_usecaseqweb"
-            menu="False"
+            name="trp_use_case.report_usecaseqwebint"
+            file="trp_use_case.report_usecaseqwebint"
+            menu="True"
         />
 
     </data>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data>
-<template id="report_usecaseqweb_document">
+<template id="report_usecaseqwebint_document">
             <t t-call="report.internal_layout">
                 <div class="page">
 					  <div class="col-lg-12">
@@ -99,6 +99,19 @@
 							</td>
 						</tr>
 						<tr>
+							<td>
+							    Implementation	
+							</td>
+							<td>
+								<span t-if="not uc.implementation">
+									-
+								</span>
+								<span t-if="uc.implementation">
+								   <span t-field="uc.implementation"/>
+								</span>
+							</td>
+						</tr>
+						<tr>
 							<td >
 								Workload
 							</td>
@@ -119,10 +132,10 @@
     </t>
 </template>
 
-<template id="report_usecaseqweb">
+<template id="report_usecaseqwebint">
     <t t-call="report.html_container">
         <t t-foreach="doc_ids" t-as="doc_id">
-            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'trp_use_case.report_usecaseqweb_document')"/>
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'trp_use_case.report_usecaseqwebint_document')"/>
         </t>
     </t>
 </template>
