@@ -143,6 +143,12 @@ class use_case_collection(models.Model):
     _name = 'use_case.collection'
     _description = 'Set of use cases'
 
+    x_status = fields.Selection([
+                 ('draft', 'Draft'),
+                 ('open', 'Open'),
+                 ('done', 'Done'),
+                 ], string = "Status", help = "Collection Status", default = "draft", required = True)
+
     @api.depends(
         'use_case_ids.active', 'use_case_ids.workload_ids.hours',
         'use_case_ids.workload_ids.optional')

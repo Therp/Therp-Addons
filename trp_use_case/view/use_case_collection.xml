@@ -12,7 +12,8 @@
                             <field name="partner_id"/>
                             <field name="create_date" readonly="True" />
                             <field name="create_uid" readonly="True" />
-                        </group>
+			    <field name="x_status"/>
+		   </group>
                         <group colspan="1" col="2">
                             <field name="hours_total"/>
                             <field name="hours_total_nonoptional"/>
@@ -41,7 +42,28 @@
                 </form>
             </field>
         </record>
-        <record id="use_case_collection_tree" model="ir.ui.view">
+
+	<record id="use_case_collection_search" model="ir.ui.view">
+            <field name="name">collection.search</field>
+            <field name="model">use_case.collection</field>
+            <field name="arch" type="xml">
+	      <search string="Search Status">
+
+		<filter name="draftstatus" string="Draft" icon="terp-stage"
+                        domain="[('x_status', '=', ['draft'])]"
+	                groups="base.group_user"/>
+		<filter name="openstatus" string="Open" icon="terp-stage"
+                        domain="[('x_status', '=', ['open'])]"
+	                groups="base.group_user"/>
+		<filter name="donestatus" string="Done" icon="terp-stage"
+                        domain="[('x_status', '=', ['done'])]"
+	                groups="base.group_user" />
+
+	      </search>
+            </field>
+        </record>
+
+	<record id="use_case_collection_tree" model="ir.ui.view">
             <field name="name">Use case collection tree</field>
             <field name="model">use_case.collection</field>
             <field name="arch" type="xml">
@@ -51,6 +73,7 @@
                     <field name="hours_total"/>
                     <field name="create_date"/>
                     <field name="create_uid"/>
+		    <field name="x_status"/>
                 </tree>
             </field>
         </record>
@@ -92,6 +115,7 @@
             <field name="res_model">use_case.collection</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+	    <field name="context" eval="{'search_default_draftstatus':1,'search_default_openstatus':1}"/>
         </record>
         <record id="action_use_cases"
                 model="ir.actions.act_window">
@@ -132,6 +156,5 @@
                      'default_collection_id': active_id,
                      }"
             view_type="form"/>
-
     </data>
 </openerp>
