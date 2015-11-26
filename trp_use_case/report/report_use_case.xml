@@ -1,44 +1,14 @@
 <?xml version="1.0"?>
 <openerp>
     <data noupdate="0">
-        <record id="report_use_case" model="ir.actions.report.xml">
-            <field name="name">Use cases</field>
-            <field name="type">ir.actions.report.xml</field>
-            <field name="model">use_case.collection</field>
-            <field name="report_name">use_case</field>
-            <field name="report_type">aeroo</field>
-            <field name="in_format">oo-odt</field>
-            <field name="report_rml">trp_use_case/report/report_use_case.odt</field>
-            <field name="parser_state">default</field>
-            <field name="tml_source">file</field>
-        </record>
-
-        <record id="report_use_case_internal" model="ir.actions.report.xml">
-            <field name="name">Use cases (internal)</field>
-            <field name="type">ir.actions.report.xml</field>
-            <field name="model">use_case.collection</field>
-            <field name="report_name">use_case_internal</field>
-            <field name="report_type">aeroo</field>
-            <field name="in_format">oo-odt</field>
-            <field name="report_rml">trp_use_case/report/report_use_case_internal.odt</field>
-            <field name="parser_state">default</field>
-            <field name="tml_source">file</field>
-        </record>
-
-        <record model="ir.values" id="ir_value_report_use_case">
-            <field name="name">Use cases</field>
-            <field name="key2">client_print_multi</field>
-            <field name="value" eval="'ir.actions.report.xml,' + str(ref('report_use_case'))" />
-            <field name="key">action</field>
-            <field name="model">use_case.collection</field>
-        </record>
-
-        <record model="ir.values" id="ir_value_report_use_case_internal">
-            <field name="name">Use cases (internal)</field>
-            <field name="key2">client_print_multi</field>
-            <field name="value" eval="'ir.actions.report.xml,' + str(ref('report_use_case_internal'))" />
-            <field name="key">action</field>
-            <field name="model">use_case.collection</field>
-        </record>
+	<report
+	    id="qweb_report_use_cases"
+	    model="use_case.collection"
+	    string="Use case qweb"
+	    report_type="qweb-pdf"
+	    name="trp_use_case.qweb_report_ucc_document"
+	    attachment_use="False"
+	    file="trp_use_case.qweb_report_ucc_document"
+	 />
     </data>
 </openerp>

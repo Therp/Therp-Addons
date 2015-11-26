@@ -20,12 +20,12 @@
 ##############################################################################
 {
     "name": "Use case development",
-    "version": "1.0r45",
-    "author": "Therp BV",
+    "version": "1.0r46",
+    "author": "Therp BV - Ewout Boelsums november 2015",
     "category": 'Base',
     'complexity': "normal",
     "description": """
-Compose collections of use case descriptions and print them with an aeroo
+Compose collections of use case descriptions and print them with an qweb
 report which is included in this module.
     """,
     'website': 'http://therp.nl',
@@ -39,6 +39,7 @@ report which is included in this module.
         'view/use_case.xml',
         'view/use_case_inline.xml',
         'view/use_case_collection.xml',
+        'view/qweb_report_use_case_collection.xml',
         'report/report_use_case.xml',
         'security/res_groups.xml',
         'security/ir_rule.xml',
