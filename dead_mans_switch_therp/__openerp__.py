@@ -29,5 +29,6 @@
     ],
     "data": [
         "data/ir_config_parameter.xml",
+        "data/ir_actions.xml",
     ],
 }
