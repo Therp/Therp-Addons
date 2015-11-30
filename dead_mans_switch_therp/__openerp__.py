@@ -20,7 +20,7 @@
 {
     "name": "Dead man's switch for Therp",
     "version": "8.0.1.0.0",
-    "author": "Therp BV,Odoo Community Association (OCA)",
+    "author": "Therp BV",
     "license": "AGPL-3",
     "category": "Monitoring",
     "summary": "Configure dead_mans_switch_client for Therp",
