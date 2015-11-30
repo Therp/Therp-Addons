@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="config_parameter" model="ir.config_parameter">
+            <field name="key">dead_mans_switch_client.url</field>
+            <field name="value">https://helpdesk.therp.nl/dead_mans_switch/alive</field>
+        </record>
+    </data>
+</openerp>
