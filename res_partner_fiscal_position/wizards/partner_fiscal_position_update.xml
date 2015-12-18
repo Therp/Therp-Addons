@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="partner_fiscal_position_update_form" model="ir.ui.view">
+            <field name="name">partner.fiscal.position.update.form</field>
+            <field name="model">partner.fiscal.position.update</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="specification,done"
+                        nolabel="1"
+                        colspan="2"
+                        />
+                    <notebook>
+                        <page string="Specification">
+                            <group colspan="6" col="2">
+                                <field
+                                    name="all_partners"
+                                    attrs="{'readonly': [
+                                        '|', ('state', '=', 'done'),
+                                        ('partner_ids', '=', False),
+                                    ]}"
+                                    />
+                                <field
+                                    name="use_country"
+                                    attrs="{'readonly': [('state', '=', 'done')]}"
+                                    />
+                                <field
+                                    name="property_account_position"
+                                    domain="[('company_id.user_ids', '=', uid)]"
+                                    widget="selection"
+                                    attrs="{
+                                        'invisible': [('use_country', '!=', False)],
+                                        'readonly': [('state', '=', 'done')],
+                                    }"
+                                    readonly=""
+                                    />
+                                <field
+                                    name="ignore_company_country"
+                                    attrs="{'readonly': [('state', '=', 'done')]}"
+                                    />
+                                <field
+                                    name="override_current_position"
+                                    attrs="{'readonly': [('state', '=', 'done')]}"
+                                    />
+                                <group
+                                    attrs="{'invisible': [('state', '!=', 'done')]}"
+                                    >
+                                    <separator
+                                        colspan="2"
+                                        string="Result"
+                                        />
+                                    <field
+                                        name="result_message"
+                                        nolabel="1"
+                                        />
+                                </group>
+                            </group>
+                        </page>
+                        <page
+                            string="Selected partners"
+                            attrs="{'invisible': [('all_partners', '!=', False)]}"
+                            >
+                            <group colspan="6" col="2">
+                                <field
+                                    name="partner_ids"
+                                    colspan="2"
+                                    nolabel="1"
+                                    />
+                            </group>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <group col="6">
+                            <group
+                                colspan="1" col="1"
+                                attrs="{'invisible': [('state', '=', 'done')]}"
+                                >
+                                <button
+                                    string="Update"
+                                    name="process_selection"
+                                    type="object"
+                                    class="oe_highlight"
+                                    />
+                                or
+                            </group>
+                            <button
+                                string="Cancel"
+                                class="oe_link"
+                                special="cancel"
+                                />
+                        </group>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Run wizard from More... dropdown in partner tree. -->
+        <act_window
+            name="Update fiscal positions"
+            res_model="partner.fiscal.position.update"
+            src_model="res.partner"
+            view_mode="form"
+            multi="True"
+            target="new"
+            key2="client_action_multi"
+            id="partner_fiscal_position_update_wizard"
+            />
+
+        <!-- Menu option to launch wizard withouth any partner selection. -->
+        <menuitem id="menu_update_fiscal_positions"
+            action="partner_fiscal_position_update_wizard"
+            parent="account.next_id_27"
+            />
+
+    </data>
+</openerp>
