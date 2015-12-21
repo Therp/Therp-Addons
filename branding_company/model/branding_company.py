@@ -60,6 +60,7 @@ class BrandingCompany(models.Model):
     )
     bank_id = fields.Many2one(
         comodel_name='res.partner.bank',
+        domain=[('company_id', '!=', False),],
         string='Bank Account',
         help="Bank accounts printed on sale-orders and invoices.",
     )
