@@ -1,48 +1,31 @@
 # -*- coding: utf-8 -*-
-"""Extend stock.picking with branding."""
-##############################################################################
-#
-#    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp import models, fields
+# © 2014-2015 Therp BV (http://therp.nl).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from openerp import api, fields, models
 
 
 class StockPicking(models.Model):
-    """Extend stock.picking with branding."""
     _inherit = 'stock.picking'
 
     def _compute_branding(self):
         """Branding for a delivery order is taken from sales order.
 
-        We use the procurement group to find all relates sale orders.
+        We use the procurement group to find all related sale orders.
         The first sale order found will determine the branding.
         """
         sale_model = self.env['sale.order']
         for rec in self:
             sale_orders = sale_model.search([
-                ('procurement_group_id', '=', rec.group_id.id)])
-            rec.branding_id.id = sale_orders.branding_id.id
+                ('procurement_group_id', '=', rec.group_id.id),
+            ])
+            rec.branding_id = sale_orders.branding_id
 
-    def _create_invoice_from_picking(
-            self, cr, uid, picking, vals, context=None):
+    @api.model
+    def _create_invoice_from_picking(self, picking, vals):
         """Add branding_id to invoice if present in stock.picking."""
         vals['branding_id'] = picking.branding_id.id
         return super(StockPicking, self)._create_invoice_from_picking(
-            cr, uid, picking, vals, context=context)
+            picking, vals)
 
     branding_id = fields.Many2one(
         string='Branding Company',
