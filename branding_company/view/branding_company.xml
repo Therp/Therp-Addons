@@ -31,7 +31,9 @@
                     </div>
                     <group colspan="4" col="2">
                         <field name="email" />
+                        <field name="phone" />
                         <field name="website" />
+                        <field name="bank_id" />
                         <field name="rml_footer" />
                     </group>
                 </sheet>
