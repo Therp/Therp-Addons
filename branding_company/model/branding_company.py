@@ -1,28 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Create branding.company model."""
-##############################################################################
-#
-#    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp import api, models, fields
+# © 2014-2015 Therp BV (http://therp.nl).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from openerp import api, fields, models
 
 
 class BrandingCompany(models.Model):
-    """Create branding.company model."""
     _name = "branding.company"
     _description = """\
         Allows to replace standard company logo, name, address etc. in all
@@ -61,13 +43,23 @@ class BrandingCompany(models.Model):
     logo = fields.Binary()
     rml_footer = fields.Text(
         string='Report Footer',
-        help="""Footer text displayed at the bottom of all reports."""
+        help="Footer text displayed at the bottom of all reports."
     )
     email = fields.Char(
         string='Email',
-        size=64
+        size=64,
+        help="E-mail address for reports and to use as sender address."
+    )
+    phone = fields.Char(
+        string='Phone',
+        size=32,
     )
     website = fields.Char(
         string='Website',
-        size=64
+        size=64,
+    )
+    bank_id: fields.Many2one(
+        comodel_name='res.partner.bank',
+        string='Bank Account',
+        help="Bank accounts printed on sale-orders and invoices.",
     )
