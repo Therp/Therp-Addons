@@ -58,7 +58,7 @@ class BrandingCompany(models.Model):
         string='Website',
         size=64,
     )
-    bank_id: fields.Many2one(
+    bank_id = fields.Many2one(
         comodel_name='res.partner.bank',
         string='Bank Account',
         help="Bank accounts printed on sale-orders and invoices.",
