@@ -4,54 +4,50 @@
   <data>
     <template id="qweb_report_ucc_document">
       <t t-call="report.html_container">
-	<t t-call="report.external_layout">
-	  <div class="page">
-	    <div class="row">
-	      <h3>Use case report</h3>
-	    </div>
-	    <t t-foreach="docs" t-as="doc">
-	      <table>
-		<tr>
-		  <td>
-		    <t t-if="doc.name">
-		      <span t-field="doc.name"/>
-		    </t>
-		  </td>
-		  <td>
-		    <t t-if="doc.description">
-		      <span t-field="doc.description"/>
-		    </t>
-		  </td>
-		  <td>
-		    <t t-if="doc.partner_id">
-		      <span t-field="doc.partner_id"/>
-		    </t>
-		  </td>
-		  <td>
-		    <t t-if="doc.hours_total">
-		      <span t-field="doc.hours_total"/>
-		    </t>
-		  </td>
-		  <td>
-		    <t t-if="doc.x_status">
-		      <span t-field="doc.x_status"/>
-		    </t>
-		  </td>
-		</tr>
-	      </table>
-	    </t>
-	  </div>
-	</t>
+        <t t-call="report.external_layout">
+          <div class="page">
+            <div class="row">
+              <h3>Use case report</h3>
+            </div>
+            <t t-foreach="docs" t-as="doc">
+              <table>
+                <tr>
+                  <td>
+                    <t t-if="doc.name">
+                      <span t-field="doc.name"/>
+                    </t>
+                  </td>
+                  <td>
+                    <t t-if="doc.description">
+                      <span t-field="doc.description"/>
+                    </t>
+                  </td>
+                  <td>
+                    <t t-if="doc.partner_id">
+                      <span t-field="doc.partner_id"/>
+                    </t>
+                  </td>
+                  <td>
+                    <t t-if="doc.hours_total">
+                      <span t-field="doc.hours_total"/>
+                    </t>
+                  </td>
+                  <td>
+                    <t t-if="doc.x_status">
+                      <span t-field="doc.x_status"/>
+                    </t>
+                  </td>
+                </tr>
+              </table>
+            </t>
+          </div>
+        </t>
       </t>
     </template>
-
     <template id="qweb_report_ucc">
-	<t t-call="report.html_container">
-	    <t t-foreach="doc_ids" t-as="doc_id">
-		<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'trp_use_case.qweb_report_ucc_document')"/>
-	    </t>
-	</t>
-    </template>  
-    
+        <t t-foreach="doc_ids" t-as="doc_id">
+          <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'trp_use_case.qweb_report_ucc_document')"/>
+        </t>
+    </template>
   </data>
 </openerp>
