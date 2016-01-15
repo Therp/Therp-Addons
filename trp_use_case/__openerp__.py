@@ -32,7 +32,7 @@ report which is included in this module.
     'images': [],
     'depends': [
         'base',
-        'report_aeroo',
+        'project',
         'trp_external_user',
     ],
     'data': [

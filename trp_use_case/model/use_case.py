@@ -152,19 +152,19 @@ class use_case_collection(models.Model):
     @api.one
     def draft_statusbar(self):
         self.write({
-            'state' = 'draft'
+            'state': 'draft'
         })
 
     @api.one
     def open_statusbar(self):
         self.write({
-            'state' = 'open'
+            'state': 'open'
         })
 
     @api.one
     def done_statusbar(self):
         self.write({
-            'state' = 'done'
+            'state': 'done'
         })
 
     @api.depends(
