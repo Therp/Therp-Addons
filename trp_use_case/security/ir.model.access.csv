@@ -8,6 +8,4 @@
 "external_access_use_case_collection","Sets of use cases for external users","model_use_case_collection","trp_use_case.group_external_use_case",1,1,1,0
 "external_access_use_case_workload","Use case workload for external users","model_use_case_workload","trp_use_case.group_external_use_case",1,0,0,0
 "external_access_use_case_actor","Use case actor for external users","model_use_case_actor","trp_use_case.group_external_use_case",1,1,1,0
-"external_access_use_case_version_tag","Use case revision_tag for external users","model_use_case_version_tag","trp_use_case.group_external_use_case",1,1,1,0
 "external_access_task","Use case tasks for external users","project.model_project_task","trp_use_case.group_external_use_case",1,0,0,0
-"external_report_mimetypes_user","report.mimetypes.user","report_aeroo.model_report_mimetypes","trp_use_case.group_external_use_case",1,0,0,0
