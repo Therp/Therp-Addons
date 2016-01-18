@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <openerp>
-    <data noupdate="0">
+    <data>
 	<report
 	    id="qweb_report_use_cases"
 	    model="use_case.collection"
-	    string="Use case qweb"
+	    string="Use case qweb (int)"
 	    report_type="qweb-pdf"
 	    name="trp_use_case.qweb_report_ucc_document"
 	    attachment_use="False"

@@ -1,10 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Custom report.-->
 <openerp>
-  <data>
+    <data>
+        <template id="qweb_report_ucc">
+            <t t-cal="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.internal_layout">
+                        <div class="page">
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    <h2><span t-field="o.name" /></h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    Voor: <span t-field="o.partner_id.name" />
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h2><i>Revisies</i></h2>
+                                </div>
+                            </div>
+                            <t t-foreach="o.version_tag_ids" t-as="u">
+                                <div class="col-xs-12">
+                                    <span t-field="u.date" />
+                                    <span t-field="u.user" /> :
+                                    <span t-field="u.name" />
+                                </div>
+                            </t>
+                            <br/>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h2><i>Introductie</i></h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <span t-field="o.description" />
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h2><i>Use-cases</i></h2>
+                                </div>
+                            </div>
+                            <t t-foreach="o.use_case-ids" t-as="ui">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>Use Case</th>
+                                        <th>
+                                            <span t-field="ui.number" /> .
+                                            <span t_field="ui.name" />
+                                        </th>
+                                    </tr>
+                                </table>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <!--
     <template id="qweb_report_ucc_document">
       <t t-call="report.html_container">
-        <t t-call="report.external_layout">
+        <t t-call="report.internal_layout">
           <div class="page">
             <div class="row">
               <h3>Use case report</h3>
@@ -13,29 +76,19 @@
               <table>
                 <tr>
                   <td>
-                    <t t-if="doc.name">
                       <span t-field="doc.name"/>
-                    </t>
                   </td>
                   <td>
-                    <t t-if="doc.description">
                       <span t-field="doc.description"/>
-                    </t>
                   </td>
                   <td>
-                    <t t-if="doc.partner_id">
                       <span t-field="doc.partner_id"/>
-                    </t>
                   </td>
                   <td>
-                    <t t-if="doc.hours_total">
                       <span t-field="doc.hours_total"/>
-                    </t>
                   </td>
                   <td>
-                    <t t-if="doc.x_status">
-                      <span t-field="doc.x_status"/>
-                    </t>
+                      <span t-field="doc.state"/>
                   </td>
                 </tr>
               </table>
@@ -44,10 +97,15 @@
         </t>
       </t>
     </template>
+    -->
+
     <template id="qweb_report_ucc">
-        <t t-foreach="doc_ids" t-as="doc_id">
-          <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'trp_use_case.qweb_report_ucc_document')"/>
+        <t t-call="report.html_container">
+            <t t-foreach="doc_ids" t-as="doc_id">
+                <t t-raw="translate_doc(doc_id, doc_model, 'user_id.partner_id.lang', 'trp_use_case.qweb_report_ucc_document')"/>
+            </t>
         </t>
     </template>
+
   </data>
 </openerp>
