@@ -4,35 +4,36 @@
         <template id="qweb_report_ucc">
             <t t-cal="report.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="report.internal_layout">
+                    <t t-call="report.external_layout">
                         <div class="page">
                             <div class="row">
-                                <div class="col-xs-10">
-                                    <h2><span t-field="o.name" /></h2>
+                                <div class="col-xs-12">
+                                    <h2><b><span t-field="o.name" />,</b></h2>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-5">
-                                    Voor: <span t-field="o.partner_id.name" />
+                                    <p>Voor</p>
+                                    <span t-field="o.partner_id.name" />
                                 </div>
                             </div>
                             <br/>
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <h2><i>Revisies</i></h2>
+                                    <h4><b><i>Revisies</i></b></h4>
                                 </div>
                             </div>
                             <t t-foreach="o.version_tag_ids" t-as="u">
                                 <div class="col-xs-12">
-                                    <span t-field="u.date" />
-                                    <span t-field="u.user" /> :
+                                    <span t-field="u.date"/>
+                                    <span t-field="u.user"/> :
                                     <span t-field="u.name" />
                                 </div>
                             </t>
                             <br/>
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <h2><i>Introductie</i></h2>
+                                    <h4><b><i>Introductie</i></b></h4>
                                 </div>
                             </div>
                             <div class="row">
@@ -43,17 +44,55 @@
                             <br/>
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <h2><i>Use-cases</i></h2>
+                                    <h4><b><i>Use-cases</i></b></h4>
                                 </div>
                             </div>
                             <t t-foreach="o.use_case_ids" t-as="ui">
-                                <table class="table table-bordered">
+                                <table class="table table-bordered table-striped">
+                                    <col width="25%" />
+                                    <col width="75%" />
                                     <tr>
                                         <th>Use Case</th>
                                         <th>
                                             <span t-field="ui.number" /> .
-                                            <span t_field="ui.name" />
+                                            <span t-field="ui.name" />
                                         </th>
+                                    </tr>
+                                    <tr>
+                                        <td>Actor</td>
+                                        <td>
+                                            <span t-field="ui.actor_ids" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Precondition</td>
+                                        <td>
+                                            <span t-field="ui.precondition" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Result</td>
+                                        <td>
+                                            <span t-field="ui.result" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Exception</td>
+                                        <td>
+                                            <span t-field="ui.exceptions" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Implementation</td>
+                                        <td>
+                                            <span t-field="ui.implementation" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Workload</td>
+                                        <td>
+                                            <span />
+                                        </td>
                                     </tr>
                                 </table>
                             </t>
@@ -63,41 +102,6 @@
             </t>
         </template>
 
-
-        <!--
-    <template id="qweb_report_ucc_document">
-      <t t-call="report.html_container">
-        <t t-call="report.internal_layout">
-          <div class="page">
-            <div class="row">
-              <h3>Use case report</h3>
-            </div>
-            <t t-foreach="docs" t-as="doc">
-              <table>
-                <tr>
-                  <td>
-                      <span t-field="doc.name"/>
-                  </td>
-                  <td>
-                      <span t-field="doc.description"/>
-                  </td>
-                  <td>
-                      <span t-field="doc.partner_id"/>
-                  </td>
-                  <td>
-                      <span t-field="doc.hours_total"/>
-                  </td>
-                  <td>
-                      <span t-field="doc.state"/>
-                  </td>
-                </tr>
-              </table>
-            </t>
-          </div>
-        </t>
-      </t>
-    </template>
-    -->
 
     <template id="qweb_report_ucc_document">
         <t t-call="report.html_container">
