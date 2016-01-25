@@ -46,7 +46,7 @@
                                     <h2><i>Use-cases</i></h2>
                                 </div>
                             </div>
-                            <t t-foreach="o.use_case-ids" t-as="ui">
+                            <t t-foreach="o.use_case_ids" t-as="ui">
                                 <table class="table table-bordered">
                                     <tr>
                                         <th>Use Case</th>
@@ -99,10 +99,10 @@
     </template>
     -->
 
-    <template id="qweb_report_ucc">
+    <template id="qweb_report_ucc_document">
         <t t-call="report.html_container">
             <t t-foreach="doc_ids" t-as="doc_id">
-                <t t-raw="translate_doc(doc_id, doc_model, 'user_id.partner_id.lang', 'trp_use_case.qweb_report_ucc_document')"/>
+                <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'trp_use_case.qweb_report_ucc')"/>
             </t>
         </t>
     </template>
