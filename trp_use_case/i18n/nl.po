@@ -1,13 +1,13 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
 #	* trp_use_case
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.3\n"
-"Report-Msgid-Bugs-To: info@therp.nl\n"
-"POT-Creation-Date: 2012-09-20 12:48+0000\n"
-"PO-Revision-Date: 2012-09-20 12:48+0000\n"
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-26 14:53+0000\n"
+"PO-Revision-Date: 2016-01-26 14:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,68 +16,321 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: trp_use_case
-#: report:use_case:0
-#: report:use_case_internal:0
-msgid "Page"
-msgstr "Pagina"
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "(Optional)"
+msgstr "(Optioneel)"
 
 #. module: trp_use_case
-#: report:use_case:0
-#: report:use_case_internal:0
-msgid "of"
-msgstr "van"
+#: field:use_case,active:0
+msgid "Active"
+msgstr "Actief"
 
 #. module: trp_use_case
-#: report:use_case:0
-#: report:use_case_internal:0
-msgid "Hours"
-msgstr "uur"
+#: model:ir.model,name:trp_use_case.model_use_case_actor
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "Actor"
+msgstr "Rol"
 
 #. module: trp_use_case
-#: report:use_case:0
-#: report:use_case_internal:0
+#: view:use_case:trp_use_case.use_case_form
+#: view:use_case:trp_use_case.use_case_inline_form
+#: field:use_case,actor_ids:0
+#: field:use_case.collection,actor_ids:0
+msgid "Actors"
+msgstr "Rollen"
+
+#. module: trp_use_case
+#: view:use_case.collection:trp_use_case.use_case_collection_form
+msgid "Additional info"
+msgstr "Aanvullende informatie"
+
+#. module: trp_use_case
+#: help:use_case.collection,state:0
+msgid "Collection Status"
+msgstr "Collection Status"
+
+#. module: trp_use_case
+#: field:use_case,create_uid:0
+#: field:use_case.actor,create_uid:0
+#: field:use_case.collection,create_uid:0
+#: field:use_case.version_tag,create_uid:0
+#: field:use_case.workload,create_uid:0
+msgid "Created by"
+msgstr "Gemaakt door"
+
+#. module: trp_use_case
+#: field:use_case,create_date:0
+#: field:use_case.actor,create_date:0
+#: field:use_case.collection,create_date:0
+#: field:use_case.version_tag,create_date:0
+#: field:use_case.workload,create_date:0
+msgid "Created on"
+msgstr "Gemaakt op"
+
+#. module: trp_use_case
+#: field:use_case.version_tag,date:0
+msgid "Date"
+msgstr "Datum"
+
+#. module: trp_use_case
+#: view:use_case:trp_use_case.use_case_form
+#: view:use_case:trp_use_case.use_case_inline_form
+#: field:use_case,description:0
+#: field:use_case.collection,description:0
+#: field:use_case.workload,name:0
+msgid "Description"
+msgstr "Omschrijving"
+
+#. module: trp_use_case
+#: view:use_case.collection:trp_use_case.use_case_collection_search
+#: selection:use_case.collection,state:0
+msgid "Done"
+msgstr "Gedaan"
+
+#. module: trp_use_case
+#: view:use_case.collection:trp_use_case.use_case_collection_search
+#: selection:use_case.collection,state:0
+msgid "Draft"
+msgstr "Schets"
+
+#. module: trp_use_case
+#: field:use_case.version_tag,user:0
+msgid "Editor"
+msgstr "Editor"
+
+#. module: trp_use_case
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "Exception"
+msgstr "Uitzondering"
+
+#. module: trp_use_case
+#: view:use_case:trp_use_case.use_case_form
+#: view:use_case:trp_use_case.use_case_inline_form
+#: field:use_case,exceptions:0
+msgid "Exceptions"
+msgstr "Uitzonderingen"
+
+#. module: trp_use_case
+#: model:res.groups,name:trp_use_case.group_external_use_case
+msgid "External users - Use cases"
+msgstr "External users - Use cases"
+
+#. module: trp_use_case
+#: view:website:trp_use_case.qweb_report_ucc
 msgid "For"
 msgstr "Voor"
 
 #. module: trp_use_case
-#: report:use_case:0
-#: report:use_case_internal:0
+#: field:use_case.workload,hours:0
+msgid "Hours"
+msgstr "Uren"
+
+#. module: trp_use_case
+#: field:use_case,id:0
+#: field:use_case.actor,id:0
+#: field:use_case.collection,id:0
+#: field:use_case.version_tag,id:0
+#: field:use_case.workload,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: trp_use_case
+#: view:use_case:trp_use_case.use_case_form
+#: view:use_case:trp_use_case.use_case_inline_form
+#: field:use_case,implementation:0
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "Implementation"
+msgstr "Implementatie"
+
+#. module: trp_use_case
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "Introduction"
+msgstr "Inleiding"
+
+#. module: trp_use_case
+#: field:use_case,write_uid:0
+#: field:use_case.actor,write_uid:0
+#: field:use_case.collection,write_uid:0
+#: field:use_case.version_tag,write_uid:0
+#: field:use_case.workload,write_uid:0
+msgid "Last Updated by"
+msgstr "Laatstet bijgewerkt door"
+
+#. module: trp_use_case
+#: field:use_case,write_date:0
+#: field:use_case.actor,write_date:0
+#: field:use_case.collection,write_date:0
+#: field:use_case.version_tag,write_date:0
+#: field:use_case.workload,write_date:0
+msgid "Last Updated on"
+msgstr "Laatste bijgewerkt op"
+
+#. module: trp_use_case
+#: field:use_case,name:0
+#: field:use_case.actor,name:0
+#: field:use_case.collection,name:0
+#: field:use_case.version_tag,name:0
+msgid "Name"
+msgstr "Naam"
+
+#. module: trp_use_case
+#: view:use_case.collection:trp_use_case.use_case_collection_search
+#: selection:use_case.collection,state:0
+msgid "Open"
+msgstr "Open"
+
+#. module: trp_use_case
+#: field:use_case.workload,optional:0
+msgid "Optional"
+msgstr "Optioneell"
+
+#. module: trp_use_case
+#: field:use_case.collection,partner_id:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: trp_use_case
+#: view:use_case:trp_use_case.use_case_form
+#: view:use_case:trp_use_case.use_case_inline_form
+#: field:use_case,precondition:0
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "Precondition"
+msgstr "Voorwaarden"
+
+#. module: trp_use_case
+#: view:use_case:trp_use_case.use_case_form
+#: view:use_case:trp_use_case.use_case_inline_form
+#: field:use_case,result:0
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "Result"
+msgstr "Resultaat"
+
+#. module: trp_use_case
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "Revisions"
+msgstr "Wijzigingen"
+
+#. module: trp_use_case
+#: view:use_case.collection:trp_use_case.use_case_collection_search
+msgid "Search Status"
+msgstr "Search Status"
+
+#. module: trp_use_case
+#: field:use_case,sequence:0
+#: field:use_case.workload,sequence:0
+msgid "Sequence"
+msgstr "Sequence"
+
+#. module: trp_use_case
+#: model:ir.actions.act_window,name:trp_use_case.action_use_case_collections
+#: model:ir.model,name:trp_use_case.model_use_case_collection
+#: field:use_case.actor,collection_id:0
+msgid "Set of use cases"
+msgstr "Set of use cases"
+
+#. module: trp_use_case
+#: view:use_case.collection:trp_use_case.use_case_collection_form
+msgid "Set to done"
+msgstr "Set to done"
+
+#. module: trp_use_case
+#: view:use_case.collection:trp_use_case.use_case_collection_form
+msgid "Set to draft"
+msgstr "Set to draft"
+
+#. module: trp_use_case
+#: view:use_case.collection:trp_use_case.use_case_collection_form
+msgid "Set to open"
+msgstr "Set to open"
+
+#. module: trp_use_case
+#: model:ir.ui.menu,name:trp_use_case.menu_use_case_collections
+msgid "Sets of use cases"
+msgstr "Sets of use cases"
+
+#. module: trp_use_case
+#: field:use_case.collection,state:0
+msgid "Status"
+msgstr "Status"
+
+#. module: trp_use_case
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "Total number of hours:"
+msgstr "Totaal aantal uren:"
+
+#. module: trp_use_case
+#: model:ir.model,name:trp_use_case.model_use_case
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "Use Case"
+msgstr "Use Case"
+
+#. module: trp_use_case
+#: field:use_case.workload,use_case_id:0
+msgid "Use case id"
+msgstr "Use case id"
+
+#. module: trp_use_case
+#: model:ir.actions.report.xml,name:trp_use_case.qweb_report_use_cases
+msgid "Use case qweb (int)"
+msgstr "Use case qweb (int)"
+
+#. module: trp_use_case
+#: field:use_case,collection_id:0
+#: field:use_case.version_tag,collection_id:0
+msgid "Use case set"
+msgstr "Use case set"
+
+#. module: trp_use_case
+#: model:ir.model,name:trp_use_case.model_use_case_workload
+msgid "Use case workload"
+msgstr "Use case workload"
+
+#. module: trp_use_case
+#: model:ir.actions.act_window,name:trp_use_case.action_use_case_collection_open_use_cases
+#: model:ir.actions.act_window,name:trp_use_case.action_use_cases
+#: model:ir.ui.menu,name:trp_use_case.menu_use_case_main
+#: model:ir.ui.menu,name:trp_use_case.menu_use_case_main_menu
+#: model:ir.ui.menu,name:trp_use_case.menu_use_cases
+#: view:use_case.collection:trp_use_case.use_case_collection_form
+#: field:use_case.collection,use_case_ids:0
 msgid "Use cases"
+msgstr "Use cases"
+
+#. module: trp_use_case
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "Use-cases"
 msgstr "Use-cases"
 
 #. module: trp_use_case
-#: report:use_case:0
-#: report:use_case_internal:0
-msgid "Revisions"
-msgstr "Revisies"
+#: model:ir.model,name:trp_use_case.model_use_case_version_tag
+msgid "Version tag"
+msgstr "Version tag"
 
 #. module: trp_use_case
-#: report:use_case:0
-#: report:use_case_internal:0
-msgid "Introduction"
-msgstr "Introductie"
+#: field:use_case.collection,version_tag_ids:0
+msgid "Version tags"
+msgstr "Version tags"
 
 #. module: trp_use_case
-#: report:use_case:0
-#: report:use_case_internal:0
-msgid "Total number of hours"
-msgstr "Totaal aantal uur"
+#: view:use_case:trp_use_case.use_case_form
+#: view:use_case:trp_use_case.use_case_inline_form
+#: field:use_case,workload_ids:0
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "Workload"
+msgstr "Workload"
 
 #. module: trp_use_case
-#: report:use_case:0
-#: report:use_case_internal:0
+#: view:website:trp_use_case.qweb_report_ucc
+msgid "hours"
+msgstr "uren"
+
+#. module: trp_use_case
+#: view:website:trp_use_case.qweb_report_ucc
 msgid "of which"
 msgstr "waarvan"
 
 #. module: trp_use_case
-#: report:use_case:0
-#: report:use_case_internal:0
+#: view:website:trp_use_case.qweb_report_ucc
 msgid "optional"
 msgstr "optioneel"
-
-#. module: trp_use_case
-#: report:use_case:0
-#: report:use_case_internal:0
-msgid "Optional"
-msgstr "Optioneel"
 

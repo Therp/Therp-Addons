@@ -2,9 +2,8 @@
 <openerp>
     <data>
         <template id="qweb_report_ucc">
-            <t t-cal="report.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="report.external_layout">
+                    <t t-call="report.layout">
                         <div class="page">
                             <div class="row">
                                 <div class="col-xs-12">
@@ -13,27 +12,26 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-5">
-                                    <p>Voor</p>
-                                    <span t-field="o.partner_id.name" />
+                                    For <span t-field="o.partner_id.name" />
                                 </div>
                             </div>
                             <br/>
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <h4><b><i>Revisies</i></b></h4>
+                                    <h4><b><i>Revisions</i></b></h4>
                                 </div>
                             </div>
                             <t t-foreach="o.version_tag_ids" t-as="u">
                                 <div class="col-xs-12">
                                     <span t-field="u.date"/>
-                                    <span t-field="u.user"/> :
+                                    <span t-field="u.user" /> :
                                     <span t-field="u.name" />
                                 </div>
                             </t>
                             <br/>
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <h4><b><i>Introductie</i></b></h4>
+                                    <h4><b><i>Introduction</i></b></h4>
                                 </div>
                             </div>
                             <div class="row">
@@ -48,20 +46,20 @@
                                 </div>
                             </div>
                             <t t-foreach="o.use_case_ids" t-as="ui">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-bordered table-striped" style="page-break-inside:avoid">
                                     <col width="25%" />
                                     <col width="75%" />
                                     <tr>
                                         <th>Use Case</th>
                                         <th>
-                                            <span t-field="ui.number" /> .
+                                            <span t-field="ui.number" />.
                                             <span t-field="ui.name" />
                                         </th>
                                     </tr>
                                     <tr>
                                         <td>Actor</td>
                                         <td>
-                                            <span t-field="ui.actor_ids" />
+                                            <span t-esc="', '.join(ui.actor_ids.mapped('name'))" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -82,7 +80,7 @@
                                             <span t-field="ui.exceptions" />
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr t-if="trp_use_case_internal_report">
                                         <td>Implementation</td>
                                         <td>
                                             <span t-field="ui.implementation" />
@@ -91,19 +89,45 @@
                                     <tr>
                                         <td>Workload</td>
                                         <td>
-                                            <span />
+                                            <t t-foreach="ui.workload_ids" t-as="wl">
+                                                <t t-if="wl.optional">
+                                                    (Optional)
+                                                </t>
+                                                <span t-field="wl.name" />:
+                                                <span t-field="wl.hours" /> hours <br/>
+                                            </t>
                                         </td>
                                     </tr>
                                 </table>
                             </t>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    Total number of hours:
+                                    <span t-field="o.hours_total" />
+                                    <t t-if="o.hours_total_optional">
+                                        of which
+                                        <span t-field="o.hours_total_optional" />
+                                        optional
+                                    </t>
+                                </div>
+                            </div>
                         </div>
                     </t>
                 </t>
-            </t>
         </template>
 
+     <template id="qweb_report_ucc_document">
+        <t t-set="trp_use_case_internal_report" t-value="True"/>     
+        <t t-call="report.html_container">
+            <t t-foreach="doc_ids" t-as="doc_id">
+                <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'trp_use_case.qweb_report_ucc')"/>
+            </t>
+        </t>
+    </template>
 
-    <template id="qweb_report_ucc_document">
+
+    <template id="qweb_report_ucc_document2">
+        <t t-set="trp_use_case_internal_report" t-value="False"/>
         <t t-call="report.html_container">
             <t t-foreach="doc_ids" t-as="doc_id">
                 <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'trp_use_case.qweb_report_ucc')"/>
