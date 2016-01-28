@@ -149,7 +149,7 @@ class use_case_collection(models.Model):
                  ('done', 'Done'),
                  ], string="Status", help="Collection Status", default="draft", required = True)
 
-    @api.one
+    @api.multi
     def draft_statusbar(self):
         self.write({
             'state': 'draft'
