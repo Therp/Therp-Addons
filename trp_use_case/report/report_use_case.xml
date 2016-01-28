@@ -6,9 +6,19 @@
 	    model="use_case.collection"
 	    string="Use case qweb (int)"
 	    report_type="qweb-pdf"
-	    name="trp_use_case.qweb_report_ucc_document"
+        name="trp_use_case.qweb_report_ucc_document_int"
+        groups="base.group_user"
 	    attachment_use="False"
-	    file="trp_use_case.qweb_report_ucc_document"
+	    file="trp_use_case.qweb_report_ucc_document_int"
+        />
+	<report
+	    id="qweb_report_use_cases_ext"
+	    model="use_case.collection"
+	    string="Use case qweb (ext)"
+	    report_type="qweb-pdf"
+        name="trp_use_case.qweb_report_ucc_document_ext"
+	    attachment_use="False"
+	    file="trp_use_case.qweb_report_ucc_document_ext"
 	 />
     </data>
 </openerp>

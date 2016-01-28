@@ -5,89 +5,79 @@
                 <t t-foreach="docs" t-as="o">
                     <t t-call="report.layout">
                         <div class="page">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <h2><b><span t-field="o.name" />,</b></h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    For <span t-field="o.partner_id.name" />
-                                </div>
-                            </div>
+                            <h2>
+                                <b>
+                                    <span t-field="o.name" />,
+                                </b>
+                            </h2>
+                            For <span t-field="o.partner_id.name" />
                             <br/>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <h4><b><i>Revisions</i></b></h4>
-                                </div>
-                            </div>
-                            <t t-foreach="o.version_tag_ids" t-as="u">
-                                <div class="col-xs-12">
+                            <t t-if="o.version_tag_ids">
+                                <h4>
+                                    <b>
+                                        <i>Revisions</i>
+                                    </b>
+                                </h4>
+                                <t t-foreach="o.version_tag_ids" t-as="u">
                                     <span t-field="u.date"/>
                                     <span t-field="u.user" /> :
-                                    <span t-field="u.name" />
-                                </div>
+                                    <span t-field="u.name" /> <br/>
+                                </t>
                             </t>
                             <br/>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <h4><b><i>Introduction</i></b></h4>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <span t-field="o.description" />
-                                </div>
-                            </div>
+                            <h4>
+                                <b>
+                                    <i>Introduction</i>
+                                </b>
+                            </h4>
+                            <span t-field="o.description" />
                             <br/>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <h4><b><i>Use-cases</i></b></h4>
-                                </div>
-                            </div>
+                            <h4>
+                                <b>
+                                    <i>Use-cases</i>
+                                </b>
+                            </h4>
                             <t t-foreach="o.use_case_ids" t-as="ui">
                                 <table class="table table-bordered table-striped" style="page-break-inside:avoid">
-                                    <col width="25%" />
-                                    <col width="75%" />
                                     <tr>
-                                        <th>Use Case</th>
+                                        <th class="col-md-4">Use Case</th>
                                         <th>
                                             <span t-field="ui.number" />.
                                             <span t-field="ui.name" />
                                         </th>
                                     </tr>
                                     <tr>
-                                        <td>Actor</td>
+                                        <th class="col-md-4">Actor</th>
                                         <td>
                                             <span t-esc="', '.join(ui.actor_ids.mapped('name'))" />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Precondition</td>
+                                        <th class="col-md-4">Precondition</th>
                                         <td>
                                             <span t-field="ui.precondition" />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Result</td>
+                                        <th class="col-md-4">Result</th>
                                         <td>
                                             <span t-field="ui.result" />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Exception</td>
+                                        <th class="col-md-4">Exception</th>
                                         <td>
                                             <span t-field="ui.exceptions" />
                                         </td>
                                     </tr>
                                     <tr t-if="trp_use_case_internal_report">
-                                        <td>Implementation</td>
+                                        <th class="col-md-4">Implementation</th>
                                         <td>
                                             <span t-field="ui.implementation" />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Workload</td>
+                                        <th class="col-md-4">Workload</th>
                                         <td>
                                             <t t-foreach="ui.workload_ids" t-as="wl">
                                                 <t t-if="wl.optional">
@@ -100,23 +90,19 @@
                                     </tr>
                                 </table>
                             </t>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    Total number of hours:
-                                    <span t-field="o.hours_total" />
-                                    <t t-if="o.hours_total_optional">
-                                        of which
-                                        <span t-field="o.hours_total_optional" />
-                                        optional
-                                    </t>
-                                </div>
-                            </div>
+                            Total number of hours:
+                            <span t-field="o.hours_total" />
+                            <t t-if="o.hours_total_optional">
+                                of which
+                                <span t-field="o.hours_total_optional" />
+                                optional
+                            </t>
                         </div>
                     </t>
                 </t>
         </template>
 
-     <template id="qweb_report_ucc_document">
+     <template id="qweb_report_ucc_document_int">
         <t t-set="trp_use_case_internal_report" t-value="True"/>     
         <t t-call="report.html_container">
             <t t-foreach="doc_ids" t-as="doc_id">
@@ -125,8 +111,7 @@
         </t>
     </template>
 
-
-    <template id="qweb_report_ucc_document2">
+    <template id="qweb_report_ucc_document_ext">
         <t t-set="trp_use_case_internal_report" t-value="False"/>
         <t t-call="report.html_container">
             <t t-foreach="doc_ids" t-as="doc_id">

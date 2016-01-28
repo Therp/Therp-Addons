@@ -21,7 +21,7 @@
 {
     "name": "Use case development",
     "version": "1.0r46",
-    "author": "Therp BV - Ewout Boelsums november 2015",
+    "author": "Therp BV",
     "category": 'Base',
     'complexity': "normal",
     "description": """
