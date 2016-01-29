@@ -76,7 +76,7 @@
                                             <span t-field="ui.implementation" />
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr t-if="ui.workload_ids">
                                         <th class="col-md-4">Workload</th>
                                         <td>
                                             <t t-foreach="ui.workload_ids" t-as="wl">
