@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="qweb_report_ucc">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.layout">
+                        <div class="page">
+                            <h2>
+                                <b>
+                                    <span t-field="o.name" />,
+                                </b>
+                            </h2>
+                            For <span t-field="o.partner_id.name" />
+                            <br/>
+                            <t t-if="o.version_tag_ids">
+                                <h4>
+                                    <b>
+                                        <i>Revisions</i>
+                                    </b>
+                                </h4>
+                                <t t-foreach="o.version_tag_ids" t-as="u">
+                                    <span t-field="u.date"/>
+                                    <span t-field="u.user" /> :
+                                    <span t-field="u.name" /> <br/>
+                                </t>
+                            </t>
+                            <br/>
+                            <h4>
+                                <b>
+                                    <i>Introduction</i>
+                                </b>
+                            </h4>
+                            <span t-field="o.description" />
+                            <br/>
+                            <h4>
+                                <b>
+                                    <i>Use-cases</i>
+                                </b>
+                            </h4>
+                            <t t-foreach="o.use_case_ids" t-as="ui">
+                                <table class="table table-bordered table-striped" style="page-break-inside:avoid">
+                                    <tr>
+                                        <th class="col-md-4">Use Case</th>
+                                        <th>
+                                            <span t-field="ui.number" />.
+                                            <span t-field="ui.name" />
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-md-4">Actor</th>
+                                        <td>
+                                            <span t-esc="', '.join(ui.actor_ids.mapped('name'))" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-md-4">Precondition</th>
+                                        <td>
+                                            <span t-field="ui.precondition" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-md-4">Result</th>
+                                        <td>
+                                            <span t-field="ui.result" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-md-4">Exception</th>
+                                        <td>
+                                            <span t-field="ui.exceptions" />
+                                        </td>
+                                    </tr>
+                                    <tr t-if="trp_use_case_internal_report">
+                                        <th class="col-md-4">Implementation</th>
+                                        <td>
+                                            <span t-field="ui.implementation" />
+                                        </td>
+                                    </tr>
+                                    <tr t-if="ui.workload_ids">
+                                        <th class="col-md-4">Workload</th>
+                                        <td>
+                                            <t t-foreach="ui.workload_ids" t-as="wl">
+                                                <t t-if="wl.optional">
+                                                    (Optional)
+                                                </t>
+                                                <span t-field="wl.name" />:
+                                                <span t-field="wl.hours" /> hours <br/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </t>
+                            Total number of hours:
+                            <span t-field="o.hours_total" />
+                            <t t-if="o.hours_total_optional">
+                                of which
+                                <span t-field="o.hours_total_optional" />
+                                optional
+                            </t>
+                        </div>
+                    </t>
+                </t>
+        </template>
+
+     <template id="qweb_report_ucc_document_int">
+        <t t-set="trp_use_case_internal_report" t-value="True"/>     
+        <t t-call="report.html_container">
+            <t t-foreach="doc_ids" t-as="doc_id">
+                <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'trp_use_case.qweb_report_ucc')"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="qweb_report_ucc_document_ext">
+        <t t-set="trp_use_case_internal_report" t-value="False"/>
+        <t t-call="report.html_container">
+            <t t-foreach="doc_ids" t-as="doc_id">
+                <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'trp_use_case.qweb_report_ucc')"/>
+            </t>
+        </t>
+    </template>
+
+  </data>
+</openerp>

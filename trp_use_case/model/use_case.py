@@ -143,6 +143,30 @@ class use_case_collection(models.Model):
     _name = 'use_case.collection'
     _description = 'Set of use cases'
 
+    state = fields.Selection([
+                 ('draft', 'Draft'),
+                 ('open', 'Open'),
+                 ('done', 'Done'),
+                 ], string="Status", help="Collection Status", default="draft", required = True)
+
+    @api.multi
+    def draft_statusbar(self):
+        self.write({
+            'state': 'draft'
+        })
+
+    @api.one
+    def open_statusbar(self):
+        self.write({
+            'state': 'open'
+        })
+
+    @api.one
+    def done_statusbar(self):
+        self.write({
+            'state': 'done'
+        })
+
     @api.depends(
         'use_case_ids.active', 'use_case_ids.workload_ids.hours',
         'use_case_ids.workload_ids.optional')
