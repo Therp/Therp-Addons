@@ -7,9 +7,9 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button string="Set to draft" type="object" name="draft_statusbar" groups="base.group_user" attrs="{'invisible': [('state', '=', 'draft')]}"/>
                         <button string="Set to open" type="object" name="open_statusbar" class="oe_highlight" groups="base.group_user" attrs="{'invisible': [('state', '=', 'open')]}"/>
-                        <button string="Set to done" type="object" name="done_statusbar" groups="base.group_user" attrs="{'invisible': [('state', '=', 'done')]}"/>
+                        <button string="Set to done" type="object" name="done_statusbar" class="oe_highlight" groups="base.group_user" attrs="{'invisible': [('state', '=', 'done')]}"/>
+                        <button string="Set to draft" type="object" name="draft_statusbar" groups="base.group_user" attrs="{'invisible': [('state', '=', 'draft')]}"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
