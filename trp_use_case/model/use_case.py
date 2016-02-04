@@ -51,6 +51,7 @@ class use_case(models.Model):
     _name = 'use_case'
     _description = 'Use Case'
     _order = 'collection_id, sequence'
+    _inherit = 'mail.thread'
 
     @api.depends('workload_ids.hours', 'workload_ids.optional')
     def _get_use_case_hours(self):
@@ -142,6 +143,7 @@ class use_case_workload(models.Model):
 class use_case_collection(models.Model):
     _name = 'use_case.collection'
     _description = 'Set of use cases'
+    _inherit = 'mail.thread'
 
     state = fields.Selection([
                  ('draft', 'Draft'),
@@ -175,11 +177,13 @@ class use_case_collection(models.Model):
             values = {
                 'hours_total': 0.0,
                 'hours_total_optional': 0.0,
+                'tot_use_cases': 0
                 }
             for use_case in collection.use_case_ids:
                 if use_case.active:
                     values['hours_total'] += use_case.hours
                     values['hours_total_optional'] += use_case.hours_optional
+                    values['tot_use_cases'] += 1
             values['hours_total_nonoptional'] = (
                 values['hours_total'] - values['hours_total_optional'])
             # TODO: why doesn't this work?
@@ -188,6 +192,7 @@ class use_case_collection(models.Model):
             collection.hours_total_optional = values['hours_total_optional']
             collection.hours_total_nonoptional = \
                 values['hours_total_nonoptional']
+            collection.tot_use_cases = values['tot_use_cases']
 
     name = fields.Char('Name', required=True)
     description = fields.Text('Description')
@@ -205,3 +210,6 @@ class use_case_collection(models.Model):
         compute=_get_hours_total, string="Total nr. of optional hours")
     hours_total_nonoptional = fields.Float(
         compute=_get_hours_total, string="Total nr. of non optional hours")
+    tot_use_cases = fields.Integer(
+        compute=_get_hours_total, string="tot_use_cases")
+
