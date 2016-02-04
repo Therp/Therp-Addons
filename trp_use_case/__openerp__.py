@@ -32,6 +32,7 @@ report which is included in this module.
     'images': [],
     'depends': [
         'base',
+        'mail',
         'project',
         'trp_external_user',
     ],
