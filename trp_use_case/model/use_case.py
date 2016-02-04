@@ -196,7 +196,11 @@ class use_case_collection(models.Model):
 
     name = fields.Char('Name', required=True)
     description = fields.Text('Description')
-    partner_id = fields.Many2one('res.partner', 'Partner')
+    partner_id = fields.Many2one(
+        'res.partner', 'Partner',
+        default=lambda env: env['res_users.external_user_partner_ids[0]'],
+        required=lambda env:
+        env['res.users'].has_group('trp_use_case.group_external_use_case'))
     use_case_ids = fields.One2many(
         'use_case', 'collection_id', string='Use cases', required=True,
         context={'active_test': False})
@@ -212,4 +216,3 @@ class use_case_collection(models.Model):
         compute=_get_hours_total, string="Total nr. of non optional hours")
     tot_use_cases = fields.Integer(
         compute=_get_hours_total, string="tot_use_cases")
-
