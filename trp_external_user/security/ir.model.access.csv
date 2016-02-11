@@ -1,3 +1,4 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 "external_access_partner","Read access on partners for external users","base.model_res_partner","trp_external_user.group_external_user",1,0,0,0
 "external_access_mail_message","Read/create access on mail messages for external users","mail.model_mail_message","trp_external_user.group_external_user",1,0,1,0
+"external_access_notification","Read/create access on notifications for external users","mail.model_mail_notification","trp_external_user.group_external_user",1,0,1,0
