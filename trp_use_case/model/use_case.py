@@ -59,18 +59,18 @@ class use_case(models.Model):
             values = {
                 'hours': 0.0,
                 'hours_optional': 0.0,
-                }
+            }
             for workload in use_case.workload_ids:
                 values['hours'] += workload.hours
                 if workload.optional:
                     values['hours_optional'] += workload.hours
-            values['hours_nonoptional'] = (
-                values['hours'] - values['hours_optional'])
-            # TODO: why doesn't this work?
-            # use_case.write(values)
-            use_case.hours = values['hours']
-            use_case.hours_optional = values['hours_optional']
-            use_case.hours_nonoptional = values['hours_nonoptional']
+                    values['hours_nonoptional'] = (
+                        values['hours'] - values['hours_optional'])
+                    # TODO: why doesn't this work?
+                    # use_case.write(values)
+                    use_case.hours = values['hours']
+                    use_case.hours_optional = values['hours_optional']
+                    use_case.hours_nonoptional = values['hours_nonoptional']
 
     @api.depends(
         'collection_id.use_case_ids', 'collection_id.use_case_ids.sequence',
@@ -82,15 +82,15 @@ class use_case(models.Model):
         """
         self.env.cr.execute(
             """SELECT
-                id,
-                (
-                    SELECT COUNT(*)
-                    FROM use_case
-                    WHERE
-                        collection_id = uc.collection_id
-                        AND active = true
-                        AND sequence <= uc.sequence
-                )
+            id,
+            (
+            SELECT COUNT(*)
+            FROM use_case
+            WHERE
+            collection_id = uc.collection_id
+            AND active = true
+            AND sequence <= uc.sequence
+        )
             FROM use_case AS uc
             WHERE
             id in %s
@@ -146,10 +146,10 @@ class use_case_collection(models.Model):
     _inherit = 'mail.thread'
 
     state = fields.Selection([
-                 ('draft', 'Draft'),
-                 ('open', 'Open'),
-                 ('done', 'Done'),
-                 ], string="Status", help="Collection Status", default="draft", required = True)
+        ('draft', 'Draft'),
+        ('open', 'Open'),
+        ('done', 'Done'),
+    ], string="Status", help="Collection Status", default="draft", required = True)
 
     @api.multi
     def draft_statusbar(self):
@@ -178,29 +178,30 @@ class use_case_collection(models.Model):
                 'hours_total': 0.0,
                 'hours_total_optional': 0.0,
                 'tot_use_cases': 0
-                }
+            }
             for use_case in collection.use_case_ids:
                 if use_case.active:
                     values['hours_total'] += use_case.hours
                     values['hours_total_optional'] += use_case.hours_optional
                     values['tot_use_cases'] += 1
-            values['hours_total_nonoptional'] = (
-                values['hours_total'] - values['hours_total_optional'])
-            # TODO: why doesn't this work?
-            # collection.write(values)
-            collection.hours_total = values['hours_total']
-            collection.hours_total_optional = values['hours_total_optional']
-            collection.hours_total_nonoptional = \
-                values['hours_total_nonoptional']
-            collection.tot_use_cases = values['tot_use_cases']
+                    values['hours_total_nonoptional'] = (
+                        values['hours_total'] - values['hours_total_optional'])
+                    # TODO: why doesn't this work?
+                    # collection.write(values)
+                    collection.hours_total = values['hours_total']
+                    collection.hours_total_optional = values['hours_total_optional']
+                    collection.hours_total_nonoptional = \
+                            values['hours_total_nonoptional']
+                    collection.tot_use_cases = values['tot_use_cases']
 
     name = fields.Char('Name', required=True)
     description = fields.Text('Description')
     partner_id = fields.Many2one(
         'res.partner', 'Partner',
-        default=lambda env: env['res_users.external_user_partner_ids[0]'],
+        default=lambda self: self.env.user.external_user_partner_ids[:1].id,
         required=lambda env:
-        env['res.users'].has_group('trp_use_case.group_external_use_case'))
+        env['res.users'].has_group('trp_use_case.group_external_use_case'),
+    )
     use_case_ids = fields.One2many(
         'use_case', 'collection_id', string='Use cases', required=True,
         context={'active_test': False})
