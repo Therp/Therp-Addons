@@ -87,15 +87,15 @@ class use_case(models.Model):
             SELECT COUNT(*)
             FROM use_case
             WHERE
-            collection_id = uc.collection_id
-            AND active = true
-            AND sequence <= uc.sequence
+                collection_id = uc.collection_id
+                AND active = true
+                AND sequence <= uc.sequence
         )
             FROM use_case AS uc
             WHERE
-            id in %s
-            AND active = true
-            ORDER BY collection_id, sequence
+                id in %s
+                AND active = true
+                ORDER BY collection_id, sequence
             """, (tuple(self.ids),))
         id2number = dict(self.env.cr.fetchall())
         for use_case in self:
