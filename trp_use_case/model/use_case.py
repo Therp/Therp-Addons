@@ -186,13 +186,7 @@ class use_case_collection(models.Model):
                     values['tot_use_cases'] += 1
                     values['hours_total_nonoptional'] = (
                         values['hours_total'] - values['hours_total_optional'])
-                    # TODO: why doesn't this work?
-                    # collection.write(values)
-                    collection.hours_total = values['hours_total']
-                    collection.hours_total_optional = values['hours_total_optional']
-                    collection.hours_total_nonoptional = \
-                            values['hours_total_nonoptional']
-                    collection.tot_use_cases = values['tot_use_cases']
+            collection.update(values)
 
     name = fields.Char('Name', required=True)
     description = fields.Text('Description')
