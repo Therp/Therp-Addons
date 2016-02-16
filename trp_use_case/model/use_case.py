@@ -210,4 +210,4 @@ class use_case_collection(models.Model):
     hours_total_nonoptional = fields.Float(
         compute=_get_hours_total, string="Total nr. of non optional hours")
     tot_use_cases = fields.Integer(
-        compute=_get_hours_total, string="tot_use_cases")
+        compute=_get_hours_total, string="Total nr. of use cases")
