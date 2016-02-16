@@ -20,8 +20,7 @@
                             </div>
                             <div name="buttons" class="oe_right oe_button_box">
                                 <button class="oe_stat_button" type="action" icon="fa-tasks"
-                                    name="%(trp_use_case.action_use_case_collection_open_use_cases)d"
-                                    string="" >
+                                    name="%(trp_use_case.action_use_case_collection_open_use_cases)d">
                                     <field string="Use cases" name="tot_use_cases" widget="statinfo"/>
                                 </button>
                             </div>
