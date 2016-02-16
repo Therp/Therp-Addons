@@ -51,6 +51,7 @@ class use_case(models.Model):
     _name = 'use_case'
     _description = 'Use Case'
     _order = 'collection_id, sequence'
+    _inherit = 'mail.thread'
 
     @api.depends('workload_ids.hours', 'workload_ids.optional')
     def _get_use_case_hours(self):
@@ -58,18 +59,18 @@ class use_case(models.Model):
             values = {
                 'hours': 0.0,
                 'hours_optional': 0.0,
-                }
+            }
             for workload in use_case.workload_ids:
                 values['hours'] += workload.hours
                 if workload.optional:
                     values['hours_optional'] += workload.hours
-            values['hours_nonoptional'] = (
-                values['hours'] - values['hours_optional'])
-            # TODO: why doesn't this work?
-            # use_case.write(values)
-            use_case.hours = values['hours']
-            use_case.hours_optional = values['hours_optional']
-            use_case.hours_nonoptional = values['hours_nonoptional']
+                    values['hours_nonoptional'] = (
+                        values['hours'] - values['hours_optional'])
+                    # TODO: why doesn't this work?
+                    # use_case.write(values)
+                    use_case.hours = values['hours']
+                    use_case.hours_optional = values['hours_optional']
+                    use_case.hours_nonoptional = values['hours_nonoptional']
 
     @api.depends(
         'collection_id.use_case_ids', 'collection_id.use_case_ids.sequence',
@@ -81,20 +82,20 @@ class use_case(models.Model):
         """
         self.env.cr.execute(
             """SELECT
-                id,
-                (
-                    SELECT COUNT(*)
-                    FROM use_case
-                    WHERE
-                        collection_id = uc.collection_id
-                        AND active = true
-                        AND sequence <= uc.sequence
-                )
+            id,
+            (
+            SELECT COUNT(*)
+            FROM use_case
+            WHERE
+                collection_id = uc.collection_id
+                AND active = true
+                AND sequence <= uc.sequence
+        )
             FROM use_case AS uc
             WHERE
-            id in %s
-            AND active = true
-            ORDER BY collection_id, sequence
+                id in %s
+                AND active = true
+                ORDER BY collection_id, sequence
             """, (tuple(self.ids),))
         id2number = dict(self.env.cr.fetchall())
         for use_case in self:
@@ -142,12 +143,13 @@ class use_case_workload(models.Model):
 class use_case_collection(models.Model):
     _name = 'use_case.collection'
     _description = 'Set of use cases'
+    _inherit = 'mail.thread'
 
     state = fields.Selection([
-                 ('draft', 'Draft'),
-                 ('open', 'Open'),
-                 ('done', 'Done'),
-                 ], string="Status", help="Collection Status", default="draft", required = True)
+        ('draft', 'Draft'),
+        ('open', 'Open'),
+        ('done', 'Done'),
+    ], string="Status", help="Collection Status", default="draft", required = True)
 
     @api.multi
     def draft_statusbar(self):
@@ -175,23 +177,25 @@ class use_case_collection(models.Model):
             values = {
                 'hours_total': 0.0,
                 'hours_total_optional': 0.0,
-                }
+                'tot_use_cases': 0
+            }
             for use_case in collection.use_case_ids:
                 if use_case.active:
                     values['hours_total'] += use_case.hours
                     values['hours_total_optional'] += use_case.hours_optional
-            values['hours_total_nonoptional'] = (
-                values['hours_total'] - values['hours_total_optional'])
-            # TODO: why doesn't this work?
-            # collection.write(values)
-            collection.hours_total = values['hours_total']
-            collection.hours_total_optional = values['hours_total_optional']
-            collection.hours_total_nonoptional = \
-                values['hours_total_nonoptional']
+                    values['tot_use_cases'] += 1
+                    values['hours_total_nonoptional'] = (
+                        values['hours_total'] - values['hours_total_optional'])
+            collection.update(values)
 
     name = fields.Char('Name', required=True)
     description = fields.Text('Description')
-    partner_id = fields.Many2one('res.partner', 'Partner')
+    partner_id = fields.Many2one(
+        'res.partner', 'Partner',
+        default=lambda self: self.env.user.external_user_partner_ids[:1].id,
+        required=lambda env:
+        env['res.users'].has_group('trp_use_case.group_external_use_case'),
+    )
     use_case_ids = fields.One2many(
         'use_case', 'collection_id', string='Use cases', required=True,
         context={'active_test': False})
@@ -205,3 +209,5 @@ class use_case_collection(models.Model):
         compute=_get_hours_total, string="Total nr. of optional hours")
     hours_total_nonoptional = fields.Float(
         compute=_get_hours_total, string="Total nr. of non optional hours")
+    tot_use_cases = fields.Integer(
+        compute=_get_hours_total, string="Total nr. of use cases")

@@ -7,7 +7,8 @@
             <field name="model_id" ref="trp_use_case.model_use_case_collection"/>
             <field name="groups" eval="[(4, ref('trp_use_case.group_external_use_case'))]"/>
             <field name="domain_force">[
-                ('partner_id', 'in', [x.id for x in user.external_user_partner_ids])]</field>
+                '|', ('partner_id', 'in',  user.external_user_partner_ids.ids),
+                ('message_follower_ids', 'in', [x.id for x in user.external_user_partner_ids])]</field>
         </record>
 
         <record model="ir.rule" id="rule_external_workload">
@@ -31,7 +32,8 @@
             <field name="model_id" ref="trp_use_case.model_use_case"/>
             <field name="groups" eval="[(4, ref('trp_use_case.group_external_use_case'))]"/>
             <field name="domain_force">[
-                ('collection_id.partner_id', 'in', [x.id for x in user.external_user_partner_ids])]</field>
+                '|', ('collection_id.partner_id', 'in', user.external_user_partner_ids.ids),
+                ('message_follower_ids', 'in', [x.id for x in user.external_user_partner_ids])]</field>
         </record>
 
     </data>
