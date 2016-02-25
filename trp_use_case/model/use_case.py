@@ -192,7 +192,7 @@ class use_case_collection(models.Model):
     description = fields.Text('Description')
     partner_id = fields.Many2one(
         'res.partner', 'Partner',
-        default=lambda self: self.env.user.external_user_partner_ids[:1].id,
+        default=lambda self: self.env.user.external_user_partner_ids[:1],
         required=lambda env:
         env['res.users'].has_group('trp_use_case.group_external_use_case'),
     )
