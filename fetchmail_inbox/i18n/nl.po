@@ -17,6 +17,12 @@ msgstr ""
 
 #. module: fetchmail_inbox
 #: view:fetchmail.inbox.attach.existing.wizard:0
+#: view:fetchmail.inbox.create.wizard:0
+msgid "or"
+msgstr "of"
+
+#. module: fetchmail_inbox
+#: view:fetchmail.inbox.attach.existing.wizard:0
 msgid "Attach email to existing object"
 msgstr "Attach email to existing object"
 
