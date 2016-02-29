@@ -20,9 +20,8 @@
         </record>
         <record id="tree_mail_message_fetchmail_inbox" model="ir.ui.view">
             <field name="model">mail.message</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
-                <tree string="Fetchmail inbox" create="false">
+                <tree create="false">
                     <field name="date" />
                     <field name="subject" />
                     <field name="email_from" />
