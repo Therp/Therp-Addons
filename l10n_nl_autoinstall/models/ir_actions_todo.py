@@ -20,10 +20,18 @@
 ##############################################################################
 from datetime import date
 from openerp.osv.orm import Model
+from openerp import api
 
 
 class IrActionsTodo(Model):
     _inherit = 'ir.actions.todo'
+
+    @api.model
+    def install_dutch_language(self):
+        if not self.env['res.lang'].search([('code', '=', 'nl_NL')]):
+            self.env['base.language.install'].create({
+                'lang': 'nl_NL',
+            }).lang_install()
 
     def configure_accounting(self, cr, uid, context=None):
         ir_model_data = self.pool['ir.model.data']
