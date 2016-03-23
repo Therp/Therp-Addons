@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-    <data>
+    <data noupdate="1">
         <record id="support_branding.config_parameter_company_name" model="ir.config_parameter">
             <field name="value">Therp BV</field>
         </record>
