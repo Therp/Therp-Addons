@@ -9,18 +9,25 @@ class AccountInvoice(models.Model):
     # pylint: disable=too-many-public-methods
     _inherit = 'account.invoice'
 
-    @api.onchange('partner_id')
-    def onchange_partner_id_api(self):
+    @api.multi
+    def onchange_partner_id(self, type, partner_id, date_invoice=False,
+            payment_term=False, partner_bank_id=False, company_id=False):
         """When partner changes, branding company changes."""
         # pylint: disable=no-member
-        if self.partner_id:
+        res = super(AccountInvoice, self).onchange_partner_id(
+            type, partner_id, date_invoice=date_invoice,
+            payment_term=payment_term, partner_bank_id=partner_bank_id,
+            company_id=company_id
+        )
+        if partner_id:
             branding_model = self.env['branding.company']
             branding = (
                 branding_model.get_default_branding(
-                    self.partner_id, self.env.uid)
+                    partner_id, self.env.uid)
             )
             if branding:
-                self.branding_id = branding.id
+                res['value']['branding_id'] = branding.id
+        return res
 
     def _get_user_branding(self):
         """Default branding dependent on active user."""
