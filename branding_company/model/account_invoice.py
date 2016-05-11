@@ -1,41 +1,24 @@
 # -*- coding: utf-8 -*-
-"""Extend account.invoice with branding_id."""
-##############################################################################
-#
-#    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp import api, models, fields
+# © 2014-2015 Therp BV (http://therp.nl).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from openerp import api, fields, models
 
 
 class AccountInvoice(models.Model):
     """Extend account.invoice with branding_id."""
+    # pylint: disable=too-many-public-methods
     _inherit = 'account.invoice'
 
     @api.multi
-    def onchange_partner_id(self, partner_id):
-        """When partner changes, branding company changes.
-
-        Would be nice if existing branding_id could be safe
-        from change, but already existing onchange method only passes
-        partner-id.
-
-        Decorater @api.onchange did not work.
-        """
-        result = super(AccountInvoice, self).onchange_partner_id(partner_id)
+    def onchange_partner_id(self, type, partner_id, date_invoice=False,
+            payment_term=False, partner_bank_id=False, company_id=False):
+        """When partner changes, branding company changes."""
+        # pylint: disable=no-member
+        res = super(AccountInvoice, self).onchange_partner_id(
+            type, partner_id, date_invoice=date_invoice,
+            payment_term=payment_term, partner_bank_id=partner_bank_id,
+            company_id=company_id
+        )
         if partner_id:
             branding_model = self.env['branding.company']
             branding = (
@@ -43,10 +26,8 @@ class AccountInvoice(models.Model):
                     partner_id, self.env.uid)
             )
             if branding:
-                vals = result.get('value', {})
-                vals['branding_id'] = branding.id
-                result['value'] = vals
-        return result
+                res['value']['branding_id'] = branding.id
+        return res
 
     def _get_user_branding(self):
         """Default branding dependent on active user."""

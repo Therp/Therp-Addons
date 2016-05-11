@@ -31,7 +31,12 @@
                     </div>
                     <group colspan="4" col="2">
                         <field name="email" />
+                        <field name="phone" />
                         <field name="website" />
+                        <field
+                            name="bank_id"
+                            options="{'no_create': True, 'no_open': True}"
+                            />
                         <field name="rml_footer" />
                     </group>
                 </sheet>

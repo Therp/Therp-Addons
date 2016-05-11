@@ -1,24 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Extend wizard model that creates invoices from sale-order."""
-##############################################################################
-#
-#    Copyright (C) 2014-2015 Therp BV <http://therp.nl>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp import models
+# © 2014-2015 Therp BV (http://therp.nl).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from openerp import api, models
 
 
 class SaleOrderInvoiceWizard(models.Model):
@@ -28,23 +11,20 @@ class SaleOrderInvoiceWizard(models.Model):
     """
     _inherit = "sale.advance.payment.inv"
 
-    def create_invoices(self, cr, uid, ids, context=None):
+    @api.multi
+    def create_invoices(self):
         """Add branding_id to new invoices created."""
-        res = super(SaleOrderInvoiceWizard, self).create_invoices(
-            cr, uid, ids, context=context)
-        sale_ids = context.get('active_ids', [])
-        if sale_ids:
-            # Go through all active sale-orders.
-            sale_model = self.pool['sale.order']
-            for sale_obj in sale_model.browse(
-                    cr, uid, sale_ids, context=context):
-                if sale_obj.branding_id:
-                    for invoice_obj in sale_obj.invoice_ids:
-                        # Fill branding_id in invoices that don't
-                        # have one yet.
-                        if not invoice_obj.branding_id:
-                            invoice_obj.write(
-                                {'branding_id': sale_obj.branding_id.id},
-                                context=context
-                            )
+        res = super(SaleOrderInvoiceWizard, self).create_invoices()
+        sale_ids = self.env.context.get('active_ids', [])
+        if not sale_ids:
+            return
+        # Go through all active sale-orders.
+        for sale_obj in self.env['sale.order'].browse(sale_ids):
+            if sale_obj.branding_id:
+                for invoice_obj in sale_obj.invoice_ids:
+                    # Fill branding_id in invoices that don't have one yet.
+                    if not invoice_obj.branding_id:
+                        invoice_obj.write(
+                            {'branding_id': sale_obj.branding_id.id},
+                        )
         return res
