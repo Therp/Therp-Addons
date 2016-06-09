@@ -59,6 +59,7 @@ class use_case(models.Model):
             values = {
                 'hours': 0.0,
                 'hours_optional': 0.0,
+                'hours_nonoptional': 0.0,
             }
             for workload in use_case.workload_ids:
                 values['hours'] += workload.hours
@@ -66,11 +67,11 @@ class use_case(models.Model):
                     values['hours_optional'] += workload.hours
                     values['hours_nonoptional'] = (
                         values['hours'] - values['hours_optional'])
-                    # TODO: why doesn't this work?
-                    # use_case.write(values)
-                    use_case.hours = values['hours']
-                    use_case.hours_optional = values['hours_optional']
-                    use_case.hours_nonoptional = values['hours_nonoptional']
+            # TODO: why doesn't this work?
+            # use_case.write(values)
+            use_case.hours = values['hours']
+            use_case.hours_optional = values['hours_optional']
+            use_case.hours_nonoptional = values['hours_nonoptional']
 
     @api.depends(
         'collection_id.use_case_ids', 'collection_id.use_case_ids.sequence',
