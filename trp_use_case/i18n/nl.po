@@ -182,7 +182,7 @@ msgstr "Open"
 #. module: trp_use_case
 #: field:use_case.workload,optional:0
 msgid "Optional"
-msgstr "Optioneell"
+msgstr "Optioneel"
 
 #. module: trp_use_case
 #: field:use_case.collection,partner_id:0
@@ -334,3 +334,32 @@ msgstr "waarvan"
 msgid "optional"
 msgstr "optioneel"
 
+#. module: trp_use_case
+#: field:use_case.version_tag,user:0
+msgid "Editor"
+msgstr "Aangepast door"
+
+#. module: trp_use_case
+#: field:use_case.hours:0
+msgid "Nr. of hours"
+msgstr "Aantal uren"
+
+#. module: trp_use_case
+#: field:use_case.collection,hours_total:0
+msgid "Total nr. of hours"
+msgstr "Totaal aantal uren"
+
+#. module: trp_use_case
+#: field:use_case.collection,hours_total_optional:0
+msgid "Total nr. of optional hours"
+msgstr "Totaal aantal optionele uren"
+
+#. module: trp_use_case
+#: field:use_case.collection,hours_total_nonoptional:0
+msgid "Total nr. of non optional hours"
+msgstr "Totaal aantal niet optionele uren"
+
+#. module: trp_use_case
+#: field:use_case,number:0
+msgid "Number"
+msgstr "Nummer"
