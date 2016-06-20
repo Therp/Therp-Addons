@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="dead_mans_switch_client.todo_setup" model="ir.actions.todo">
+            <field name="state">done</field>
+        </record>
+    </data>
+</openerp>
