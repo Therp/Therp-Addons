@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models
+from openerp.osv import orm as models
 from email.Utils import COMMASPACE
 from openerp.addons.base.ir.ir_mail_server import extract_rfc2822_addresses
 
@@ -30,9 +30,10 @@ class IrMailServer(models.Model):
             self, cr, uid, message, mail_server_id=None, smtp_server=None,
             smtp_port=None, smtp_user=None, smtp_password=None,
             smtp_encryption=None, smtp_debug=False, context=None):
-        override_email = self.pool['ir.model.data'].xmlid_to_object(
-            cr, uid, 'override_mail_recipients.override_email_to',
-            raise_if_not_found=True, context=context).value
+        override_email = self.pool['ir.model.data'].get_object(
+            cr, uid, 'override_mail_recipients', 'override_email_to',
+            context=context
+        ).value
         if override_email:
             for field in ['to', 'cc', 'bcc']:
                 if not message[field]:
