@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="override_email_to" model="ir.config_parameter">
+            <field name="key">override_mail_recipients.override_to</field>
+            <field name="value">your test email</field>
+        </record>
+    </data>
+</openerp>
