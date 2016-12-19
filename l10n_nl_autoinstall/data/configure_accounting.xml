@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data noupdate="1">
+        <function name="configure_language" model="ir.actions.todo" />
         <function name="configure_accounting" model="ir.actions.todo" />
     </data>
 </openerp>
