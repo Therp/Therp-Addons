@@ -24,7 +24,7 @@
     "name": "Therp specific adaptations for scrum",
     "description": """
 Use with project_scrum for Odoo 8.0 from
-https://github.com/EL2DE/openerp8-addons.git
+https://github.com/vertelab/odoo-project_scrum/tree/8.0
 
 - Makes stages visible for non developers
 - Adds a field for technical details, visible for developers
