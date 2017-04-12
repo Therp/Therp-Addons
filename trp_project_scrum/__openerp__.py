@@ -35,9 +35,14 @@ https://github.com/EL2DE/openerp8-addons.git
     "version": "1.0",
     "author": "Therp BV",
     "website": 'http://therp.nl',
-    "depends": ['project_scrum'],
+    "depends": [
+        'trp_external_user',
+        'project_timesheet',
+        'project_scrum',
+    ],
     "data": [
-        "view/product_backlog.xml",
-        "data/mail_message_subtype.xml",
+        'security/res_groups.xml',
+        'security/ir_rules_collaborators_followers.xml',
+        'security/ir.model.access.csv'
         ],
 }
