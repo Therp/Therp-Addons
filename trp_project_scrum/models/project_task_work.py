@@ -40,21 +40,6 @@ class ProjectTaskWork(models.Model):
                 'general_account_id': general_account,
                 'product_uom_id': product_id.uom_id.id
             }
-            # TODO create default data for collaborator
-            # this should be done if we want separate managment of external
-            # collaborators products and journals for reporting purposes
-            """
-            res= {
-                'product_id' : self.env.ref('collaborator_default_product').id,
-                'journal_id' : self.env.ref('collaborator_default_journal').id,
-                'general_account_id' : self.env.ref(
-                    'collaborator_default_account'
-                ),
-                'product_uom_id' : self.env.ref(
-                    'collaborator_default_product'
-                ).uom_id.id,
-            }
-            """
             return res
 
         res = super(ProjectTaskWork, self).get_user_related_details(user_id)
