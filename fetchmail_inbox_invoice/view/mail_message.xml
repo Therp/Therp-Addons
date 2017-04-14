@@ -8,7 +8,6 @@
                 <sheet position="before">
                     <header attrs="{'invisible': [('model', '!=', 'fetchmail.inbox.invoice')]}">
                         <button string="Attach to existing invoice" type="object" name="fetchmail_inbox_attach_existing" class="oe_highlight" />
-                        <button string="Create invoice" type="object" name="fetchmail_inbox_create" />
                     </header>
                 </sheet>
             </field>
