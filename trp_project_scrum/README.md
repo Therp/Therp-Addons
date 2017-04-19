@@ -1,5 +1,5 @@
-trp_project_scrum
-=================
+Therp specific adaptations for scrum
+====================================
 
 
 Extra security for projects.
@@ -28,22 +28,4 @@ and read/write access to:
 - tasks assigned to him
 
 
-Option 2:
-
-The Collaborator group is based on all the members of a project , if we prefer
-to give access to all the project one is following in the same way there is
-also the collaborator_follower group.
-
-A user that belongs to collaborator_follower will have read access to:
-
-- Projects
-- Sprints
-- Stories
-- Tests
-- Meetings
-
-he is following. and read/write access to:
-
-- tasks assigned to him
-
-Both groups can read and create attachments.
+Group can read and create attachments.

@@ -19,11 +19,8 @@ class ProjectTaskWork(models.Model):
         user = self.env['res.users'].browse(
             user_id or self._uid
         )
-        emp_id = emp_obj.search(
-            [('user_id', '=', user.id)],
-            limit=1
-        )
-        if not emp_id and user.sudo().has_group(
+        emp_id = user.employee_ids
+        if not emp_id[0] and user.sudo().has_group(
                 'trp_project_scrum.collaborators_followers'):
             product_id = self.sudo().get_product_for_collaborator()
             general_account = (
