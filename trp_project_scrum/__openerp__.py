@@ -22,17 +22,8 @@
 
 {
     "name": "Therp specific adaptations for scrum",
-    "description": """
-Use with project_scrum for Odoo 8.0 from
-https://github.com/EL2DE/openerp8-addons.git
-
-- Makes stages visible for non developers
-- Adds a field for technical details, visible for developers
-- Adds some placeholders for clarification
-- Show followers on user stories
-    """,
     "category": "Therp addons",
-    "version": "1.0",
+    "version": "8.0.1.0.1",
     "author": "Therp BV",
     "website": 'http://therp.nl',
     "depends": [
