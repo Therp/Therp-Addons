@@ -19,8 +19,8 @@ class ProjectTaskWork(models.Model):
         user = self.env['res.users'].browse(
             user_id or self._uid
         )
-        emp_id = user.employee_ids
-        if not emp_id[0] and user.sudo().has_group(
+        emp_id = user.sudo().employee_ids
+        if not emp_id and user.sudo().has_group(
                 'trp_project_scrum.collaborators_followers'):
             product_id = self.sudo().get_product_for_collaborator()
             general_account = (
@@ -29,7 +29,7 @@ class ProjectTaskWork(models.Model):
             )
             if not general_account:
                 raise exceptions.Warning(_(
-                    'No account chosen for this user, and no other user to'
+                    'No account chosen for this user, and no other user to '
                     'copy account from was found, contact admin'))
             res = {
                 'product_id': product_id.id,
