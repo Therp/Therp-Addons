@@ -44,7 +44,7 @@ class ProjectTaskWork(models.Model):
 
         @api.model
         def create(self, vals):
-            user=self.env['res.users'].browse(self._uid)
+            user = self.env.user
             if not user.sudo().employee_ids:
                 res = super(ProjectTaskWork, self.with_context(
                     no_analytic_entry=True)).create(vals=vals)
