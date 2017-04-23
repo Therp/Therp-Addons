@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import api, fields, models
+from openerp import api, fields, models, tools
 
 
 class ResUsers(models.Model):
@@ -28,6 +28,10 @@ class ResUsers(models.Model):
     def _get_group(self):
         # Disable default assignment of group 'users' and 'partner manager'
         res = super(ResUsers, self)._get_group()
+        if tools.config['test_enable']:
+            # don't change groups in test mode, a lot of tests rely on those
+            # groups
+            return res
         for group in ['group_user', 'group_partner_manager']:
             group_id = self.env.ref('base.%s' % group).id
             if group_id in res:
