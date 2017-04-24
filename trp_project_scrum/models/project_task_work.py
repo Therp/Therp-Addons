@@ -38,6 +38,5 @@ class ProjectTaskWork(models.Model):
                 'product_uom_id': product_id.uom_id.id
             }
             return res
-
         res = super(ProjectTaskWork, self).get_user_related_details(user_id)
         return res
