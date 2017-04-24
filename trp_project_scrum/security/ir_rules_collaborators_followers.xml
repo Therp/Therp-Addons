@@ -96,13 +96,60 @@
             <field name="perm_read" eval="True" />
             <field name="perm_create" eval="False" />
         </record>
-    </data>
 
         <record id="test_hr_employee_foll" model="ir.rule">
             <field name="name">My employee read (if any)</field>
             <field name="model_id" ref="hr.model_hr_employee"/>
-            <field name="domain_force">[
-                ('address_id', 'in', [user.partner_id.id] )]</field>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4,ref('trp_project_scrum.collaborators_followers'))]"/>
+            <field name="perm_unlink" eval="False" />
+            <field name="perm_write" eval="False" />
+            <field name="perm_read" eval="True" />
+            <field name="perm_create" eval="False" />
+        </record>
+
+
+        <record id="test_product_foll" model="ir.rule">
+            <field name="name">the default product </field>
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="domain_force">[('id', '=', user.env['project.task.work'].get_user_related_details(user.id)['product_id'])]</field>
+            <field name="groups" eval="[(4,ref('trp_project_scrum.collaborators_followers'))]"/>
+            <field name="perm_unlink" eval="False" />
+            <field name="perm_write" eval="False" />
+            <field name="perm_read" eval="True" />
+            <field name="perm_create" eval="False" />
+        </record>
+
+        <record id="test_productuom_foll" model="ir.rule">
+            <field name="name">the default product uom</field>
+            <field name="model_id" ref="product.model_product_uom"/>
+            <field name="domain_force">[('id', '=', user.env['project.task.work'].get_user_related_details(user.id)['product_uom_id'])]</field>
+            <field name="groups" eval="[(4,ref('trp_project_scrum.collaborators_followers'))]"/>
+            <field name="perm_unlink" eval="False" />
+            <field name="perm_write" eval="False" />
+            <field name="perm_read" eval="True" />
+            <field name="perm_create" eval="False" />
+        </record>
+
+        <record id="test_product_template_foll" model="ir.rule">
+            <field name="name">the default product template</field>
+            <field name="model_id" ref="product.model_product_template"/>
+            <field name="domain_force">[(
+                'id', 
+                '=', 
+                user.env['product.product'].browse(user.env['project.task.work'].get_user_related_details(user.id)['product_id']).product_tmpl_id.id)]</field>
+            <field name="groups" eval="[(4,ref('trp_project_scrum.collaborators_followers'))]"/>
+            <field name="perm_unlink" eval="False" />
+            <field name="perm_write" eval="False" />
+            <field name="perm_read" eval="True" />
+            <field name="perm_create" eval="False" />
+        </record>
+
+        <record id="product_pricetype_foll" model="ir.rule">
+            <field name="name">the default product price type</field>
+            <field name="model_id" ref="product.model_product_price_type"/>
+            <field name="domain_force">[(
+                'id', '=', user.env['product.price.type'].search([('field', '=', 'standard_price' )])[-1:].id)]</field>
             <field name="groups" eval="[(4,ref('trp_project_scrum.collaborators_followers'))]"/>
             <field name="perm_unlink" eval="False" />
             <field name="perm_write" eval="False" />
