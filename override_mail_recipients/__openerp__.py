@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Override mail recipients",
-    "version": "1.0",
+    "version": "9.0.1.0.0",
     "author": "Therp BV",
     "license": "AGPL-3",
     "category": "Tools",
@@ -33,14 +33,4 @@
         "data/ir_config_parameter.xml",
         "data/installer.xml",
     ],
-    "qweb": [
-    ],
-    "test": [
-    ],
-    "auto_install": False,
-    "installable": True,
-    "application": False,
-    "external_dependencies": {
-        'python': [],
-    },
 }
