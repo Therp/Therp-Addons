@@ -1,31 +1,57 @@
-<openerp>
-    <data>
-        <record id="form_find_memory_leaks" model="ir.ui.view">
-            <field name="model">find.memory.leaks"</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form col="6">
-                    <field name="output" colspan="6" nolabel="1" />
-                    <button type="object" name="button_typestats"
-                        string="typestats" />
-                    <button type="object" name="button_get_leaking_objects"
-                        string="get_leaking_objects" />
-                    <button type="object" name="button_count_leaking_objects"
-                        string="count_leaking_objects" />
-                    <button type="object" name="button_gc_collect"
-                        string="gc_collect" />
-                </form>
-            </field>
-        </record>
-        <act_window
-            id="act_find_memory_leaks"
-            res_model="find.memory.leaks"
-            name="Find memory leaks"
-            target="new"
-            view_id="form_find_memory_leaks" />
-        <menuitem
-            id="menu"
-            action="act_find_memory_leaks"
-            parent="base.menu_administration" />
-    </data>
-</openerp>
+<openerp><data>
+
+    <record id="form_find_memory_leaks" model="ir.ui.view">
+        <field name="model">find.memory.leaks</field>
+        <field name="arch" type="xml">
+            <form string="Find Memory Leaks">
+                <group colspan="6" col="6">
+                    <button
+                        type="object"
+                        name="button_typestats"
+                        string="typestats"
+                        />
+                    <button
+                        type="object"
+                        name="button_get_leaking_objects"
+                        string="get_leaking_objects"
+                        />
+                    <button
+                        type="object"
+                        name="button_count_leaking_objects"
+                        string="count_leaking_objects"
+                        />
+                    <button
+                        type="object"
+                        name="button_gc_collect"
+                        string="gc_collect"
+                        />
+                    <button
+                        string="Cancel"
+                        special="cancel"
+                        icon="gtk-cancel"
+                        />
+                    <field
+                        name="output"
+                        colspan="6"
+                        nolabel="1"
+                        />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <act_window
+        id="act_find_memory_leaks"
+        res_model="find.memory.leaks"
+        name="Find memory leaks"
+        target="new"
+        view_id="form_find_memory_leaks"
+        />
+
+    <menuitem
+        id="menu"
+        action="act_find_memory_leaks"
+        parent="base.next_id_4"
+        />
+
+</data></openerp>
