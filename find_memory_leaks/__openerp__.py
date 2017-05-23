@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Find Memory Leaks",
-    "version": "6.1.1.0.1",
+    "version": "7.0.1.0.1",
     "author": "Therp BV",
     "complexity": "normal",
     "description": """Provides wizard to find memory leak""",
