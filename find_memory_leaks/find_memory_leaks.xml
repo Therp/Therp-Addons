@@ -1,7 +1,7 @@
 <openerp>
     <data>
         <record id="form_find_memory_leaks" model="ir.ui.view">
-            <field name="model">find.memory.leaks"</field>
+            <field name="model">find.memory.leaks</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form col="6">
