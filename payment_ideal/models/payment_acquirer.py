@@ -21,7 +21,13 @@ import base64
 from collections import OrderedDict
 from openerp import _, models, fields, api, exceptions, tools
 try:
-    import xmlsec
+    try:
+        import xmlsec
+    except SystemError:
+        import logging
+        logging.error(
+            'Unable to load xmlsec, payment_ideal is not going to work'
+        )
     from .. import ideal
 except ImportError:
     import logging
