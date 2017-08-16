@@ -31,7 +31,7 @@ try:
     from .. import ideal
 except ImportError:
     import logging
-    logging.error('Unable to load xmlsec, payment_ideal is not going to work')
+    logging.warning('Unable to load xmlsec, payment_ideal is not going to work')
 
 
 class PaymentAcquirer(models.Model):
