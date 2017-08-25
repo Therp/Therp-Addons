@@ -11,4 +11,5 @@
         'data/configure_accounting.xml',
     ],
     "license": 'AGPL-3',
+    "post_init_hook": 'post_init_hook',
 }
