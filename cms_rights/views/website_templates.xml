@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+ 
+    	<!-- Allow Editor to access snippet -->
+    	<template inherit_id="website.layout_editor">
+    		<xpath expr='//t[@t-call-assets="web_editor.summernote"]' position="replace">
+    			<t groups="base.group_website_publisher" t-call-assets="web_editor.summernote"/>
+    		</xpath>
+    		<xpath expr='//t[@t-call-assets="web_editor.editor"]' position="replace">
+    			<t groups="base.group_website_publisher" t-call-assets="web_editor.editor"/>
+    		</xpath>
+    	</template>
+    	
+    	<template id="editor_inherited" inherit_id="web_editor.editor">
+		     <xpath expr='.' position="inside">
+		     	<script type="text/javascript" src="/cms_rights/static/src/js/editor.js" />
+                <script type="text/javascript" src="/cms_rights/static/src/js/jquerysession.js"/>
+		     </xpath>
+		</template>
+		
+		<template id="assets_backend" name="account assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+            	<link rel="stylesheet" href="/cms_rights/static/src/css/mail_templates.css"/>
+            </xpath>
+       	</template>
+		
+		<template id="footer_inherited" inherit_id="website.layout">
+			<xpath expr='//footer' position="inside">
+				<div id="myModal" class="modal fade">
+				    <div class="modal-dialog">
+				        <div class="modal-content">
+				             <div class="modal-body">
+				             	<p>Your proposal has been successfully sent to Webshop Manager(s)</p>
+				             </div>
+				             <div class="modal-footer">
+				             	<button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Ok</button>
+				             </div>
+				        </div>
+				    </div>
+				</div>
+			</xpath>
+		</template>
+		
+		<!-- Disallow MMs to create page from 404  -->
+		<template id="page_404_inherited" inherit_id="website.page_404">
+		    <xpath expr="//div[@class='container']" position="replace">
+		    	<div class="container">
+		            <div class="well mt32" groups="base.group_website_designer">
+		                <p>This page does not exists, but you can create it as you are administrator of this site.</p>
+		                <a class="btn btn-primary" t-attf-href="/website/add/#{ path }#{ from_template and '?template=%s' % from_template }">Create Page</a>
+		            </div>
+		            <div class="text-center text-muted">Edit the content below this line to adapt the default "page not found" page.</div>
+		        </div>
+		    </xpath>
+		</template>
+		
+    </data>
+</odoo>

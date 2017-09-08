@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+  
+  		<!-- Buttons in Header, add chatter in ir_ui_view -->
+	  	<record id="view_form_inherited" model="ir.ui.view"> 
+            <field name="name">view.form.inherited</field>
+            <field name="model">ir.ui.view</field>
+            <field name="inherit_id" ref="base.view_view_form"/>
+            <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+            	<attribute name="create">false</attribute>
+            	<attribute name="copy">false</attribute>
+            </xpath>
+            <xpath expr="//form/sheet" position="before">
+				<header>
+				    <button name="to_preview" type="object" states="new,draft,proposed,cancel,main" string="Preview" class="oe_highlight" groups="base.group_website_publisher"/>
+					<button name="get_approve" type="object" states="new,proposed" string="Approve" class="oe_highlight" groups="base.group_website_designer"/>
+					<button name="to_reject" type="object" states="new" string="Reject" groups="base.group_website_designer"/>
+					<button name="to_cancel" type="object" states="proposed" string="Cancel" groups="base.group_website_designer"/>
+					<button name="set_to_draft" type="object" states="cancel" string="Set to Draft" groups="base.group_website_designer"/>
+					<button name="to_reset" type="object" states="main" string="Re-Set" class="oe_highlight" groups="base.group_website_designer"/>
+					<field name="state" widget="statusbar" statusbar_visible="approved,cancel" readonly="1"/>
+				</header>
+			</xpath>
+			<xpath expr="//form/sheet" position="after">
+			    <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</xpath>
+            </field>
+	    </record>
+	    
+	    <record id="view_tree_inherited" model="ir.ui.view">
+		    <field name="name">view.tree.inherited</field>
+		    <field name="model">ir.ui.view</field>
+		    <field name="sequence">50</field>
+		    <field name="arch" type="xml">
+		        <tree create="false" copy="false" colors="black:state=='draft';blue:state=='proposed';green:state=='approved';red:state=='cancel'">
+		            <field name="name"/>
+		            <field name="state"/>
+		            <field name="user_id"/>
+		            <field name="write_date"/>
+		        </tree>
+		    </field>
+		</record>
+	    
+	    <!-- Templates need approval -->
+	    <record id="action_ir_ui_view_propose" model="ir.actions.act_window">
+	        <field name="name">Proposed View</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">ir.ui.view</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field name="domain">[('state','in',['proposed','approved','cancel','main']),('is_webpage_template','=',False)]</field>
+	        <field name="view_ids" eval="[(5, 0, 0),(0, 0, {'view_mode': 'tree', 'view_id': ref('view_tree_inherited')}), (0, 0, {'view_mode': 'form', 'view_id': ref('view_form_inherited')})]"/>
+    	</record>
+    	
+    	<!-- Draft Templates -->
+    	<record id="action_ir_ui_view_draft" model="ir.actions.act_window">
+            <field name="name">Draft View</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','draft'),('is_webpage_template','=',False)]</field>
+            <field name="view_ids" eval="[(5, 0, 0),(0, 0, {'view_mode': 'tree', 'view_id': ref('view_tree_inherited')}), (0, 0, {'view_mode': 'form', 'view_id': ref('view_form_inherited')})]"/>
+        </record>
+        
+        <!-- Page Requests -->
+        <record id="action_ir_ui_view_new" model="ir.actions.act_window">
+            <field name="name">New Page Requests</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','new'),('is_webpage_template','=',False)]</field>
+            <field name="view_ids" eval="[(5, 0, 0),(0, 0, {'view_mode': 'tree', 'view_id': ref('view_tree_inherited')}), (0, 0, {'view_mode': 'form', 'view_id': ref('view_form_inherited')})]"/>
+        </record>
+    
+	    <menuitem name="Views" id="menu_view" groups="base.group_website_publisher"
+	                parent="website.menu_website_configuration" sequence="20"/>
+
+	    <menuitem name="New Page Requests" id="menu_new_view" action="action_ir_ui_view_new"
+                    parent="cms_rights.menu_view" sequence="5"/>
+                    
+	    <menuitem name="Draft View" id="menu_draft_view" action="action_ir_ui_view_draft"
+                    parent="cms_rights.menu_view" sequence="10"/>
+                    
+	    <menuitem name="Proposed View" id="menu_proposed_view" action="action_ir_ui_view_propose"
+	                parent="cms_rights.menu_view" sequence="20"/>
+	    
+	    <record id="website_page_template_view_form" model="ir.ui.view">
+          <field name="name">website.page.template.view.form</field>
+          <field name="model">ir.ui.view</field>
+          <field name="sequence">50</field>
+          <field name="arch" type="xml">
+             <form>
+                <sheet>
+                  <group>
+                     <field name="name"/>
+                     <field name="user_id"/>
+                     <field name="arch"/>
+                  </group>
+                 </sheet>
+              </form>
+          </field>
+      </record>
+
+      <record id="website_page_template_view_tree" model="ir.ui.view">
+          <field name="name">website.page.template.view.tree</field>
+          <field name="model">ir.ui.view</field>
+          <field name="sequence">50</field>
+          <field name="arch" type="xml">
+              <tree>    
+                  <field name="name"/>
+                  <field name="user_id"/>
+              </tree>
+          </field>
+      </record>
+      
+      <!-- Saved Templates View -->
+      <record id="website_page_template_action" model="ir.actions.act_window">
+          <field name="name">Webpage Templates</field>
+          <field name="res_model">ir.ui.view</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <field name="domain">[('is_webpage_template','=',True)]</field>
+          <field name="context">{'default_is_webpage_template':True,'default_active':False}</field>
+          <field name="view_ids" eval="[(5, 0, 0),(0, 0, {'view_mode': 'tree', 'view_id': ref('website_page_template_view_tree')}), (0, 0, {'view_mode': 'form', 'view_id': ref('website_page_template_view_form')})]"/>
+      </record>
+
+     <menuitem id="website_page_template_menu" name="Webpage Templates" parent="cms_rights.menu_view" action="website_page_template_action" sequence="20"/>
+     
+     <menuitem id="website.menu_website_configuration" sequence="215" name="Website Admin"
+            groups="base.group_website_publisher" web_icon="website,static/description/icon_admin.png"/>
+     <menuitem id="website.menu_website_global_configuration" parent="website.menu_website_configuration"
+            groups="base.group_website_designer" sequence="100" action="website.action_website_configuration" name="Configuration"/>
+                
+                
+         
+  </data>
+</odoo>

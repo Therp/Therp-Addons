@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+    	<!-- Warning wizard before approval -->
+
+    	<record id="tempalte_approve_view" model="ir.ui.view">
+            <field name="name">template.approve.wizard</field>
+            <field name="model">template.approve.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Approval">
+                    <h3>
+                        Have you checked Preview of this template? or Maybe another user(s) has Proposed for same template?
+                    </h3>
+                    <footer>
+                        <button string="Yes" name="get_approve" class="oe_highlight" type="object" default_focus="1"/>
+                        <button string="No" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="main_tempalte_approve_view" model="ir.ui.view">
+            <field name="name">main.template.approve.wizard</field>
+            <field name="model">main.template.approve.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Re-Set Main Template">
+                    <h3>
+                        Are you sure you want to Re-set Mail Template?
+                    </h3>
+                    <footer>
+                        <button string="Yes" name="to_reset" class="oe_highlight" type="object" default_focus="1"/>
+                        <button string="No" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+    </data>
+</odoo>
