@@ -1,0 +1,8 @@
+.body-wrap{margin:0 auto;width: 100% !important; height: 100%;background: #efefef; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none;}
+.container{display: block !important;clear: both !important; margin: 0 auto !important;max-width: 85% !important;}
+.table_main{width: 100% !important; border-collapse: collapse;}
+.logo_header{padding: 20px 0;background: #ddd; color: white;}
+.logo_h1{margin: 0 auto !important; max-width: 90%;text-transform: uppercase;}
+.logo{max-width: 100%; margin: 0 auto; display: block;}
+.body_content{padding:10px;padding-left:30px !important;display:bolck;float:left;background:#fff;color :#000;}
+.footer{text-align: center;border-top: 1px solid #4CA4DB;background:#fff;color :#000;padding-bottom:1px;}

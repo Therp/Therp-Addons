@@ -1,0 +1,136 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <data>
+    
+    	<!-- Email templates -->
+    	
+        <record id="send_proposal_email_template" model="mail.template">
+            <field name="name">Send Proposal Email Template</field>
+            <field name="email_from">${user.email}</field>
+            <field name="subject">New Proposal Request from ${user.name}</field>
+            <field name="model_id" ref="base.model_ir_ui_view"/>
+            <field name="body_html"><![CDATA[
+            <table class="body-wrap" style="margin:0 auto;width: 100% !important; height: 100%;background: #efefef; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none;">
+    		<tr>
+	     	<td class="container" style="display: block !important;clear: both !important; margin: 0 auto !important;max-width: 85% !important;">
+	        <table class="table_main" style="width: 100% !important; border-collapse: collapse;">
+	          <tr>
+	            <td align="center" class="logo_header" style="padding: 20px 0;background: #ddd; color: white;">
+	               <h1 class="logo_h1"  style="margin: 0 auto !important; max-width: 90%;text-transform: uppercase;">
+	                 <img class="logo" src="data:image/png;base64,${object.company_id.logo}" style="max-width: 100%; margin: 0 auto; display: block;">
+	                </h1>
+	            </td>
+	          </tr>
+	        </table>
+	        <div class="body_content" style="padding:10px;background:#fff;color :#000;">
+        		<p>
+				Dear Webshop Managers,</p>
+				<p>I have changed the layout of ${object.name}. I am requesting you to approve my proposal.</p>
+				<p>Regards,<br/>
+				${user.name}
+				</p>
+            </div>
+            <div class="footer" style="text-align: center;border-top: 1px solid #4CA4DB;background:#fff;color :#000;padding-bottom:1px;">
+                ${object.company_id.partner_id.sudo().with_context(show_address=True, html_format=True).name_get()[0][1] | safe}
+                <p>
+            	% if object.company_id.phone:
+		            ${object.company_id.phone}
+		        % endif
+		        % if object.company_id.website:
+		            &nbsp;|&nbsp;<a href="${object.company_id.website}">${object.company_id.website}</a>
+		        % endif
+		    	</p>
+            </div>   
+      		</td>
+    		</tr>
+			</table>
+            ]]></field>
+        </record>
+        <record id="send_page_request" model="mail.template">
+            <field name="name">Send Page Request</field>
+            <field name="email_from">${user.email}</field>
+            <field name="subject">New Page Request from ${user.name}</field>
+            <field name="model_id" ref="base.model_ir_ui_view"/>
+            <field name="body_html"><![CDATA[
+            <table class="body-wrap" style="margin:0 auto;width: 100% !important; height: 100%;background: #efefef; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none;">
+    		<tr>
+	     	<td class="container" style="display: block !important;clear: both !important; margin: 0 auto !important;max-width: 85% !important;">
+	        <table class="table_main" style="width: 100% !important; border-collapse: collapse;">
+	          <tr>
+	            <td align="center" class="logo_header" style="padding: 20px 0;background: #ddd; color: white;">
+	               <h1 class="logo_h1"  style="margin: 0 auto !important; max-width: 90%;text-transform: uppercase;">
+	                 <img class="logo" src="data:image/png;base64,${object.company_id.logo}" style="max-width: 100%; margin: 0 auto; display: block;">
+	                </h1>
+	            </td>
+	          </tr>
+	        </table>
+	        <div class="body_content" style="padding:10px;background:#fff;color :#000;">
+        		<p>
+				Dear Webshop Managers,</p>
+				<p>I have created new page layout of ${object.name}.</p>
+				<p>
+				Regards,<br/>
+				${user.name}
+				</p>
+            </div>
+            <div class="footer" style="text-align: center;border-top: 1px solid #4CA4DB;background:#fff;color :#000;padding-bottom:1px;">
+                ${object.company_id.partner_id.sudo().with_context(show_address=True, html_format=True).name_get()[0][1] | safe}
+                <p>
+            	% if object.company_id.phone:
+		            ${object.company_id.phone}
+		        % endif
+		        % if object.company_id.website:
+		            &nbsp;|&nbsp;<a href="${object.company_id.website}">${object.company_id.website}</a>
+		        % endif
+		    	</p>
+            </div>   
+      		</td>
+    		</tr>
+			</table>
+            ]]></field>
+        </record>
+        <record id="send_approval_email_template" model="mail.template">
+            <field name="name">Send Approval</field>
+            <field name="email_from">${user.email}</field>
+            <field name="subject">Approval of ${object.name} Layout</field>
+            <field name="model_id" ref="base.model_ir_ui_view"/>
+            <field name="body_html"><![CDATA[
+            <table class="body-wrap" style="margin:0 auto;width: 100% !important; height: 100%;background: #efefef; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none;">
+    		<tr>
+	     	<td class="container" style="display: block !important;clear: both !important; margin: 0 auto !important;max-width: 85% !important;">
+	        <table class="table_main" style="width: 100% !important; border-collapse: collapse;">
+	          <tr>
+	            <td align="center" class="logo_header" style="padding: 20px 0;background: #ddd; color: white;">
+	               <h1 class="logo_h1"  style="margin: 0 auto !important; max-width: 90%;text-transform: uppercase;">
+	                 <img class="logo" src="data:image/png;base64,${object.company_id.logo}" style="max-width: 100%; margin: 0 auto; display: block;">
+	                </h1>
+	            </td>
+	          </tr>
+	        </table>
+	        <div class="body_content" style="padding:10px;background:#fff;color :#000;">
+        		<p>Hello ${object.user_id.partner_id.name},</p>
+				<p>Your proposal of ${object.name} changes is approved.<br/>You can view your changes on website.</p>
+				<p>Regards,<br/>
+				${user.name}
+				</p>
+            </div>
+            <div class="footer" style="text-align: center;border-top: 1px solid #4CA4DB;background:#fff;color :#000;padding-bottom:1px;">
+                ${object.company_id.partner_id.sudo().with_context(show_address=True, html_format=True).name_get()[0][1] | safe}
+                <p>
+            	% if object.company_id.phone:
+		            ${object.company_id.phone}
+		        % endif
+		        % if object.company_id.website:
+		            &nbsp;|&nbsp;<a href="${object.company_id.website}">${object.company_id.website}</a>
+		        % endif
+		    	</p>
+            </div>   
+      		</td>
+    		</tr>
+			</table> 
+             ]]></field>
+        </record>
+    </data>
+
+</odoo>

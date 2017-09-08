@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+	<t t-extend="web_editor.editorbar">
+		<t t-jquery="button" t-operation="after">
+		    <button type="button" data-action="draft" class="btn btn-primary btn-xs">Save as Draft</button>
+		    <button type="button" data-action="propose" class="btn btn-primary btn-xs">Propose</button>
+        </t>
+	</t>
+</templates>	
