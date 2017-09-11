@@ -2,7 +2,7 @@
 # © 2015 Therp BV <http://therp.nl>
 {
     "name": "Dutch chart of accounts - autoinstall",
-    "version": "9.0.1.0.0",
+    "version": "10.0.1.0.0",
     "author": "Therp BV",
     "category": 'Accounting & Finance',
     'website': 'http://therp.nl',
@@ -11,4 +11,5 @@
         'data/configure_accounting.xml',
     ],
     "license": 'AGPL-3',
+    "post_init_hook": 'post_init_hook',
 }
