@@ -30,10 +30,12 @@
         'trp_external_user',
         'project_timesheet',
         'project_scrum',
+        'document_definition',
     ],
     "data": [
         'security/res_groups.xml',
         'security/ir_rules_collaborators_followers.xml',
-        'security/ir.model.access.csv'
+        'security/ir.model.access.csv',
+        'views/menu_definitions.xml',
         ],
 }
