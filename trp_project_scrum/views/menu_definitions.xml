@@ -5,8 +5,17 @@
             id="menu_definitions_customer2"
             parent="project_scrum.menu_scrum_all"                 
             name="Definitions of my projects"
-            action="document_definition.action_definition"
+            action="project_definition.action_definition"
             sequence="50" 
+            groups="trp_project_scrum.collaborators_followers"
+            />
+
+        <menuitem 
+            id="menu_definitions_projects_direct_access"
+            parent="project_scrum.menu_scrum_all"                 
+            name="My Projects - direct access"
+            action="project.open_view_project_all"
+            sequence="1" 
             groups="trp_project_scrum.collaborators_followers"
             />
     </data>
