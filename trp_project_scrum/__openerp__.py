@@ -30,7 +30,7 @@
         'trp_external_user',
         'project_timesheet',
         'project_scrum',
-        'document_definition',
+        'project_definition',
     ],
     "data": [
         'security/res_groups.xml',
