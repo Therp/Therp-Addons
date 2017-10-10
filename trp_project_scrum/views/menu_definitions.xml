@@ -10,11 +10,20 @@
             groups="trp_project_scrum.collaborators_followers"
             />
 
+        <record id="open_view_project_treefirst" model="ir.actions.act_window">
+            <field name="name">My Projects</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form,gantt</field>
+            <field name="view_id" ref="project.view_project"/>
+        </record>
+
         <menuitem 
             id="menu_definitions_projects_direct_access"
             parent="project_scrum.menu_scrum_all"                 
             name="My Projects - direct access"
-            action="project.open_view_project_all"
+            action="trp_project_scrum.open_view_project_treefirst"
             sequence="1" 
             groups="trp_project_scrum.collaborators_followers"
             />
