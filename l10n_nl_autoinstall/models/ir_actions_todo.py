@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# © 2014-2016 Therp BV <http://therp.nl>
+# Copyright 2014-2018 Therp BV <https://therp.nl>.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp import models, api
+from odoo import api, models
 
 
 class IrActionsTodo(models.Model):
@@ -11,12 +11,11 @@ class IrActionsTodo(models.Model):
     def configure_language(self):
         if not self.env['res.lang'].search([('code', '=', 'nl_NL')]):
             self.env['base.language.install'].create({
+                'lang': 'nl_NL'}).lang_install()
+            # Only set all partners to dutch, just after installing language
+            self.env['res.partner'].search([]).write({
                 'lang': 'nl_NL',
-            }).lang_install()
-        self.env['res.partner'].search([]).write({
-            'lang': 'nl_NL',
-            'tz': 'Europe/Amsterdam',
-        })
+                'tz': 'Europe/Amsterdam'})
 
     @api.model
     def configure_accounting(self):
