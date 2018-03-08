@@ -11,6 +11,9 @@
     'depends': [
         'portal',
     ],
+    'demo': [
+        "demo/res_users.xml",
+    ],
     'data': [
         'data/ir_module_category.xml',
         'security/res_groups.xml',
