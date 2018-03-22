@@ -23,3 +23,11 @@ script:
 
 after_success:
   coveralls
+
+notifications:
+    webhooks: https://www.travisbuddy.com/
+    on_success: never # default: always  
+    on_failure: always # default: always
+    on_start: never   # default: never
+    on_cancel: never # default: always
+    on_error: never # default: always 
