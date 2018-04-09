@@ -12,6 +12,7 @@ def post_init_hook(cr, pool):
         # in test mode, remove the modules autoinstalled by account's init hook
         auto_modules = [
             'account_plaid', 'account_check_printing', 'l10n_generic_coa',
+            'l10n_us',
         ]
         env = api.Environment(cr, SUPERUSER_ID, {})
         env['ir.module.module'].search([
