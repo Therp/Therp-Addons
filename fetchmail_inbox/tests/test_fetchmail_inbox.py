@@ -23,7 +23,10 @@ class TestFetchmailInbox(TransactionCase):
             menu = self.env.ref('fetchmail_inbox.menu_inbox')
             return menu.get_needaction_data()[menu.id]['needaction_counter']
 
+        print('before message_process')
+        print(MAIL_MULTIPART_MIXED)
         self.message_process(MAIL_MULTIPART_MIXED)
+        print('after message_process')
         inbox1 = self.env['fetchmail.inbox'].search([])
         self.assertTrue(inbox1)
         self.assertEqual(len(inbox1.message_ids), 1)
@@ -52,7 +55,10 @@ class TestFetchmailInbox(TransactionCase):
                 ('res_id', '=', partner_id)]))
 
         # Now attach a second message to the existing partner
+        print('before message_process')
+        print(MAIL_MULTIPART_MIXED_TWO)
         self.message_process(MAIL_MULTIPART_MIXED_TWO)
+        print('after message_process')
         inbox2 = self.env['fetchmail.inbox'].search([('id', '>', inbox1.id)])
         self.assertTrue(inbox2)
         self.assertEqual(len(inbox2.message_ids), 1)
