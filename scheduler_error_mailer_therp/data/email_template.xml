@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <function model="ir.model.data" name="write">
+            <function model="ir.model.data" name="search">
+                <value eval="[('module', '=', 'scheduler_error_mailer'), ('name', '=', 'scheduler_error_mailer')]" />
+            </function>
+            <value eval="{'noupdate': False}" />
+        </function>
+        <record id="scheduler_error_mailer.scheduler_error_mailer" model="email.template">
+            <field name="email_to">issues@helpdesk.therp.nl</field>
+        </record>
+    </data>
+</openerp>
