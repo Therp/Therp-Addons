@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <function model="ir.model.data" name="write">
+        <function model="ir.model.data" name="search">
+            <value eval="[('module', '=', 'scheduler_error_mailer'), ('name', '=', 'scheduler_error_mailer')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="scheduler_error_mailer.scheduler_error_mailer" model="mail.template">
+        <field name="email_to">issues@helpdesk.therp.nl</field>
+    </record>
+</odoo>
