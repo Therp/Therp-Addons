@@ -15,6 +15,9 @@
                     <field name="attachment_ids" nolabel="1" />
                 </group>
             </xpath>
+            <field name="tracking_value_ids" position="attributes">
+                <attribute name="groups">base.group_system</attribute>
+            </field>
         </field>
     </record>
     <record id="tree_mail_message_fetchmail_inbox" model="ir.ui.view">
