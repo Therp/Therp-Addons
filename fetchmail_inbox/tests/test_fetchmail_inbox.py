@@ -1,6 +1,7 @@
 # coding: utf-8
 # © 2017 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from odoo.tools import mute_logger
 from odoo.tests.common import TransactionCase
 from odoo.addons.mail.tests.test_mail_gateway import (
     MAIL_MULTIPART_MIXED, MAIL_MULTIPART_MIXED_TWO)
@@ -11,6 +12,7 @@ class TestFetchmailInbox(TransactionCase):
         super(TestFetchmailInbox, self).setUp()
         self.env['fetchmail.inbox'].search([]).unlink()
 
+    @mute_logger('odoo.addons.mail.models.mail_thread')
     def message_process(self, mail):
         self.env['mail.thread'].with_context(
             mail_channel_noautofollow=True).message_process(

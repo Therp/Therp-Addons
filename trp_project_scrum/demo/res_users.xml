@@ -1,0 +1,28 @@
+<odoo>
+
+    <record
+        id="external_scrum_user"
+        model="res.users"
+        context="{'no_reset_password': True}">
+        <field name="name">external_scrum_users</field>
+        <field name="groups_id"
+            eval="[(4, ref('trp_project_scrum.external_scrum_users'), 0)]"/>
+        <field name="login">login1</field>
+        <field name="email">login1@example.com</field>
+        <field name="password">password1</field>
+    </record>
+
+
+    <record
+        id="collaborator_follower"
+        model="res.users"
+        context="{'no_reset_password': True}">
+        <field name="name">collaborator_follower</field>
+        <field name="groups_id"
+            eval="[(4, ref('trp_project_scrum.collaborators_followers'), 0)]"/>
+        <field name="login">login2</field>
+        <field name="email">login2@example.com</field>
+        <field name="password">password2</field>
+    </record>
+
+</odoo>

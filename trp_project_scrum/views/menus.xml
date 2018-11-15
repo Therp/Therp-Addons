@@ -1,0 +1,21 @@
+<odoo>
+
+    <record id="project.menu_main_pm" model="ir.ui.menu">
+        <field
+            name="groups_id"
+            eval="[(4, ref('trp_external_user.group_external_user'))]">
+        </field>
+    </record>
+
+    <record id="project_scrum.menu_scrum_all" model="ir.ui.menu">
+        <field name="name">Scrum</field>
+        <field name="parent_id" ref="project.menu_main_pm"/>
+        <field name="sequence">3</field>
+        <field
+            name="groups_id"
+            eval="[(6, 0, [
+                ref('trp_project_scrum.external_scrum_users'),
+                ref('base.group_user')])]"/>
+    </record>
+
+</odoo>
