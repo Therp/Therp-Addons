@@ -1,0 +1,31 @@
+<odoo>
+
+    <record id="scrum_project_alpha" model="project.project">
+        <field name="privacy_visibility">followers</field>
+        <field name="alias_name">aliasalpha</field>
+        <field name="name">alpha</field>
+        <field name="use_scrum">True</field>
+    </record>
+
+    <record id="scrum_project_beta" model="project.project">
+        <field name="privacy_visibility">followers</field>
+        <field name="alias_name">aliasbeta</field>
+        <field name="name">beta</field>
+        <field name="use_scrum">True</field>
+    </record>
+
+    <record id="scrum_project_gamma" model="project.project">
+        <field name="privacy_visibility">followers</field>
+        <field name="alias_name">aliasgamma</field>
+        <field name="name">gamma</field>
+        <field name="use_scrum">True</field>
+    </record>
+
+    <record id="not_scrum_project" model="project.project">
+        <field name="privacy_visibility">followers</field>
+        <field name="alias_name">aliasnotcrm</field>
+        <field name="name">noscrum</field>
+        <field name="use_scrum">False</field>
+    </record>
+
+</odoo>
