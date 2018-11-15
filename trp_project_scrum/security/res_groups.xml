@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="collaborators_followers" model="res.groups">
+        <field name="name">Collaborators and followers access</field>
+        <field name="category_id" ref="trp_external_user.module_category_external_users"/>
+        <field name="implied_ids"
+            eval="[(6, 0, [ref('trp_external_user.group_external_user'),  ref('base.group_portal'), ref('project.group_time_work_estimation_tasks')])]" />
+    </record>
+
+</odoo>
