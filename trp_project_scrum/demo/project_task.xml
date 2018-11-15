@@ -1,0 +1,28 @@
+<odoo>
+
+    <record id="alpha_1" model="project.task">
+        <field name="name">task_alpha_1</field>
+        <field name="project_id" ref="scrum_project_alpha"/>
+    </record>
+
+    <record id="alpha_2" model="project.task">
+        <field name="name">task_alpha_2</field>
+        <field name="project_id" ref="scrum_project_alpha"/>
+    </record>
+
+    <record id="beta_1" model="project.task">
+        <field name="name">task_beta_1</field>
+        <field name="project_id" ref="scrum_project_beta"/>
+    </record>
+
+    <record id="beta_2" model="project.task">
+        <field name="name">task_beta_2</field>
+        <field name="project_id" ref="scrum_project_beta"/>
+    </record>
+
+    <record id="not_scrum_1" model="project.task">
+        <field name="name">task_not_scrum_1</field>
+        <field name="project_id" ref="not_scrum_project"/>
+    </record>
+
+</odoo>
