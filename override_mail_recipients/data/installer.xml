@@ -13,7 +13,6 @@
 
     <record id="installer_todo" model="ir.actions.todo">
         <field name="action_id" ref="installer_action" />
-        <field name="type">automatic</field>
     </record>
 
 </odoo>
