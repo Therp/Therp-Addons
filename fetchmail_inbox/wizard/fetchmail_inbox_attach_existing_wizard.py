@@ -49,7 +49,7 @@ class FetchmailInboxAttachExistingWizard(models.TransientModel):
                 res_model = this.res_model
                 res_id = this.res_id
             elif this.res_reference:
-                res_model = this.res_reference._model._name
+                res_model = this.res_reference._name
                 res_id = this.res_reference.id
             else:
                 raise UserError(_('You have to select an object!'))
@@ -63,6 +63,6 @@ class FetchmailInboxAttachExistingWizard(models.TransientModel):
         return {
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
-            'res_model': this.res_model or this.res_reference._model._name,
+            'res_model': this.res_model or this.res_reference._name,
             'res_id': this.res_id or this.res_reference.id,
         }
