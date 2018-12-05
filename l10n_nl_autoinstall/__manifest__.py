@@ -2,8 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Dutch chart of accounts - autoinstall",
-    "version": "11.0.0.0.0",
-    "author": "Therp BV,Odoo Community Association (OCA)",
+    "version": "11.0.1.0.0",
+    "author": "Therp BV",
     "category": 'Accounting & Finance',
     'website': 'http://therp.nl',
     'depends': ['l10n_nl'],
