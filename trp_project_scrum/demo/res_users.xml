@@ -6,6 +6,7 @@
             eval="[(4, ref('trp_project_scrum.collaborators_followers'), 0)]"/>
         <field name="login">login</field>
         <field name="password">password</field>
+        <field name="context">{'no_reset_password': True}</field>
     </record>
 
 </odoo>
