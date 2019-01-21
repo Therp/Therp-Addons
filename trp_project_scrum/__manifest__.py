@@ -15,7 +15,13 @@
         'document_page',
     ],
     "data": [
+        'security/res_groups.xml',
+        'security/ir_rules_collaborators_followers.xml',
+        'security/ir.model.access.csv',
         ],
     "demo": [
+        'demo/res_users.xml',
+        'demo/project_project.xml',
+        'demo/project_task.xml',
         ],
 }
