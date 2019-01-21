@@ -72,7 +72,7 @@ env:
 #  - TESTS="1.0" ODOO_REPO="OCA/OCB" UNIT_TEST="1"
 
 install:
-  - git clone --depth=1 -b master-therp https://github.com/Therp/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - git clone --depth=1 -b master-never_break_on_log https://github.com/Therp/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
 
