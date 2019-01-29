@@ -1,16 +1,21 @@
 # -*- coding: utf-8 -*-
 # Copyright 2018 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from random import random
 from odoo.tests.common import SingleTransactionCase
 from odoo.exceptions import AccessError
+from odoo import fields
 
 
 class TestProjectScrum(SingleTransactionCase):
 
     post_install = True
+    at_install = False
 
     def setUp(self):
         super(TestProjectScrum, self).setUp()
+        self.external_scrum_user = self.env.ref(
+            'trp_project_scrum.external_scrum_user')
         self.collaborator_follower = self.env.ref(
             'trp_project_scrum.collaborator_follower')
         self.scrumproject_alpha = self.env.ref(
@@ -58,6 +63,7 @@ class TestProjectScrum(SingleTransactionCase):
             'Collaborator follower group was not triggered after assigning'
         )
         self.scrumproject_alpha.message_subscribe_users(
+            self.external_scrum_user.ids +
             self.collaborator_follower.ids,
         )
         # verify it cannot see any element of other projects
@@ -103,3 +109,317 @@ class TestProjectScrum(SingleTransactionCase):
                 self.collaborator_follower.id
             ).with_context(mail_notrack=True).write, {'name': 'this is not ok'}
         )
+        # try deleting a project as both users
+        self.assertRaises(
+            AccessError,
+            self.scrumproject_gamma.sudo(self.external_scrum_user.id).unlink
+        )
+        self.assertRaises(
+            AccessError,
+            self.scrumproject_gamma.sudo(self.collaborator_follower.id).unlink
+        )
+        # try create/write/delete on project_scrum_meeting
+        vals_scrum_meeting = {
+            'project_id': self.scrumproject_alpha.id,
+            'datetime_meeting': fields.Datetime.now(),
+            'user_id_meeting': None,
+            'question_yesterday': 'test',
+            'question_today': 'test',
+            'question_blocks': 'test',
+            'question_backlog': 'no',
+            }
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'project.scrum.meeting',
+                'create',
+                vals_scrum_meeting,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.collaborator_follower.id,
+                'project.scrum.meeting',
+                'create',
+                vals_scrum_meeting,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'project.scrum.meeting',
+                'write',
+                vals_scrum_meeting,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.collaborator_follower.id,
+                'project.scrum.meeting',
+                'write',
+                vals_scrum_meeting,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'project.scrum.meeting',
+                'unlink',
+                vals_scrum_meeting,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.collaborator_follower.id,
+                'project.scrum.meeting',
+                'unlink',
+                vals_scrum_meeting,
+            )
+        # try create/write/delete on project_scrum_sprint
+        vals_scrum_sprint = {
+            'name': 'test',
+            'project_id': self.scrumproject_alpha.id,
+            'product_owner_id': None,
+            'scrum_master_id': None,
+            'state': 'draft',
+            }
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'project.scrum.sprint',
+                'create',
+                vals_scrum_sprint,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.collaborator_follower.id,
+                'project.scrum.sprint',
+                'create',
+                vals_scrum_sprint,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'project.scrum.sprint',
+                'write',
+                vals_scrum_sprint,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.collaborator_follower.id,
+                'project.scrum.sprint',
+                'write',
+                vals_scrum_sprint,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'project.scrum.sprint',
+                'unlink',
+                vals_scrum_sprint,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.collaborator_follower.id,
+                'project.scrum.sprint',
+                'unlink',
+                vals_scrum_sprint,
+            )
+        # try create/write/delete on project_scrum_test
+        vals_scrum_test = {
+            'name': 'name',
+            'project_id': self.scrumproject_alpha.id,
+        }
+        self.do_operation(
+            self.external_scrum_user.id,
+            'project.scrum.test',
+            'create',
+            vals_scrum_test,
+        )
+        self.do_operation(
+            self.collaborator_follower.id,
+            'project.scrum.test',
+            'create',
+            vals_scrum_test,
+        )
+        self.do_operation(
+            self.external_scrum_user.id,
+            'project.scrum.test',
+            'write',
+            vals_scrum_test,
+        )
+        self.do_operation(
+            self.collaborator_follower.id,
+            'project.scrum.test',
+            'write',
+            vals_scrum_test,
+        )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'project.scrum.test',
+                'unlink',
+                vals_scrum_test,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.collaborator_follower.id,
+                'project.scrum.test',
+                'unlink',
+                vals_scrum_test,
+            )
+        vals_scrum_us = {
+            'name': 'name',
+            'project_id': self.scrumproject_alpha.id,
+        }
+        # try create/write/delete on project_scrum_us
+        self.do_operation(
+            self.external_scrum_user.id,
+            'project.scrum.us',
+            'create',
+            vals_scrum_us,
+        )
+        self.do_operation(
+            self.collaborator_follower.id,
+            'project.scrum.us',
+            'create',
+            vals_scrum_us,
+        )
+        self.do_operation(
+            self.external_scrum_user.id,
+            'project.scrum.us',
+            'write',
+            vals_scrum_us,
+        )
+        self.do_operation(
+            self.collaborator_follower.id,
+            'project.scrum.us',
+            'write',
+            vals_scrum_us,
+        )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'project.scrum.us',
+                'unlink',
+                vals_scrum_us,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.collaborator_follower.id,
+                'project.scrum.us',
+                'unlink',
+                vals_scrum_us,
+            )
+        vals_project_task = {
+            'name': 'name',
+            'kanban_state': 'normal',
+            'project_id': self.scrumproject_alpha.id,
+        }
+        # try create/write/delete on project_task
+        task = self.do_operation(
+            self.external_scrum_user.id,
+            'project.task',
+            'create',
+            vals_project_task,
+        )
+        self.do_operation(
+            self.collaborator_follower.id,
+            'project.task',
+            'create',
+            vals_project_task,
+        )
+        self.do_operation(
+            self.external_scrum_user.id,
+            'project.task',
+            'write',
+            vals_project_task,
+        )
+        self.do_operation(
+            self.collaborator_follower.id,
+            'project.task',
+            'write',
+            vals_project_task,
+        )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'project.task',
+                'unlink',
+                vals_project_task,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.collaborator_follower.id,
+                'project.task',
+                'unlink',
+                vals_project_task,
+            )
+        # try create/write/delete on account.analytic.line
+        vals_timesheet = {
+            'date': fields.Date.today(),
+            'user_id': None,
+            'name': 'test',
+            'project_id': self.scrumproject_alpha.id,
+            'task_id': task.id,
+        }
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'account.analytic.line',
+                'create',
+                vals_timesheet,
+            )
+        self.do_operation(
+            self.collaborator_follower.id,
+            'account.analytic.line',
+            'create',
+            vals_timesheet,
+        )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'account.analytic.line',
+                'write',
+                vals_timesheet,
+            )
+        self.do_operation(
+            self.collaborator_follower.id,
+            'account.analytic.line',
+            'write',
+            vals_timesheet,
+        )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.external_scrum_user.id,
+                'account.analytic.line',
+                'unlink',
+                vals_timesheet,
+            )
+        with self.assertRaises(AccessError):
+            self.do_operation(
+                self.collaborator_follower.id,
+                'account.analytic.line',
+                'unlink',
+                vals_timesheet,
+            )
+
+    def do_operation(self, user_id, model, operation, vals):
+        model = self.env[model].sudo(user_id).with_context(
+            mail_create_nosubscribe=True)
+        # keep a rec in hand for write/unlink
+        if 'product_owner_id' in vals:
+            vals['product_owner_id'] = user_id
+        if 'user_id_meeting' in vals:
+            vals['user_id_meeting'] = user_id
+        if 'scrum_master_id' in vals:
+            vals['scrum_master_id'] = user_id
+        if 'user_id' in vals:
+            vals['user_id'] = user_id
+        if model._name == 'project.task':
+            vals['name'] = random()
+            vals['code'] = random()
+        # on write/read/unlink you need to have a record to work with
+        rec = model.create(vals)
+        if operation == 'read':
+            rec.read(vals.keys())
+        elif operation == 'write':
+            rec.write(vals)
+        elif operation == 'unlink':
+            rec.unlink()
+        return rec
