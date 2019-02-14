@@ -24,11 +24,14 @@ class IrMailServer(models.Model):
         Odoo. Most likely this message will be catched and an appropiate
         reason for non delivery registered.
         """
-        override_email = self.env.ref(
-            'override_mail_recipients.override_email_to').value
-        if not override_email or override_email == 'disable':
+        override_email_id = self.env.ref(
+            'override_mail_recipients.override_email_to',
+            raise_if_not_found=False)
+        if not override_email_id or \
+                not override_email_id.value or \
+                override_email_id.value == 'disable':
             return
-        actual_recipients = extract_rfc2822_addresses(override_email)
+        actual_recipients = extract_rfc2822_addresses(override_email_id.value)
         assert actual_recipients, 'No valid override_email_to'
         for field in ['to', 'cc', 'bcc']:
             if not message[field]:
