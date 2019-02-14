@@ -12,7 +12,8 @@ After installing this module the parameter will contain text, but not a valid
 mail address. This will cause emails not to be send out at all.
 
 If you fill in a valid email address, this address will receive all emails
-send from the system.
+send from the system. You could also add several mail addresses, separated
+by comma's.
 
 To resume normal mail processing, set this parameter to 'disable'
-(litterally).
+(literally). Or you could just uninstall this module.
