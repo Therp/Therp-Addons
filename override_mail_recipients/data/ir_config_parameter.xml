@@ -3,7 +3,18 @@
 
     <record id="override_email_to" model="ir.config_parameter">
         <field name="key">override_mail_recipients.override_to</field>
-        <field name="value">your test email</field>
+        <field
+            name="value"
+            >add one or more email addresses, comma separated</field>
+    </record>
+
+    <record id="domain_whitelist" model="ir.config_parameter">
+        <field
+            name="key"
+            >override_mail_recipients.domain_whitelist</field>
+        <field
+            name="value"
+            >add one or more mail domains, comma separated</field>
     </record>
 
 </odoo>
