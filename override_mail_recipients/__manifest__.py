@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Override mail recipients",
-    "version": "11.0.0.1.0",
+    "version": "11.0.0.2.0",
     "author": "Therp BV",
     "license": "AGPL-3",
     "category": "Tools",
