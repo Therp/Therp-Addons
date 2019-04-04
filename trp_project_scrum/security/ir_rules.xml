@@ -134,6 +134,4 @@
         <field name="perm_read" eval="True"/>
     </record>
 
-
-
 </odoo>

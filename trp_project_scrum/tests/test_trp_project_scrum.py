@@ -73,7 +73,7 @@ class TestProjectScrum(SingleTransactionCase):
         # should see only 1 project
         self.assertEqual(
             len(projects), 1,
-            'a collaborator follower sees too many projects'
+            'a collaborator follower should only see one project'
         )
         # verify admin can see all still all
         projects2 = self.env['project.project'].sudo().search(

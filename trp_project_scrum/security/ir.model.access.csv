@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-external_scrum_users_project_project,External Users - Scrum Project,project_scrum.model_project_project,trp_project_scrum.external_scrum_users,1,0,0,0
+external_scrum_users_project_project,External Users - Scrum Project,project.model_project_project,trp_project_scrum.external_scrum_users,1,0,0,0
 external_scrum_users_project_scrum_meeting,External Users - Scrum Scrum Meeting,project_scrum.model_project_scrum_meeting,trp_project_scrum.external_scrum_users,1,0,0,0
 external_scrum_users_project_scrum_sprint,External Users - Scrum Scrum Sprint,project_scrum.model_project_scrum_sprint,trp_project_scrum.external_scrum_users,1,0,0,0
 external_scrum_users_project_scrum_test,External Users - Scrum Scrum Test,project_scrum.model_project_scrum_test,trp_project_scrum.external_scrum_users,1,1,1,0
