@@ -13,6 +13,7 @@
         'project_scrum',
         'hr',
         'hr_timesheet',
+        'project_stage_state',
     ],
     "data": [
         'security/res_groups.xml',

@@ -9,5 +9,5 @@ external_scrum_users_ir_sequence,External Users - Sequence,base.model_ir_sequenc
 external_scrum_users_account_analytic_account,External Users - Scrum Account,analytic.model_account_analytic_account,trp_project_scrum.external_scrum_users,1,0,0,0
 external_scrum_users_project_task_type,External Users - Scrum Task Type,project.model_project_task_type,trp_project_scrum.external_scrum_users,1,0,0,0
 external_scrum_users_account_analytic_line,External Users - Scrum Timesheets,analytic.model_account_analytic_line,trp_project_scrum.external_scrum_users,1,0,0,0
+external_scrum_users_hr_employee,External Users Scrum Employee,hr.model_hr_employee,trp_project_scrum.external_scrum_users,1,0,0,0
 collaborators_followers_account_analytic_line,External Users - Scrum Collaborator Timesheets,analytic.model_account_analytic_line,trp_project_scrum.collaborators_followers,1,1,1,0
-collaborators_followers_hr_employee,External Users Scrum Collaborator Employee,hr.model_hr_employee,trp_project_scrum.collaborators_followers,1,0,0,0

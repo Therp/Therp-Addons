@@ -8,7 +8,7 @@ from odoo.addons.website.controllers import main
 
 class Website(main.Website):
 
-    @http.route(website=True, auth="public")
+    @http.route()
     def web_login(self, redirect=None, *args, **kwargs):
         response = super(Website, self).web_login(
             redirect=redirect, *args, **kwargs)
