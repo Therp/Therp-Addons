@@ -16,7 +16,7 @@
         <field name="is_portal">True</field>
         <field
             name="implied_ids"
-            eval="[(6, 0, [ref('external_scrum_users')])]"/>
+            eval="[(6, 0, [ref('trp_project_scrum.external_scrum_users')])]"/>
     </record>
 
 </odoo>
