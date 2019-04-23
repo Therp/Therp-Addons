@@ -38,7 +38,7 @@ They will have also write access to:
 - Task types
 - Tests
 
-Collabnorators can read and create attachments on the tasks.
+Collaborators can read and create attachments on the tasks.
 
 **Table of contents**
 
