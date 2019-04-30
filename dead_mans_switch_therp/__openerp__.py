@@ -15,4 +15,5 @@
         "data/ir_config_parameter.xml",
         "data/ir_actions.xml",
     ],
+    "pre_init_hook": "pre_init_hook",
 }
