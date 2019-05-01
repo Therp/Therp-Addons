@@ -14,6 +14,9 @@ def pre_init_hook(cr):
         'dead_mans_switch_therp', 'config_parameter', 'ir.config_parameter',
         id, False, write_date, create_date
         from ir_config_parameter
-        where key='dead_mans_switch_client.url'
+        where key='dead_mans_switch_client.url' and not exists (
+            select id from ir_model_data
+            where module='dead_mans_switch_therp' and name='config_parameter'
+        )
         """
     )
