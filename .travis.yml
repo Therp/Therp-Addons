@@ -1,5 +1,7 @@
 language: python
 sudo: false
+services:
+  - postgresql
 cache:
   apt: true
   pip: true
