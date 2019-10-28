@@ -3,7 +3,9 @@
 
     <record id="override_email_to" model="ir.config_parameter">
         <field name="key">override_mail_recipients.override_to</field>
-        <field name="value">disable</field>
+        <field
+            name="value"
+            >Choose replacing email addresses, or set to 'disable' to send mails again</field>
     </record>
 
 </odoo>
