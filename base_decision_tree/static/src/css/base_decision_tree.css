@@ -1,0 +1,21 @@
+.decision-tree-node {
+    text-align: center;
+}
+.decision-tree-node h1 {
+    display: inline-block;
+    border: thin solid black;
+    margin: 0 auto;
+    padding: .1em;
+}
+.decision-tree-node-children {
+    display: flex;
+    justify-content: center;
+
+}
+.decision-tree-node-children > div {
+    flex-grow: 1;
+    margin: .5em;
+}
+*[data-odoo-action-model] {
+    cursor: pointer;
+}

@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_decision_tree_node_user,access_decision_tree_node,model_decision_tree_node,group_decision_tree_user,1,0,0,0
+access_decision_tree_node_manager,access_decision_tree_node,model_decision_tree_node,group_decision_tree_manager,1,1,1,1

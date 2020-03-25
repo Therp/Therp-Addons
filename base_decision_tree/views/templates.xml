@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_backend" name="base_decision_tree assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/base_decision_tree/static/src/css/base_decision_tree.css"/>
+        </xpath>
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/base_decision_tree/static/src/js/base_decision_tree.js"></script>
+        </xpath>
+    </template>
+    <template id="qweb_decision_tree_node">
+        <div class="decision-tree-branch" t-esc="object.branch_name or None" />
+        <div class="decision-tree-node">
+            <h1 t-esc="object.name" data-odoo-action-model="decision.tree.node" t-att-data-odoo-action-id="object.id" />
+            <div class="decision-tree-node-description" t-raw="object.description or None" />
+            <div class="decision-tree-node-children">
+                <div t-foreach="object.child_ids" t-as="child">
+                    <t t-call="base_decision_tree.qweb_decision_tree_node">
+                        <t t-set="object" t-value="child" />
+                    </t>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

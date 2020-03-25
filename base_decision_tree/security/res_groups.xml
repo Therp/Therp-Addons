@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="group_decision_tree_user" model="res.groups">
+        <field name="name">Decision tree user</field>
+    </record>
+    <record id="group_decision_tree_manager" model="res.groups">
+        <field name="name">Decision tree manager</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]" />
+        <field name="implied_ids" eval="[(4, ref('group_decision_tree_user'))]" />
+    </record>
+    <record id="base.group_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_decision_tree_user'))]" />
+    </record>
+</odoo>

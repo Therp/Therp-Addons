@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <act_window
+        id="action_decision_tree_node_children"
+        name="Children"
+        res_model="decision.tree.node"
+        view_type="form"
+        view_mode="tree,form"
+        domain="[('parent_id', 'in', active_ids)]"
+    />
+    <record id="view_decision_tree_node_form" model="ir.ui.view">
+        <field name="model">decision.tree.node</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="action" name="%(action_decision_tree_node_children)s" class="oe_stat_button" icon="fa-users">
+                            <span>Show children</span>
+                        </button>
+                    </div>
+                    <group name="main">
+                        <field name="name" />
+                        <field name="parent_id" />
+                        <field name="branch_name" attrs="{'invisible': [('parent_id', '=', False)]}"/>
+                        <field name="link_id" attrs="{'invisible': ['|', ('parent_id', '=', False), ('child_ids', '!=', False)]}" />
+                    </group>
+                    <field name="description" />
+                    <field name="child_ids" attrs="{'invisible': [('link_id', '!=', False)]}">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle" />
+                            <field name="name" />
+                            <field name="branch_name" />
+                            <field name="link_id" />
+                        </tree>
+                    </field>
+                </sheet>
+                <field name="cheapo_html_rendering" widget="html_action" />
+            </form>
+        </field>
+    </record>
+    <record id="view_decision_tree_node_tree" model="ir.ui.view">
+        <field name="model">decision.tree.node</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="parent_id" />
+                <field name="branch_name" />
+                <field name="link_id" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_decision_tree_node_search" model="ir.ui.view">
+        <field name="model">decision.tree.node</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="parent_id" />
+                <field name="branch_name" />
+                <field name="link_id" />
+                <filter name="filter_root" domain="[('parent_id', '=', False)]" string="Trees" />
+            </search>
+        </field>
+    </record>
+    <act_window
+        id="action_decision_tree_node_main"
+        name="Decision trees"
+        res_model="decision.tree.node"
+        view_type="form"
+        view_mode="tree,form"
+        context="{'search_default_filter_root': True}"
+    />
+    <menuitem
+        id="menu_decision_tree_root"
+        name="Decision trees"
+        parent="base.menu_administration"
+    />
+    <menuitem id="menu_decistion_tree_node"
+        parent="menu_decision_tree_root"
+        action="action_decision_tree_node_main"
+    />
+
+
+</odoo>
