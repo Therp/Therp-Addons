@@ -8,13 +8,15 @@ from odoo import api, models
 from odoo.addons.base.models.ir_mail_server import extract_rfc2822_addresses
 
 
-ADDRESS_REPLACEMENTS = {
-    ord("\\"): "",  # Remove backslash
-    ord('"'): '\\"',  # escape double quote
-    ord("<"): "[",  # open actual address part
-    ord(">"): "]",  # close actual address part
-    ord("@"): "(at)",
-}
+ADDRESS_REPLACEMENTS = str.maketrans(
+    {
+        "\\": "",  # Remove backslash
+        '"': '\\"',  # escape double quote
+        "<": "[",  # open actual address part
+        ">": "]",  # close actual address part
+        "@": "(at)",
+    }
+)
 
 
 class IrMailServer(models.Model):
