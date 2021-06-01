@@ -1,30 +1,12 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
+# Copyright 2013-2021 Therp BV <https://therp.nl>.
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Separator visibility depending on view mode",
-    "version": "6.1.1.0r1",
+    "version": "6.1.1.0.1",
     "author": "Therp BV",
     "category": "Tools",
-    "depends": ['web_mode_visibility', 'override_import_xml_schema'],
+    "depends": ["web_mode_visibility"],
     "description": """
 Use the following options keys on separator tags and other form widget
 to hide them in either page or form mode:
@@ -33,8 +15,11 @@ to hide them in either page or form mode:
 - form_invisible
 
 This module is compatible with OpenERP 6.1.
+
+This module no longer tries to patch view.rng, as the needed changes have been
+applied to the view.rng in customized ocb-server repository.
     """,
-    'js': [
-        'static/src/js/web_mode_visibility.js',
-        ],
+    "js": [
+        "static/src/js/web_mode_visibility.js",
+    ],
 }
