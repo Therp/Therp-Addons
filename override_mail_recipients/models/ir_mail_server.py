@@ -1,45 +1,36 @@
 """Make sure no unwanted mail leaves the server."""
 # Copyright 2015-2019 Therp BV <https://therp.nl>.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-import re
 
 from email.utils import COMMASPACE
 
 from odoo import api, models
-from odoo.addons.base.ir.ir_mail_server import extract_rfc2822_addresses
+from odoo.addons.base.models.ir_mail_server import extract_rfc2822_addresses
 
 
-ADDRESS_REPLACEMENTS = {
-    '\\': '',  # Remove backslash
-    '"': '\\"',  # escape double quote
-    '<': '[',  # open actual address part
-    '>': ']',  # close actual address part
-    '@': '(at)'}
-REPLACE_KEYS = sorted(ADDRESS_REPLACEMENTS, key=len, reverse=True)
-REPLACE_REGEX = re.compile('|'.join(map(re.escape, REPLACE_KEYS)))
+ADDRESS_REPLACEMENTS = str.maketrans(
+    {
+        "\\": "",  # Remove backslash
+        '"': '\\"',  # escape double quote
+        "<": "[",  # open actual address part
+        ">": "]",  # close actual address part
+        "@": "(at)",
+    }
+)
 
 
 class IrMailServer(models.Model):
     """Make sure no unwanted mail leaves the server."""
-    # pylint: disable=too-few-public-methods
     _inherit = 'ir.mail_server'
 
     @api.model
-    def send_email(
-            self, message, mail_server_id=None, smtp_server=None,
-            smtp_port=None, smtp_user=None, smtp_password=None,
-            smtp_encryption=None, smtp_debug=False, smtp_session=None):
+    def send_email(self, message, *args, **kwargs):
         """Override email recipients if requested, then send mail.
 
         Or throw Exception when no valid recipients.
         """
-        # pylint: disable=too-many-arguments
         self.patch_message(message)
-        return super(IrMailServer, self).send_email(
-            message, mail_server_id=mail_server_id,
-            smtp_server=smtp_server, smtp_port=smtp_port, smtp_user=smtp_user,
-            smtp_password=smtp_password, smtp_encryption=smtp_encryption,
-            smtp_debug=smtp_debug, smtp_session=smtp_session)
+        return super().send_email(message, *args, **kwargs)
 
     @api.model
     def patch_message(self, message):
@@ -92,7 +83,6 @@ class IrMailServer(models.Model):
 
         return True if any address used, else False.
         """
-        # pylint: disable=no-self-use
         def check_recipient(recipient, valid_strings):
             """Check wether domain, or email address in recipient."""
             for test_string in valid_strings:
@@ -129,5 +119,4 @@ class IrMailServer(models.Model):
     def _do_replacement(self, recipient):
         """Make recipient address into a simple string."""
         # pylint: disable=no-self-use
-        return REPLACE_REGEX.sub(
-            lambda match: ADDRESS_REPLACEMENTS[match.group(0)], recipient)
+        return recipient.translate(ADDRESS_REPLACEMENTS)

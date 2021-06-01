@@ -15,5 +15,5 @@
         "data/ir_config_parameter.xml",
         "data/installer.xml",
     ],
-    'installable': False,
+    'installable': True,
 }
