@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_users_form" model="ir.ui.view">
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <page name="access_rights" position="after">
+                <page
+                    name="trp_external_user" string="Accessible partners"
+                    attrs="{'invisible': [('is_external_user', '=', False)]}"
+                >
+                    <field name="is_external_user" invisible="1" />
+                    <field name="external_user_partner_ids" />
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

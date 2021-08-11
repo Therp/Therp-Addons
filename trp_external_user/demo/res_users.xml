@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="user_external" model="res.users" context="{'no_reset_password': True}">
+        <field name="login">external</field>
+        <field name="name">External user</field>
+        <field name="groups_id" eval="[(4, ref('group_external_user'))]" />
+        <field name="external_user_partner_ids" eval="[(4, ref('base.res_partner_2'))]" />
+    </record>
+</odoo>
