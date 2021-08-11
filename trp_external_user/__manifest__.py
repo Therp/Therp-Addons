@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
 # Copyright 2013-2018 Therp BV <https://therp.nl>
+# Copyright 2018-2021 Sunflower IT <https://www.sunflowerweb.nl>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "External users",
     "summary": "Allow external users on your system",
-    "version": "10.0.1.0.0",
-    "author": "Therp BV",
+    "version": "13.0.1.0.0",
+    "author": "Therp BV, Sunflower IT",
     "category": 'External users',
     'website': 'http://therp.nl',
     'depends': [
