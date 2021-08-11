@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 # Copyright 2015-2019 Therp BV <https://therp.nl>.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+import logging
+import threading
+
 from email.utils import COMMASPACE
 
-from odoo import api, models
+from odoo import _, api, models
 from odoo.addons.base.ir.ir_mail_server import extract_rfc2822_addresses
+
+
+_logger = logging.getLogger(__name__)
 
 
 class IrMailServer(models.Model):
@@ -25,15 +31,27 @@ class IrMailServer(models.Model):
         Odoo. Most likely this message will be catched and an appropiate
         reason for non delivery registered.
         """
-        override_email_id = self.env.ref(
-            'override_mail_recipients.override_email_to',
-            raise_if_not_found=False)
-        if not override_email_id or \
-                not override_email_id.value or \
-                override_email_id.value == 'disable':
+        config_model = self.env['ir.config_parameter']
+        override_email = config_model.get_param(
+            'override_mail_recipients.override_to', default='disable')
+        if override_email == 'disable':
             return
-        actual_recipients = extract_rfc2822_addresses(override_email_id.value)
-        assert actual_recipients, 'No valid override_email_to'
+        actual_recipients = extract_rfc2822_addresses(override_email)
+        if not actual_recipients:
+            # In test of other modules we should not cause an assert
+            # Exception, but in test of this module, we should.
+            test_mode = getattr(threading.currentThread(), 'testing', False)
+            in_other_test = test_mode and \
+                not self.env.context.get('test_override_mail', False)
+            if in_other_test:
+                _logger.info(
+                    _("No valid override_email_to during testing in %s"),
+                    override_email)
+                return  # Practically disable for other tests.
+            # Throw assertion error, to make sure send failure logged with
+            # message.
+            assert actual_recipients, 'No valid override_email_to'
+        # If we get here, we have a valid override
         for field in ['to', 'cc', 'bcc']:
             if not message[field]:
                 continue
@@ -50,7 +68,7 @@ class IrMailServer(models.Model):
     def send_email(
             self, message, mail_server_id=None, smtp_server=None,
             smtp_port=None, smtp_user=None, smtp_password=None,
-            smtp_encryption=None, smtp_debug=False, smtp_session=None):
+            smtp_encryption=None, smtp_debug=False):
         """Override email recipients if requested, then send mail.
 
         Or throw Exception when no valid recipients.
