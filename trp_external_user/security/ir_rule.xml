@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record model="ir.rule" id="rule_company_partner">
+    <record id="rule_company_partner" model="ir.rule" >
         <field name="name">Read access to own partners plus company partner</field>
         <field name="model_id" ref="base.model_res_partner"/>
         <field name="groups" eval="[(4, ref('trp_external_user.group_external_user'))]"/>
@@ -14,7 +14,7 @@
         ]</field>
     </record>
 
-    <record model="ir.rule" id="rule_partner">
+    <record id="rule_partner" model="ir.rule" >
         <field name="name">Access to own partners</field>
         <field name="model_id" ref="base.model_res_partner"/>
         <field name="groups" eval="[(4, ref('trp_external_user.group_external_user'))]"/>
@@ -24,7 +24,7 @@
         ]</field>
     </record>
 
-    <record model="ir.rule" id="rule_user">
+    <record id="rule_user" model="ir.rule">
         <field name="name">Access to own user</field>
         <field name="model_id" ref="base.model_res_users"/>
         <field name="groups" eval="[(4, ref('trp_external_user.group_external_user'))]"/>
