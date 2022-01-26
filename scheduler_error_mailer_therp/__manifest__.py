@@ -8,11 +8,7 @@
     "license": "AGPL-3",
     "category": "Extra Tools",
     "summary": "Provides a default template for all cronjobs",
-    "depends": [
-        'scheduler_error_mailer',
-    ],
-    "data": [
-        "data/mail_template.xml",
-    ],
-    "post_init_hook": 'post_init_hook',
+    "depends": ["scheduler_error_mailer"],
+    "data": ["data/mail_template.xml"],
+    "post_init_hook": "post_init_hook",
 }

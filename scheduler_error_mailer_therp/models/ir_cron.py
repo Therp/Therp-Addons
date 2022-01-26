@@ -5,8 +5,10 @@ from odoo import fields, models
 
 
 class IrCron(models.Model):
-    _inherit = 'ir.cron'
+    _inherit = "ir.cron"
 
     email_template_id = fields.Many2one(
-        default=lambda self:
-        self.env.ref('scheduler_error_mailer.scheduler_error_mailer'))
+        default=lambda self: self.env.ref(
+            "scheduler_error_mailer.scheduler_error_mailer"
+        )
+    )
