@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
-# Copyright 2016-2018 Therp BV <https://therp.nl>
+# Copyright 2016-2022 Therp BV <https://therp.nl>.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Configure scheduler_error_mailer for Therp",
-    "version": "10.0.1.0.0",
+    "version": "14.0.1.0.0",
     "author": "Therp BV",
+    "website": "https://therp.nl",
     "license": "AGPL-3",
     "category": "Extra Tools",
     "summary": "Provides a default template for all cronjobs",
