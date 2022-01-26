@@ -7,6 +7,6 @@
         <value eval="{'noupdate': False}" />
     </function>
     <record id="scheduler_error_mailer.scheduler_error_mailer" model="mail.template">
-        <field name="email_to">issues@helpdesk.therp.nl</field>
+        <field name="email_to">nerds@helpdesk.therp.nl</field>
     </record>
 </odoo>
