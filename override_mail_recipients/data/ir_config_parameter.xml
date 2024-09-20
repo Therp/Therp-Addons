@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
 
     <record id="override_email_to" model="ir.config_parameter">
@@ -7,12 +7,10 @@
     </record>
 
     <record id="domain_whitelist" model="ir.config_parameter">
-        <field
-            name="key"
-            >override_mail_recipients.domain_whitelist</field>
+        <field name="key">override_mail_recipients.domain_whitelist</field>
         <field
             name="value"
-            >add one or more mail domains, comma separated</field>
+        >add one or more mail domains, comma separated</field>
     </record>
 
 </odoo>

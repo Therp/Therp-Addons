@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
     <record id="installer_action" model="ir.actions.act_window">
@@ -6,9 +6,7 @@
         <field name="res_model">ir.config_parameter</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
-        <field
-            name="res_id"
-            ref="override_mail_recipients.override_email_to" />
+        <field name="res_id" ref="override_mail_recipients.override_email_to" />
     </record>
 
     <record id="installer_todo" model="ir.actions.todo">

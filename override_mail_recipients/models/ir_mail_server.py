@@ -5,8 +5,8 @@
 from email.utils import COMMASPACE
 
 from odoo import api, models
-from odoo.addons.base.models.ir_mail_server import extract_rfc2822_addresses
 
+from odoo.addons.base.models.ir_mail_server import extract_rfc2822_addresses
 
 ADDRESS_REPLACEMENTS = str.maketrans(
     {
@@ -21,7 +21,8 @@ ADDRESS_REPLACEMENTS = str.maketrans(
 
 class IrMailServer(models.Model):
     """Make sure no unwanted mail leaves the server."""
-    _inherit = 'ir.mail_server'
+
+    _inherit = "ir.mail_server"
 
     @api.model
     def send_email(self, message, *args, **kwargs):
@@ -47,33 +48,40 @@ class IrMailServer(models.Model):
         reason for non delivery registered.
         """
         override_email_to = self.env.ref(
-            'override_mail_recipients.override_email_to',
-            raise_if_not_found=False)
-        override = override_email_to.value if override_email_to else 'disable'
+            "override_mail_recipients.override_email_to", raise_if_not_found=False
+        )
+        override = override_email_to.value if override_email_to else "disable"
         domain_whitelist = self.env.ref(
-            'override_mail_recipients.domain_whitelist',
-            raise_if_not_found=False)
-        whitelisted_domains = [
-            '@' + domain for domain in domain_whitelist.value.split(',')
-            if '.' in domain] if domain_whitelist else []
-        if override == 'disable' and not whitelisted_domains:
+            "override_mail_recipients.domain_whitelist", raise_if_not_found=False
+        )
+        whitelisted_domains = (
+            [
+                "@" + domain
+                for domain in domain_whitelist.value.split(",")
+                if "." in domain
+            ]
+            if domain_whitelist
+            else []
+        )
+        if override == "disable" and not whitelisted_domains:
             return
-        override_recipients = \
-            extract_rfc2822_addresses(override) \
-            if override != 'disable' else []
-        assert override_recipients or whitelisted_domains, \
-            'No valid override_email_to'
+        override_recipients = (
+            extract_rfc2822_addresses(override) if override != "disable" else []
+        )
+        assert override_recipients or whitelisted_domains, "No valid override_email_to"
         any_mail = False
-        for field in ['to', 'cc', 'bcc']:
+        for field in ["to", "cc", "bcc"]:
             if not message[field]:
                 continue
-            any_mail = self._patch_field(
-                message, field, override_recipients, whitelisted_domains
-            ) or any_mail
-        assert any_mail, 'Attempt to send mail outside of allowed domain'
+            any_mail = (
+                self._patch_field(
+                    message, field, override_recipients, whitelisted_domains
+                )
+                or any_mail
+            )
+        assert any_mail, "Attempt to send mail outside of allowed domain"
 
-    def _patch_field(
-            self, message, field, override_recipients, whitelisted_domains):
+    def _patch_field(self, message, field, override_recipients, whitelisted_domains):
         """Patch where needed email recipients.
 
         - if in whitelisted or defined recipient: do not touch;
@@ -83,6 +91,7 @@ class IrMailServer(models.Model):
 
         return True if any address used, else False.
         """
+
         def check_recipient(recipient, valid_strings):
             """Check wether domain, or email address in recipient."""
             for test_string in valid_strings:
@@ -96,7 +105,8 @@ class IrMailServer(models.Model):
         for recipient in original_recipients:
             in_override = check_recipient(recipient, override_recipients)
             whitelisted = not in_override and check_recipient(
-                recipient, whitelisted_domains)
+                recipient, whitelisted_domains
+            )
             if whitelisted:
                 actual_recipients.append(recipient)
             if not whitelisted and not in_override:
@@ -112,8 +122,8 @@ class IrMailServer(models.Model):
         del message[field]
         replaced_string = COMMASPACE.join(replaced_recipients)
         message[field] = COMMASPACE.join(
-            '"%s" <%s>' % (replaced_string, email)
-            for email in actual_recipients)
+            '"%s" <%s>' % (replaced_string, email) for email in actual_recipients
+        )
         return True
 
     def _do_replacement(self, recipient):

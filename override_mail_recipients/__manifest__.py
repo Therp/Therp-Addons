@@ -6,14 +6,11 @@
     "author": "Therp BV",
     "license": "AGPL-3",
     "category": "Tools",
-    "summary":
-    "Allows you to override all mail recipients for testing purposes",
-    "depends": [
-        'base'
-    ],
+    "summary": "Allows you to override all mail recipients for testing purposes",
+    "depends": ["base"],
     "data": [
         "data/ir_config_parameter.xml",
         "data/installer.xml",
     ],
-    'installable': True,
+    "installable": True,
 }
