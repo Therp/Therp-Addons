@@ -30,7 +30,7 @@ class IrMailServer(models.Model):
 
         Or throw Exception when no valid recipients.
         """
-        self.patch_message(message)
+        self.sudo().patch_message(message)
         return super().send_email(message, *args, **kwargs)
 
     @api.model
