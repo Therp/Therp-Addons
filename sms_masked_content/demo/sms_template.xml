@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="template_demo" model="sms.template">
+        <field name="name">Template sending masked content</field>
+        <field name="model_id" ref="base.model_res_partner" />
+        <field
+            name="body"
+        >This is your name, but masked in the chatter: {{mask_content(object.name)}}</field>
+    </record>
+</data>
